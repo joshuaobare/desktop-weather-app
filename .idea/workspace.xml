@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eba15fdd-819c-43b0-b499-aea566688b89" name="Changes" comment="refactored text on the login form UI">
-      <change afterPath="$PROJECT_DIR$/src/MainUI.java" afterDir="false" />
+    <list default="true" id="eba15fdd-819c-43b0-b499-aea566688b89" name="Changes" comment="created Main UI class">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MainUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,6 +86,7 @@
     <configuration name="MainUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="MainUI" />
       <module name="desktop-weather-app" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;C:\Program Files\Java\javafx-sdk-19.0.2.1\lib&quot; --add-modules=javafx.base,javafx.controls,javafx.graphics,javafx.media" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -208,7 +210,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677252217176</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="created Main UI class">
+      <created>1677252599071</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1677252599071</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -238,6 +247,7 @@
     <MESSAGE value="initialized JavaFX" />
     <MESSAGE value="added basic login form" />
     <MESSAGE value="refactored text on the login form UI" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactored text on the login form UI" />
+    <MESSAGE value="created Main UI class" />
+    <option name="LAST_COMMIT_MESSAGE" value="created Main UI class" />
   </component>
 </project>
