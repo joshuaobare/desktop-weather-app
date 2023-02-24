@@ -16,7 +16,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class UI extends Application {
+public class Login extends Application {
 
     public static void main(String[] args) {
         launch(args);
@@ -30,21 +30,24 @@ public class UI extends Application {
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
-        Text scenetitle = new Text("Welcome");
+        Text scenetitle = new Text("Welcome Back");
+        Text welcometitle = new Text("Please enter your details");
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        welcometitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
         grid.add(scenetitle, 0, 0, 2, 1);
+        grid.add(welcometitle, 0, 1, 2, 1);
 
         Label userName = new Label("User Name:");
-        grid.add(userName, 0, 1);
+        grid.add(userName, 0, 2);
 
         TextField userTextField = new TextField();
-        grid.add(userTextField, 1, 1);
+        grid.add(userTextField, 1, 2);
 
         Label pw = new Label("Password:");
-        grid.add(pw, 0, 2);
+        grid.add(pw, 0, 3);
 
         PasswordField pwBox = new PasswordField();
-        grid.add(pwBox, 1, 2);
+        grid.add(pwBox, 1, 3);
 
 
         Button btn = new Button("Sign in");
