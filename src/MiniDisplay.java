@@ -1,3 +1,4 @@
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -18,5 +19,7 @@ public class MiniDisplay extends GridPane {
         Text weatherIcon = new Text(weathericontitle);
         weatherIcon.setFont(Font.font("Tahoma", FontWeight.NORMAL, 10));
         add(weatherIcon, 0 ,3);
+        //setPrefWidth();
+
     }
 }

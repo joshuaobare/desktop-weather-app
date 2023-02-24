@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eba15fdd-819c-43b0-b499-aea566688b89" name="Changes" comment="created right section of Main UI">
-      <change afterPath="$PROJECT_DIR$/src/MiniDisplay.java" afterDir="false" />
+    <list default="true" id="eba15fdd-819c-43b0-b499-aea566688b89" name="Changes" comment="created new class MiniDisplay which inherits from GridPane to reduce code repetitiveness when displaying the seven-day  forecast">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MainUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MiniDisplay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MiniDisplay.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -232,7 +232,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677255806310</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="created new class MiniDisplay which inherits from GridPane to reduce code repetitiveness when displaying the seven-day  forecast">
+      <created>1677256628766</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1677256628766</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -265,6 +272,7 @@
     <MESSAGE value="created Main UI class" />
     <MESSAGE value="current weather template added to Main UI" />
     <MESSAGE value="created right section of Main UI" />
-    <option name="LAST_COMMIT_MESSAGE" value="created right section of Main UI" />
+    <MESSAGE value="created new class MiniDisplay which inherits from GridPane to reduce code repetitiveness when displaying the seven-day  forecast" />
+    <option name="LAST_COMMIT_MESSAGE" value="created new class MiniDisplay which inherits from GridPane to reduce code repetitiveness when displaying the seven-day  forecast" />
   </component>
 </project>

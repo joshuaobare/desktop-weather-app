@@ -4,11 +4,14 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 public class MainUI extends Application {
 
@@ -71,7 +74,34 @@ public class MainUI extends Application {
         grid.add(windSpeedValue , 7 ,7);
 
         MiniDisplay dayOne = new MiniDisplay("Sunday", "30C", "10C", "cloudy");
+        MiniDisplay dayTwo = new MiniDisplay("Sunday", "30C", "10C", "cloudy");
+        MiniDisplay dayThree = new MiniDisplay("Sunday", "30C", "10C", "cloudy");
+        MiniDisplay dayFour = new MiniDisplay("Sunday", "30C", "10C", "cloudy");
+        MiniDisplay dayFive = new MiniDisplay("Sunday", "30C", "10C", "cloudy");
+        MiniDisplay daySix = new MiniDisplay("Sunday", "30C", "10C", "cloudy");
+        MiniDisplay daySeven = new MiniDisplay("Sunday", "30C", "10C", "cloudy");
+
+
+        ColumnConstraints columnConstraints = new ColumnConstraints();
+        columnConstraints.setPercentWidth(100.0/7);
+        dayOne.getColumnConstraints().add(columnConstraints);
+        dayTwo.getColumnConstraints().add(columnConstraints);
+        dayThree.getColumnConstraints().add(columnConstraints);
+        dayFour.getColumnConstraints().add(columnConstraints);
+        dayFive.getColumnConstraints().add(columnConstraints);
+        daySix.getColumnConstraints().add(columnConstraints);
+        daySeven.getColumnConstraints().add(columnConstraints);
+
+
         grid.add(dayOne , 0 ,8);
+        grid.add(dayTwo , 1 ,8);
+        grid.add(dayThree , 2 ,8);
+        grid.add(dayFour , 3 ,8);
+        grid.add(dayFive , 4 ,8);
+        grid.add(daySix , 5 ,8);
+        grid.add(daySeven , 6 ,8);
+
+
 
 
 
