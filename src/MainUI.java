@@ -1,3 +1,4 @@
+import com.google.gson.internal.LinkedTreeMap;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,6 +13,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Scanner;
 
 public class MainUI extends Application {
 
@@ -21,17 +24,23 @@ public class MainUI extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("What location?");
+        String locationChoice = scanner.nextLine();
+        ApiCall caller = new ApiCall(locationChoice);
+        LinkedTreeMap<String, Object> currentWeather = caller.getCurrentWeather();
+        Map<String, String> locationData = caller.getLocationData();
+        String locationName = String.valueOf(locationData.get("name"));
+        String capitalizedLocation = locationName.substring(0, 1).toUpperCase() + locationName.substring(1);
+
         primaryStage.setTitle("Weather App");
         GridPane grid = new GridPane();
-       // grid.setAlignment(Pos.CENTER);
-        grid.setHgap(10);
-        grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
         Text weatherTitle = new Text("Overcast Clouds");
-        Text location = new Text("Nairobi");
+        Text location = new Text(capitalizedLocation);
         Text date = new Text("Friday 24th Feb 2023");
         Text time = new Text("6:45 pm");
-        Text temperature = new Text("20C");
+        Text temperature = new Text(String.valueOf(currentWeather.get("temperature")));
         weatherTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
         location.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
         date.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));

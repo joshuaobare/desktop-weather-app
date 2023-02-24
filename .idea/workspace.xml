@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eba15fdd-819c-43b0-b499-aea566688b89" name="Changes" comment="created Constraint object to set width for the miniDisplays">
+    <list default="true" id="eba15fdd-819c-43b0-b499-aea566688b89" name="Changes" comment="added another GridPane for the far right section of the UI">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MainUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MiniDisplay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MiniDisplay.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -246,7 +245,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677257408368</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="added another GridPane for the far right section of the UI">
+      <created>1677262150193</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1677262150193</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -281,6 +287,7 @@
     <MESSAGE value="created right section of Main UI" />
     <MESSAGE value="created new class MiniDisplay which inherits from GridPane to reduce code repetitiveness when displaying the seven-day  forecast" />
     <MESSAGE value="created Constraint object to set width for the miniDisplays" />
-    <option name="LAST_COMMIT_MESSAGE" value="created Constraint object to set width for the miniDisplays" />
+    <MESSAGE value="added another GridPane for the far right section of the UI" />
+    <option name="LAST_COMMIT_MESSAGE" value="added another GridPane for the far right section of the UI" />
   </component>
 </project>
