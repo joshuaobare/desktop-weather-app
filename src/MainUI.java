@@ -70,7 +70,8 @@ public class MainUI extends Application {
         grid.add(windSpeed , 7 ,6);
         grid.add(windSpeedValue , 7 ,7);
 
-
+        MiniDisplay dayOne = new MiniDisplay("Sunday", "30C", "10C", "cloudy");
+        grid.add(dayOne , 0 ,8);
 
 
 

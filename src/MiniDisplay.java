@@ -1,0 +1,22 @@
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+
+public class MiniDisplay extends GridPane {
+    public MiniDisplay(String daytitle,String hightemptitle,String lowtemptitle,String weathericontitle) {
+        super();
+        Text dayTitle = new Text(daytitle);
+        dayTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 16));
+        add(dayTitle, 0 ,0);
+        Text highTemperature = new Text(hightemptitle);
+        highTemperature.setFont(Font.font("Tahoma", FontWeight.NORMAL, 24));
+        add(highTemperature, 0 ,1);
+        Text lowTemperature = new Text(lowtemptitle);
+        lowTemperature.setFont(Font.font("Tahoma", FontWeight.NORMAL, 10));
+        add(lowTemperature, 0 ,2);
+        Text weatherIcon = new Text(weathericontitle);
+        weatherIcon.setFont(Font.font("Tahoma", FontWeight.NORMAL, 10));
+        add(weatherIcon, 0 ,3);
+    }
+}
