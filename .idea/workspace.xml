@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eba15fdd-819c-43b0-b499-aea566688b89" name="Changes" comment="created Main UI class">
+    <list default="true" id="eba15fdd-819c-43b0-b499-aea566688b89" name="Changes" comment="current weather template added to Main UI">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MainUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainUI.java" afterDir="false" />
     </list>
@@ -217,7 +217,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677252599071</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="current weather template added to Main UI">
+      <created>1677254610433</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1677254610433</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -248,6 +255,7 @@
     <MESSAGE value="added basic login form" />
     <MESSAGE value="refactored text on the login form UI" />
     <MESSAGE value="created Main UI class" />
-    <option name="LAST_COMMIT_MESSAGE" value="created Main UI class" />
+    <MESSAGE value="current weather template added to Main UI" />
+    <option name="LAST_COMMIT_MESSAGE" value="current weather template added to Main UI" />
   </component>
 </project>
