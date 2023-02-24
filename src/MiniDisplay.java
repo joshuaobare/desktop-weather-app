@@ -1,3 +1,4 @@
+import javafx.geometry.Pos;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
@@ -7,6 +8,7 @@ import javafx.scene.text.Text;
 public class MiniDisplay extends GridPane {
     public MiniDisplay(String daytitle,String hightemptitle,String lowtemptitle,String weathericontitle) {
         super();
+        setAlignment(Pos.CENTER);
         Text dayTitle = new Text(daytitle);
         dayTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 16));
         add(dayTitle, 0 ,0);
@@ -19,7 +21,9 @@ public class MiniDisplay extends GridPane {
         Text weatherIcon = new Text(weathericontitle);
         weatherIcon.setFont(Font.font("Tahoma", FontWeight.NORMAL, 10));
         add(weatherIcon, 0 ,3);
-        //setPrefWidth();
-
+        setPrefWidth(300);
+        /*ColumnConstraints columnConstraints = new ColumnConstraints();
+        columnConstraints.setPercentWidth(30);
+        getColumnConstraints().add(columnConstraints);*/
     }
 }

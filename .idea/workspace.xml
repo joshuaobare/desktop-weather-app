@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eba15fdd-819c-43b0-b499-aea566688b89" name="Changes" comment="created new class MiniDisplay which inherits from GridPane to reduce code repetitiveness when displaying the seven-day  forecast">
+    <list default="true" id="eba15fdd-819c-43b0-b499-aea566688b89" name="Changes" comment="created Constraint object to set width for the miniDisplays">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MainUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MiniDisplay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MiniDisplay.java" afterDir="false" />
@@ -239,7 +239,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677256628766</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="created Constraint object to set width for the miniDisplays">
+      <created>1677257408368</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1677257408368</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -273,6 +280,7 @@
     <MESSAGE value="current weather template added to Main UI" />
     <MESSAGE value="created right section of Main UI" />
     <MESSAGE value="created new class MiniDisplay which inherits from GridPane to reduce code repetitiveness when displaying the seven-day  forecast" />
-    <option name="LAST_COMMIT_MESSAGE" value="created new class MiniDisplay which inherits from GridPane to reduce code repetitiveness when displaying the seven-day  forecast" />
+    <MESSAGE value="created Constraint object to set width for the miniDisplays" />
+    <option name="LAST_COMMIT_MESSAGE" value="created Constraint object to set width for the miniDisplays" />
   </component>
 </project>

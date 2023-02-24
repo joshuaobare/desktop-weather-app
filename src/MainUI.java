@@ -47,6 +47,8 @@ public class MainUI extends Application {
         locationSearchField.setPromptText("Search location");
         grid.add(locationSearchField, 0, 5);
 
+        GridPane rightPane = new GridPane();
+
         Text feelsLike = new Text("Feels Like");
         feelsLike.setFont(Font.font("Tahoma", FontWeight.NORMAL, 10));
         Text feelsLikeValue = new Text("20C");
@@ -61,17 +63,18 @@ public class MainUI extends Application {
         chanceOfRainValue.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
         Text windSpeed = new Text("Wind Speed");
         windSpeed.setFont(Font.font("Tahoma", FontWeight.NORMAL, 10));
-        Text windSpeedValue = new Text("3.5M/S");
+        Text windSpeedValue = new Text("3.5m/s");
         windSpeedValue.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
 
-        grid.add(feelsLike , 7 ,0);
-        grid.add(feelsLikeValue , 7 ,1);
-        grid.add(humidity , 7 ,2);
-        grid.add(humidityValue , 7 ,3);
-        grid.add(chanceOfRain , 7 ,4);
-        grid.add(chanceOfRainValue , 7 ,5);
-        grid.add(windSpeed , 7 ,6);
-        grid.add(windSpeedValue , 7 ,7);
+        rightPane.add(feelsLike , 0 ,0);
+        rightPane.add(feelsLikeValue , 0 ,1);
+        rightPane.add(humidity , 0 ,2);
+        rightPane.add(humidityValue , 0 ,3);
+        rightPane.add(chanceOfRain , 0 ,4);
+        rightPane.add(chanceOfRainValue , 0 ,5);
+        rightPane.add(windSpeed , 0 ,6);
+        rightPane.add(windSpeedValue , 0 ,7);
+        grid.add(rightPane , 7 ,0,1 ,7);
 
         MiniDisplay dayOne = new MiniDisplay("Sunday", "30C", "10C", "cloudy");
         MiniDisplay dayTwo = new MiniDisplay("Sunday", "30C", "10C", "cloudy");
@@ -80,18 +83,6 @@ public class MainUI extends Application {
         MiniDisplay dayFive = new MiniDisplay("Sunday", "30C", "10C", "cloudy");
         MiniDisplay daySix = new MiniDisplay("Sunday", "30C", "10C", "cloudy");
         MiniDisplay daySeven = new MiniDisplay("Sunday", "30C", "10C", "cloudy");
-
-
-        ColumnConstraints columnConstraints = new ColumnConstraints();
-        columnConstraints.setPercentWidth(100.0/7);
-        dayOne.getColumnConstraints().add(columnConstraints);
-        dayTwo.getColumnConstraints().add(columnConstraints);
-        dayThree.getColumnConstraints().add(columnConstraints);
-        dayFour.getColumnConstraints().add(columnConstraints);
-        dayFive.getColumnConstraints().add(columnConstraints);
-        daySix.getColumnConstraints().add(columnConstraints);
-        daySeven.getColumnConstraints().add(columnConstraints);
-
 
         grid.add(dayOne , 0 ,8);
         grid.add(dayTwo , 1 ,8);
