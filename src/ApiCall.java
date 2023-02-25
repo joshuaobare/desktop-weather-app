@@ -19,6 +19,7 @@ public class ApiCall {
 
     public ApiCall(String location) {
         this.location = location;
+        currentWeatherCall(this.location);
         call(this.location);
     }
 
@@ -50,7 +51,7 @@ public class ApiCall {
     }
 
     private void call(String location) {
-        geocode(location);
+        //geocode(location);
 
         // a Gson object is initialized to convert JSON objects to HashMap objects
         Gson gson = new Gson();
@@ -60,6 +61,7 @@ public class ApiCall {
             // a URL object is created based on the API endpoint
             URL url = new URL(String.format("https://api.open-meteo.com/v1/forecast?latitude=%s&longitude=%s&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,uv_index_max,uv_index_clear_sky_max,precipitation_sum,rain_sum,precipitation_hours,windspeed_10m_max,winddirection_10m_dominant&current_weather=true&timezone=auto"
                     , locationData.get("lat"), locationData.get("lon")));
+            System.out.println(url);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
 
@@ -108,15 +110,26 @@ public class ApiCall {
                 // Using the JSON simple library parse the string into a json object
                 JSONParser parse = new JSONParser();
                 JSONObject data_obj = (JSONObject) parse.parse(new InputStreamReader(conn.getInputStream()));
-
                 System.out.println(data_obj);
-                System.out.println("print 1");
                 currentWeather = gson.fromJson(data_obj.toString(), type);
-                System.out.println(currentWeather);
-                System.out.println("print 2");
+                System.out.println(currentWeather.get("sys"));
+                LinkedTreeMap<String,Object> sys = (LinkedTreeMap<String,Object>) currentWeather.get("sys");
+                LinkedTreeMap<String,Object> coord = (LinkedTreeMap<String,Object>) currentWeather.get("coord");
+                String country = (String) sys.get("country");
+                String lon = String.valueOf(coord.get("lon"));
+                String lat = String.valueOf(coord.get("lat"));
+                String locationName = (String) currentWeather.get("name");
+                locationData.put("country" , country);
+                locationData.put("lon" , lon);
+                locationData.put("lat" , lat);
+                locationData.put("locationName" , locationName);
+                System.out.println(locationName);
+                System.out.println(lat);
+                System.out.println(lon);
+
             }
         } catch(Exception e){
-
+            System.out.println(e);
         }
     }
 
