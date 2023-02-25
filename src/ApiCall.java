@@ -87,6 +87,10 @@ public class ApiCall {
         }
     }
 
+    public void currentWeatherCall(String location){
+
+    }
+
     public Map<String, String> getLocationData() {
         return locationData;
     }
