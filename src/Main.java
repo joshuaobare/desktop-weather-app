@@ -12,13 +12,13 @@ public class Main {
         ApiCall caller = new ApiCall(location);
 
         Map<String, String> locationData = caller.getLocationData();
-        LinkedTreeMap <String, Object> currentWeather = caller.getCurrentWeather();
+        //LinkedTreeMap <String, Object> currentWeather = caller.getCurrentWeather();
         HashMap<String, Object> weatherData = caller.getWeatherData();
 
-
-        System.out.println(location);
+        caller.currentWeatherCall("nairobi");
+        /*System.out.println(location);
         System.out.println(currentWeather);
-        System.out.println(weatherData);
+        System.out.println(weatherData);*/
 
         /*DBConnection db = new DBConnection();
         db.update(currentWeather , locationData);*/

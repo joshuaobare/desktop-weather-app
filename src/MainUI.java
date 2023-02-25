@@ -13,6 +13,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -28,7 +29,7 @@ public class MainUI extends Application {
         System.out.println("What location?");
         String locationChoice = scanner.nextLine();
         ApiCall caller = new ApiCall(locationChoice);
-        LinkedTreeMap<String, Object> currentWeather = caller.getCurrentWeather();
+        HashMap<String, Object> currentWeather = caller.getCurrentWeather();
         Map<String, String> locationData = caller.getLocationData();
         String locationName = String.valueOf(locationData.get("name"));
         String capitalizedLocation = locationName.substring(0, 1).toUpperCase() + locationName.substring(1);

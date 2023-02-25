@@ -14,7 +14,7 @@ import com.google.gson.reflect.TypeToken;
 public class ApiCall {
     private HashMap<String, String> locationData = new HashMap<>();
     private HashMap<String, Object> weatherData;
-    private LinkedTreeMap<String, Object> currentWeather;
+    private HashMap<String, Object> currentWeather;
     private String location;
 
     public ApiCall(String location) {
@@ -80,7 +80,7 @@ public class ApiCall {
                 weatherData = gson.fromJson(data_obj.toString(), type);
 
                 // from the weatherData the currentWeather is isolated
-                currentWeather = (LinkedTreeMap<String, Object>) weatherData.get("current_weather");
+                //currentWeather = (LinkedTreeMap<String, Object>) weatherData.get("current_weather");
             }
         } catch (Exception error) {
             System.out.println(error);
@@ -88,14 +88,43 @@ public class ApiCall {
     }
 
     public void currentWeatherCall(String location){
+        Gson gson = new Gson();
+        Type type = new TypeToken<HashMap<String, Object>>() {
+        }.getType();
+        try{
+            URL url = new URL(String.format("http://api.openweathermap.org/data/2.5/weather?q=%s&APPID=62d50fd38f48aba39355b8ae5a3ae053", location));
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
 
+            // we then connect to the API endpoint , the response code is collected
+            conn.connect();
+            int resCode = conn.getResponseCode();
+
+            // if the connection fails an error is thrown, else the data provided is parsed into a JSON object
+            if (resCode != 200) {
+                throw new RuntimeException("HttpResponseCode: " + resCode);
+            } else {
+
+                // Using the JSON simple library parse the string into a json object
+                JSONParser parse = new JSONParser();
+                JSONObject data_obj = (JSONObject) parse.parse(new InputStreamReader(conn.getInputStream()));
+
+                System.out.println(data_obj);
+                System.out.println("print 1");
+                currentWeather = gson.fromJson(data_obj.toString(), type);
+                System.out.println(currentWeather);
+                System.out.println("print 2");
+            }
+        } catch(Exception e){
+
+        }
     }
 
     public Map<String, String> getLocationData() {
         return locationData;
     }
 
-    public LinkedTreeMap<String, Object> getCurrentWeather() {
+    public HashMap<String, Object> getCurrentWeather() {
         return currentWeather;
     }
 
