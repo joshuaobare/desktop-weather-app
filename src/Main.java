@@ -13,7 +13,7 @@ public class Main {
 
         Map<String, String> locationData = caller.getLocationData();
         HashMap <String, Object> currentWeather = caller.getCurrentWeather();
-        HashMap<String, Object> weatherData = caller.getWeatherData();
+        HashMap<String, Object> weatherData = caller.getWeatherForecastData();
 
         //caller.currentWeatherCall("nairobi");
         //System.out.println(location);
