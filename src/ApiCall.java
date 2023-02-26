@@ -16,13 +16,15 @@ import org.json.simple.parser.ParseException;
 public class ApiCall {
     private HashMap<String, String> locationData = new HashMap<>();
     private HashMap<String, Object> weatherForecastData;
-    private HashMap<String, Object> currentWeather;
+    private HashMap<String, Object> currentWeather = new HashMap<>();;
+    public HashMap<String, Object> unparsedCurrentWeather;
     private String location;
 
     public ApiCall(String location) {
         this.location = location;
         currentWeatherCall(this.location);
         weatherForecastCall(this.location);
+        currentWeatherParser(unparsedCurrentWeather);
     }
 
     private void currentWeatherCall(String location){
@@ -54,16 +56,16 @@ public class ApiCall {
                 JSONObject data_obj = (JSONObject) parse.parse(new InputStreamReader(conn.getInputStream()));
 
                 // the JSON object is converted to a Hashmap object
-                currentWeather = gson.fromJson(data_obj.toString(), type);
+                unparsedCurrentWeather = gson.fromJson(data_obj.toString(), type);
 
                 // the location coordinates are nested within currentWeather, so they'll have to be isolated
                 // the following block is essentially a .get().get()
-                LinkedTreeMap<String,Object> sys = (LinkedTreeMap<String,Object>) currentWeather.get("sys");
-                LinkedTreeMap<String,Object> coord = (LinkedTreeMap<String,Object>) currentWeather.get("coord");
+                LinkedTreeMap<String,Object> sys = (LinkedTreeMap<String,Object>) unparsedCurrentWeather.get("sys");
+                LinkedTreeMap<String,Object> coord = (LinkedTreeMap<String,Object>) unparsedCurrentWeather.get("coord");
                 String country = (String) sys.get("country");
                 String lon = String.valueOf(coord.get("lon"));
                 String lat = String.valueOf(coord.get("lat"));
-                String locationName = (String) currentWeather.get("name");
+                String locationName = (String) unparsedCurrentWeather.get("name");
 
                 // the retrieved values are added to locationData, and the coordinates will be used to fetch the weather forecast
                 locationData.put("country" , country);
@@ -118,15 +120,31 @@ public class ApiCall {
         }
     }
 
-    public HashMap<String, Object> currentWeatherParser(HashMap<String, Object> currentWeather){
-        HashMap<String, Object> finalWeatherObject = new HashMap<>();
-        finalWeatherObject.put("visibility" , currentWeather.get("visibility"));
+    //HashMap<String, Object> finalWeatherObject = new HashMap<String, Object>();
+    public void currentWeatherParser(Map<String, Object> currentWeatherMap){
 
-        for(HashMap.Entry<String,Object> key: currentWeather.currentSet()){
+        //System.out.println(currentWeather);
+        for(HashMap.Entry<String,Object> key: currentWeatherMap.entrySet()){
+            String[] parts = (key.getValue()).getClass().toString().split("\\.");
+            String objectType = parts[parts.length - 1];
+            //System.out.println(objectType);
+
+            if (objectType.equals("String")) {
+                //System.out.println(key.getValue());
+                currentWeather.put(key.getKey(),key.getValue());
+            } else if (objectType.equals("Double")) {
+                //System.out.println(key.getValue());
+                currentWeather.put(key.getKey() , String.valueOf(key.getValue()));
+            } else if (objectType.equals("LinkedTreeMap")) {
+                //System.out.println(key.getValue());
+                currentWeatherParser((LinkedTreeMap<String, Object>) key.getValue());
+            }
+
 
         }
 
-        return finalWeatherObject;
+        //System.out.println(finalWeatherObject);
+        //return finalWeatherObject;
     }
 
     public HashMap<String, String> getLocationData() {
