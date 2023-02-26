@@ -8,6 +8,8 @@ import org.json.simple.parser.JSONParser;
 import com.google.gson.*;
 import com.google.gson.internal.LinkedTreeMap;
 import java.lang.reflect.Type;
+import java.util.Map;
+
 import com.google.gson.reflect.TypeToken;
 import org.json.simple.parser.ParseException;
 
@@ -114,6 +116,17 @@ public class ApiCall {
         } catch (IOException | ParseException error) {
             System.out.println(error);
         }
+    }
+
+    public HashMap<String, Object> currentWeatherParser(HashMap<String, Object> currentWeather){
+        HashMap<String, Object> finalWeatherObject = new HashMap<>();
+        finalWeatherObject.put("visibility" , currentWeather.get("visibility"));
+
+        for(HashMap.Entry<String,Object> key: currentWeather.currentSet()){
+
+        }
+
+        return finalWeatherObject;
     }
 
     public HashMap<String, String> getLocationData() {

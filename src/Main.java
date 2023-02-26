@@ -19,6 +19,7 @@ public class Main {
         //System.out.println(location);
         System.out.println(currentWeather);
         System.out.println(weatherData);
+        System.out.println(locationData);
 
         /*DBConnection db = new DBConnection();
         db.update(currentWeather , locationData);*/
