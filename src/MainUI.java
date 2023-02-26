@@ -37,11 +37,11 @@ public class MainUI extends Application {
         primaryStage.setTitle("Weather App");
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(25, 25, 25, 25));
-        Text weatherTitle = new Text("Overcast Clouds");
-        Text location = new Text(capitalizedLocation);
+        Text weatherTitle = new Text((String) currentWeather.get("description"));
+        Text location = new Text((String) currentWeather.get("name") + " " + (String) currentWeather.get("country") );
         Text date = new Text("Friday 24th Feb 2023");
         Text time = new Text("6:45 pm");
-        Text temperature = new Text(String.valueOf(currentWeather.get("temperature")));
+        Text temperature = new Text((String) currentWeather.get("temp") + "\u00B0C");
         weatherTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
         location.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
         date.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
@@ -61,11 +61,11 @@ public class MainUI extends Application {
 
         Text feelsLike = new Text("Feels Like");
         feelsLike.setFont(Font.font("Tahoma", FontWeight.NORMAL, 10));
-        Text feelsLikeValue = new Text("20C");
+        Text feelsLikeValue = new Text((String) currentWeather.get("feels_like") + "\u00B0C");
         feelsLikeValue.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
         Text humidity = new Text("Humidity");
         humidity.setFont(Font.font("Tahoma", FontWeight.NORMAL, 10));
-        Text humidityValue = new Text("69%");
+        Text humidityValue = new Text((String) currentWeather.get("humidity") + "%");
         humidityValue.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
         Text chanceOfRain = new Text("Chance of Rain");
         chanceOfRain.setFont(Font.font("Tahoma", FontWeight.NORMAL, 10));
@@ -73,7 +73,7 @@ public class MainUI extends Application {
         chanceOfRainValue.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
         Text windSpeed = new Text("Wind Speed");
         windSpeed.setFont(Font.font("Tahoma", FontWeight.NORMAL, 10));
-        Text windSpeedValue = new Text("3.5m/s");
+        Text windSpeedValue = new Text((String) currentWeather.get("speed") + "m/s");
         windSpeedValue.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
 
         rightPane.add(feelsLike , 0 ,0);
