@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -9,7 +10,6 @@ import com.google.gson.*;
 import com.google.gson.internal.LinkedTreeMap;
 import java.lang.reflect.Type;
 import java.util.Map;
-
 import com.google.gson.reflect.TypeToken;
 import org.json.simple.parser.ParseException;
 
@@ -120,31 +120,40 @@ public class ApiCall {
         }
     }
 
-    //HashMap<String, Object> finalWeatherObject = new HashMap<String, Object>();
+    // The nested values within unparsedCurrentWeather make it tiresome to work with
+    // currentWeatherParser unpacks the Hashmap so that all keys are at the same level
     public void currentWeatherParser(Map<String, Object> currentWeatherMap){
 
-        //System.out.println(currentWeather);
+        // the HashMap is iterated over with a for loop
         for(HashMap.Entry<String,Object> key: currentWeatherMap.entrySet()){
+
+            // each key value has its type checked, as each type will be operated on differently
             String[] parts = (key.getValue()).getClass().toString().split("\\.");
             String objectType = parts[parts.length - 1];
-            //System.out.println(objectType);
+
 
             if (objectType.equals("String")) {
-                //System.out.println(key.getValue());
                 currentWeather.put(key.getKey(),key.getValue());
             } else if (objectType.equals("Double")) {
-                //System.out.println(key.getValue());
+
+                // there's 2 different ids, the location and weather ids
+                // the weather array is iterated over first, so its id is captured if no ids are present in the Hashmap
+                if (currentWeather.get("id") == null) {
+                    if((key.getKey()).equals("id")) {
+                        currentWeather.put("weather_id" , String.valueOf(key.getValue()));
+                    }
+                }
                 currentWeather.put(key.getKey() , String.valueOf(key.getValue()));
             } else if (objectType.equals("LinkedTreeMap")) {
-                //System.out.println(key.getValue());
+
+                // if there's a nested Map , we call currentWeatherParser recursively
                 currentWeatherParser((LinkedTreeMap<String, Object>) key.getValue());
+            } else if (objectType.equals("ArrayList")) {
+                // this block captures the weather array which only has one value, a nested LinkedTreeMap
+                ArrayList<Object> weatherArray = (ArrayList<Object>) key.getValue();
+                currentWeatherParser((LinkedTreeMap<String, Object>) weatherArray.get(0));
             }
-
-
         }
-
-        //System.out.println(finalWeatherObject);
-        //return finalWeatherObject;
     }
 
     public HashMap<String, String> getLocationData() {

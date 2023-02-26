@@ -17,6 +17,7 @@ public class Main {
 
         //caller.currentWeatherCall("nairobi");
         //System.out.println(location);
+        System.out.println(caller.unparsedCurrentWeather);
         System.out.println(currentWeather);
         System.out.println(weatherData);
         System.out.println(locationData);
