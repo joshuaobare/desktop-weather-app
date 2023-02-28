@@ -7,6 +7,7 @@ public class Converter {
     private String time;
     private String date;
 
+
     public String tempConverter(String temp) {
         double tempValue = Double.valueOf(temp);
 
@@ -17,15 +18,15 @@ public class Converter {
     }
 
     // the time and date need to be accurate to whichever location is searched for
-    public void dateConverter(String timezone){
+    public void dateConverter(String timezone) {
         Date currentDate = new Date();
 
         // the timezoneOffset is the time difference in minutes with GMT +0
         int timezoneOffset = currentDate.getTimezoneOffset();
         Double tz = Double.valueOf(timezone);
 
-        // to get the location's time, we first get the time at GMT +0 by adding the timezone offset
-        // and then adding the timezone provided by the API to get the local time at that timezone
+        // to get the location's time, we first get the time at GMT +0 by adding the timezone offset in milliseconds
+        // and then adding the timezone in milliseconds provided by the API to get the local time at that timezone
         Long currentTime = currentDate.getTime() + (timezoneOffset * 60000) + (tz.longValue() * 1000);
 
         // the times are then formatted via the DateFormat class
@@ -37,11 +38,32 @@ public class Converter {
 
     }
 
-    public String getTime(){
+    public String capitalizeDescription(String description) {
+        String[] splitDescription = description.split(" ");
+        String finalDescription = "";
+
+        if (splitDescription.length > 1) {
+
+            for (int x = 0; x < splitDescription.length; x++) {
+                finalDescription += splitDescription[x].substring(0, 1).toUpperCase() + splitDescription[x].substring(1);
+
+                if (x != splitDescription.length - 1) {
+                    finalDescription += " ";
+                }
+            }
+
+        } else {
+            finalDescription += description.substring(0, 1).toUpperCase() + description.substring(1);
+        }
+
+        return finalDescription;
+    }
+
+    public String getTime() {
         return time;
     }
 
-    public String getDate(){
+    public String getDate() {
         return date;
     }
 }

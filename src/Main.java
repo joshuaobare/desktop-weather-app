@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -13,7 +14,7 @@ public class Main {
 
         Map<String, String> locationData = caller.getLocationData();
         HashMap <String, Object> currentWeather = caller.getCurrentWeather();
-        HashMap<String, Object> weatherData = caller.getWeatherForecastData();
+        ArrayList<HashMap<String, Object>> weatherData = caller.getWeatherForecastData();
 
         //caller.currentWeatherCall("nairobi");
         //System.out.println(location);

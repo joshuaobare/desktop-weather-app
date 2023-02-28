@@ -15,9 +15,10 @@ import org.json.simple.parser.ParseException;
 
 public class ApiCall {
     private HashMap<String, String> locationData = new HashMap<>();
-    private HashMap<String, Object> weatherForecastData;
+    private ArrayList<HashMap<String, Object>> weatherForecastData;
     private HashMap<String, Object> currentWeather = new HashMap<>();;
     public HashMap<String, Object> unparsedCurrentWeather;
+    public HashMap<String, Object> unparsedWeatherForecastData;
     private String location;
 
     public ApiCall(String location) {
@@ -25,6 +26,7 @@ public class ApiCall {
         currentWeatherCall(this.location);
         weatherForecastCall(this.location);
         currentWeatherParser(unparsedCurrentWeather);
+        weatherForecastParser(unparsedWeatherForecastData);
     }
 
     private void currentWeatherCall(String location){
@@ -112,7 +114,7 @@ public class ApiCall {
                 JSONObject data_obj = (JSONObject) parse.parse(new InputStreamReader(conn.getInputStream()));
 
                 // the JSONObject is converted to a Hashmap object by the Gson object
-                weatherForecastData = gson.fromJson(data_obj.toString(), type);
+                unparsedWeatherForecastData = gson.fromJson(data_obj.toString(), type);
 
             }
         } catch (IOException | ParseException error) {
@@ -122,7 +124,7 @@ public class ApiCall {
 
     // The nested values within unparsedCurrentWeather make it tiresome to work with
     // currentWeatherParser unpacks the Hashmap so that all keys are at the same level
-    public void currentWeatherParser(Map<String, Object> currentWeatherMap){
+    private void currentWeatherParser(Map<String, Object> currentWeatherMap){
 
         // the HashMap is iterated over with a for loop
         for(HashMap.Entry<String,Object> key: currentWeatherMap.entrySet()){
@@ -156,6 +158,14 @@ public class ApiCall {
         }
     }
 
+    private void weatherForecastParser(Map<String, Object> weatherForecastMap){
+        ArrayList<HashMap<String, Object>> hashMap = (ArrayList<HashMap<String, Object>>) weatherForecastMap.get("daily");
+
+
+
+    }
+
+
     public HashMap<String, String> getLocationData() {
         return locationData;
     }
@@ -164,7 +174,7 @@ public class ApiCall {
         return currentWeather;
     }
 
-    public HashMap<String, Object> getWeatherForecastData() {
+    public ArrayList<HashMap<String, Object>> getWeatherForecastData() {
         return weatherForecastData;
     }
 

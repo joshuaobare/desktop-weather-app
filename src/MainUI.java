@@ -32,18 +32,16 @@ public class MainUI extends Application {
         ApiCall caller = new ApiCall(locationChoice);
         HashMap<String, Object> currentWeather = caller.getCurrentWeather();
         Map<String, String> locationData = caller.getLocationData();
-        String locationName = String.valueOf(locationData.get("name"));
-        String capitalizedLocation = locationName.substring(0, 1).toUpperCase() + locationName.substring(1);
 
         primaryStage.setTitle("Weather App");
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(25, 25, 25, 25));
-        Text weatherTitle = new Text((String) currentWeather.get("description"));
+        Text weatherTitle = new Text(converter.capitalizeDescription((String) currentWeather.get("description")));
         Text location = new Text((String) currentWeather.get("name") + " " + (String) currentWeather.get("country") );
         converter.dateConverter((String) currentWeather.get("timezone"));
         Text date = new Text(converter.getDate());
         Text time = new Text(converter.getTime());
-        Text temperature = new Text( converter.tempConverter((String) currentWeather.get("temp")) + "\u00B0C");
+        Text temperature = new Text( converter.tempConverter((String) currentWeather.get("temp")) + " \u00B0C");
         weatherTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
         location.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
         date.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
@@ -63,7 +61,7 @@ public class MainUI extends Application {
 
         Text feelsLike = new Text("Feels Like");
         feelsLike.setFont(Font.font("Tahoma", FontWeight.NORMAL, 10));
-        Text feelsLikeValue = new Text(converter.tempConverter((String) currentWeather.get("feels_like")) + "\u00B0C");
+        Text feelsLikeValue = new Text(converter.tempConverter((String) currentWeather.get("feels_like")) + " \u00B0C");
         feelsLikeValue.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
         Text humidity = new Text("Humidity");
         humidity.setFont(Font.font("Tahoma", FontWeight.NORMAL, 10));
