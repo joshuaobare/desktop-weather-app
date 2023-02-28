@@ -5,31 +5,43 @@ import java.util.Date;
 public class Converter {
 
     private String time;
+    private String date;
 
     public String tempConverter(String temp) {
         double tempValue = Double.valueOf(temp);
+
+        // temperatures provided by the API are in K so they have to be converted to Cs
         double tempValueInC = Math.round(tempValue - 273.15);
 
         return String.valueOf(tempValueInC);
     }
 
-    public String dateConverter(String timezone){
-        System.out.println(timezone);
+    // the time and date need to be accurate to whichever location is searched for
+    public void dateConverter(String timezone){
         Date currentDate = new Date();
+
+        // the timezoneOffset is the time difference in minutes with GMT +0
         int timezoneOffset = currentDate.getTimezoneOffset();
         Double tz = Double.valueOf(timezone);
-        System.out.println(tz);
+
+        // to get the location's time, we first get the time at GMT +0 by adding the timezone offset
+        // and then adding the timezone provided by the API to get the local time at that timezone
         Long currentTime = currentDate.getTime() + (timezoneOffset * 60000) + (tz.longValue() * 1000);
+
+        // the times are then formatted via the DateFormat class
         DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd");
         DateFormat timeFormat = new SimpleDateFormat("h:mm aa");
         Date finalUnformatedDate = new Date(currentTime);
-        String finalDate = dateFormat.format(finalUnformatedDate);
+        date = dateFormat.format(finalUnformatedDate);
         time = timeFormat.format(finalUnformatedDate);
 
-        return finalDate;
     }
 
     public String getTime(){
         return time;
+    }
+
+    public String getDate(){
+        return date;
     }
 }
