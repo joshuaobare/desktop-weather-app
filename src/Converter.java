@@ -7,7 +7,7 @@ public class Converter {
         return String.valueOf(tempValueInC);
     }
 
-    public String dateConverter(){
-
+    public String dateConverter(String dt , String timezone){
+        return "";
     }
 }
