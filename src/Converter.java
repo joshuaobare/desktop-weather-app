@@ -18,8 +18,16 @@ public class Converter {
     }
 
     // the time and date need to be accurate to whichever location is searched for
-    public void dateConverter(String timezone) {
-        Date currentDate = new Date();
+    public void dateConverter(String timezone, String dt) {
+        Date currentDate;
+
+        if(dt == null){
+            currentDate = new Date();
+        } else {
+            Double datetime = Double.valueOf(dt);
+            currentDate = new Date(datetime.longValue());
+        }
+
 
         // the timezoneOffset is the time difference in minutes with GMT +0
         int timezoneOffset = currentDate.getTimezoneOffset();
@@ -36,6 +44,10 @@ public class Converter {
         date = dateFormat.format(finalUnformatedDate);
         time = timeFormat.format(finalUnformatedDate);
 
+    }
+
+    public void dateConverter(String timezone){
+        dateConverter(timezone,null);
     }
 
     public String capitalizeDescription(String description) {
