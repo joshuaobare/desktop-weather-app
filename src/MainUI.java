@@ -41,7 +41,7 @@ public class MainUI extends Application {
         Text weatherTitle = new Text((String) currentWeather.get("description"));
         Text location = new Text((String) currentWeather.get("name") + " " + (String) currentWeather.get("country") );
         Text date = new Text(converter.dateConverter((String) currentWeather.get("timezone") ));
-        Text time = new Text("6:45 pm");
+        Text time = new Text(converter.getTime());
         Text temperature = new Text( converter.tempConverter((String) currentWeather.get("temp")) + "\u00B0C");
         weatherTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
         location.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
