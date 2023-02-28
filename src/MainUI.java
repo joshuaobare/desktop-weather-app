@@ -25,6 +25,7 @@ public class MainUI extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        Converter converter = new Converter();
         Scanner scanner = new Scanner(System.in);
         System.out.println("What location?");
         String locationChoice = scanner.nextLine();
@@ -41,7 +42,7 @@ public class MainUI extends Application {
         Text location = new Text((String) currentWeather.get("name") + " " + (String) currentWeather.get("country") );
         Text date = new Text("Friday 24th Feb 2023");
         Text time = new Text("6:45 pm");
-        Text temperature = new Text((String) currentWeather.get("temp") + "\u00B0C");
+        Text temperature = new Text( converter.tempConverter((String) currentWeather.get("temp")) + "\u00B0C");
         weatherTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
         location.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
         date.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
@@ -61,7 +62,7 @@ public class MainUI extends Application {
 
         Text feelsLike = new Text("Feels Like");
         feelsLike.setFont(Font.font("Tahoma", FontWeight.NORMAL, 10));
-        Text feelsLikeValue = new Text((String) currentWeather.get("feels_like") + "\u00B0C");
+        Text feelsLikeValue = new Text(converter.tempConverter((String) currentWeather.get("feels_like")) + "\u00B0C");
         feelsLikeValue.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
         Text humidity = new Text("Humidity");
         humidity.setFont(Font.font("Tahoma", FontWeight.NORMAL, 10));
