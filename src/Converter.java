@@ -11,11 +11,13 @@ public class Converter {
         return String.valueOf(tempValueInC);
     }
 
-    public String dateConverter(String dt , String timezone){
-        Double dtTime = Double.valueOf(dt);
-        Long dTT = dtTime.longValue() * 1000;
-        Date currentDate = new Date(dTT);
-        Long currentTime = currentDate.getTime() + Long.valueOf(timezone);
+    public String dateConverter(String timezone){
+        System.out.println(timezone);
+        Date currentDate = new Date();
+        int timezoneOffset = currentDate.getTimezoneOffset();
+        Double tz = Double.valueOf(timezone);
+        System.out.println(tz);
+        Long currentTime = currentDate.getTime() + (timezoneOffset * 60000) + (tz.longValue() * 1000);
         DateFormat format = new SimpleDateFormat("EEE MMM dd kk:mm");
         Date finalUnformatedDate = new Date(currentTime);
         String finalDate = format.format(finalUnformatedDate);

@@ -8,6 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Converter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Converter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ConverterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ConverterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MainUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +80,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ConverterTest">
+  <component name="RunManager" selected="Application.MainUI">
     <configuration name="Login" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Login" />
       <module name="desktop-weather-app" />
@@ -121,8 +122,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ConverterTest" />
         <item itemvalue="Application.MainUI" />
+        <item itemvalue="JUnit.ConverterTest" />
         <item itemvalue="Application.Login" />
       </list>
     </recent_temporary>
