@@ -92,7 +92,7 @@ public class ApiCall {
         try {
             // a URL object is created based on the API endpoint
             // the URL object will use coordinates retrieved by the currentWeatherCall method
-            URL url = new URL(String.format("https://api.openweathermap.org/data/2.5/onecall?lat=%s&lon=%s&exclude=minutely,hourly,alerts&units=metric&appid=62d50fd38f48aba39355b8ae5a3ae053"
+            URL url = new URL(String.format("https://api.openweathermap.org/data/2.5/onecall?lat=%s&lon=%s&exclude=minutely,current,hourly,alerts&units=metric&appid=62d50fd38f48aba39355b8ae5a3ae053"
                     , locationData.get("lat"), locationData.get("lon")));
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
