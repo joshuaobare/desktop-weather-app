@@ -160,7 +160,17 @@ public class ApiCall {
 
     private void weatherForecastParser(Map<String, Object> weatherForecastMap){
         ArrayList<HashMap<String, Object>> hashMap = (ArrayList<HashMap<String, Object>>) weatherForecastMap.get("daily");
+        int counter = 0;
 
+        for(HashMap<String, Object> key: hashMap){
+            if(counter == 0){
+                currentWeather.put("pop", key.get("pop"));
+            }
+
+
+
+            counter++;
+        }
 
 
     }
