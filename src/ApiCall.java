@@ -25,7 +25,7 @@ public class ApiCall {
         this.location = location;
         currentWeatherCall(this.location);
         weatherForecastCall(this.location);
-        currentWeatherParser(unparsedCurrentWeather , currentWeather);
+        weatherParser(unparsedCurrentWeather , currentWeather);
         weatherForecastParser(unparsedWeatherForecastData);
     }
 
@@ -122,9 +122,10 @@ public class ApiCall {
         }
     }
 
-    // The nested values within unparsedCurrentWeather make it tiresome to work with
-    // currentWeatherParser unpacks the Hashmap so that all keys are at the same level
-    private void currentWeatherParser(Map<String, Object> currentWeatherMap,Map<String, Object> mapToPushTo){
+    // The nested values within the unparsed Map Objects make it tiresome to work with
+    // weatherParser unpacks the Hashmap so that all keys are at the same level
+    // depending on which dataset is being used, the data will be pushed to that map(mapToPushTo)
+    private void weatherParser(Map<String, Object> currentWeatherMap,Map<String, Object> mapToPushTo){
 
         // the HashMap is iterated over with a for loop
         for(HashMap.Entry<String,Object> key: currentWeatherMap.entrySet()){
@@ -138,7 +139,7 @@ public class ApiCall {
                 mapToPushTo.put(key.getKey(),key.getValue());
             } else if (objectType.equals("Double")) {
 
-                // there's 2 different ids, the location and weather ids
+                // there's 2 different ids within currentWeather, the location and weather ids
                 // the weather array is iterated over first, so its id is captured if no ids are present in the Hashmap
                 if (mapToPushTo.get("id") == null) {
                     if((key.getKey()).equals("id")) {
@@ -148,52 +149,58 @@ public class ApiCall {
                 mapToPushTo.put(key.getKey() , String.valueOf(key.getValue()));
             } else if (objectType.equals("LinkedTreeMap")) {
 
-                // if there's a nested Map , we call currentWeatherParser recursively
-                currentWeatherParser((LinkedTreeMap<String, Object>) key.getValue(), mapToPushTo);
+                // if there's a nested Map , we call weatherParser recursively
+                weatherParser((LinkedTreeMap<String, Object>) key.getValue(), mapToPushTo);
             } else if (objectType.equals("ArrayList")) {
                 // this block captures the weather array which only has one value, a nested LinkedTreeMap
                 ArrayList<Object> weatherArray = (ArrayList<Object>) key.getValue();
-                currentWeatherParser((LinkedTreeMap<String, Object>) weatherArray.get(0), mapToPushTo);
+                weatherParser((LinkedTreeMap<String, Object>) weatherArray.get(0), mapToPushTo);
             }
         }
     }
 
+    // weatherForecastParser parses a different dataset to weatherParser
+    // the data is pushed to an ArrayList unlike a HashMap with weatherParser
     private void weatherForecastParser(Map<String, Object> weatherForecastMap){
+
+        // the 7 day weatherForecast array within unparsedWeatherForecastData is retrieved
         ArrayList<Map<String, Object>> dailyWeather = (ArrayList<Map<String, Object>>) weatherForecastMap.get("daily");
         int counter = 0;
 
         for(Map<String, Object> weatherAttribute: dailyWeather){
+            // this Hashmap collects all the data each iteration, which is pushed to the weatherForecast ArrayList
+            // at the end of each iteration and emptied at the start of the next iteration
             HashMap <String,Object> currentIteration = new HashMap<>();
 
+            // for the first day, the 'pop'(probability of precipitation) i.e. chance of rain is retrieved and pushed
+            // to the currentWeather Hashmap as it wouldn't be retrievable otherwise
             if(counter == 0){
                 currentWeather.put("pop", weatherAttribute.get("pop"));
             }
 
+            // the nested for loop loops through each Hashmap within the daily ArrayList
             for(Map.Entry<String, Object> entry: weatherAttribute.entrySet()){
                 String[] parts = entry.getValue().getClass().toString().split("\\.");
                 String objectType = parts[parts.length - 1];
-                //System.out.println(objectType);
 
+                // depending on the Hashmap's type, the data within it is handled differently
                 if(objectType.equals("Double")) {
                     currentIteration.put(entry.getKey() , entry.getValue());
                 } else if (objectType.equals("ArrayList")) {
+
+                    // the nested ArrayLists only have one value, a LinkedTreeMap
+                    // the weatherParser method will be called on that data
                     ArrayList<Object> weatherArray = (ArrayList<Object>) entry.getValue();
-                    currentWeatherParser((LinkedTreeMap<String, Object>) weatherArray.get(0),currentIteration);
+                    weatherParser((LinkedTreeMap<String, Object>) weatherArray.get(0),currentIteration);
                 } else if (objectType.equals("LinkedTreeMap")) {
-                    currentWeatherParser((LinkedTreeMap<String, Object>) entry.getValue(),currentIteration);
+                    weatherParser((LinkedTreeMap<String, Object>) entry.getValue(),currentIteration);
                 }
 
+                // the hashmap initialized at the beginning of this loop is pushed to the weatherForecastData Hashmap
                 weatherForecastData.add(currentIteration);
             }
-
-
-
-
-
             counter++;
         }
-
-
     }
 
 
