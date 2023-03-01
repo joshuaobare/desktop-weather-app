@@ -87,33 +87,18 @@ public class MainUI extends Application {
         rightPane.add(windSpeedValue , 0 ,7);
         grid.add(rightPane , 7 ,0,1 ,7);
 
-        /*MiniDisplay dayOne = new MiniDisplay("Sunday", "30C", "10C", "cloudy");
-        MiniDisplay dayTwo = new MiniDisplay("Sunday", "30C", "10C", "cloudy");
-        MiniDisplay dayThree = new MiniDisplay("Sunday", "30C", "10C", "cloudy");
-        MiniDisplay dayFour = new MiniDisplay("Sunday", "30C", "10C", "cloudy");
-        MiniDisplay dayFive = new MiniDisplay("Sunday", "30C", "10C", "cloudy");
-        MiniDisplay daySix = new MiniDisplay("Sunday", "30C", "10C", "cloudy");
-        MiniDisplay daySeven = new MiniDisplay("Sunday", "30C", "10C", "cloudy");
-
-        grid.add(dayOne , 0 ,8);
-        grid.add(dayTwo , 1 ,8);
-        grid.add(dayThree , 2 ,8);
-        grid.add(dayFour , 3 ,8);
-        grid.add(dayFive , 4 ,8);
-        grid.add(daySix , 5 ,8);
-        grid.add(daySeven , 6 ,8);*/
         int counter = 0;
-        System.out.println(weatherForecastData.size());
+
+        // this for loop loops over the forecastData and created a miniDisplay for each day and then appends it to the grid
         for(Map<String, Object> key: weatherForecastData){
-            MiniDisplay day = new MiniDisplay("Sunday", String.valueOf(key.get("max")), String.valueOf(key.get("min")), converter.capitalizeDescription((String) key.get("description")));
+            Converter forecastConverter = new Converter();
+            Double datetime = Double.valueOf((String) currentWeather.get("dt")) + (counter * (86400.0));
+            forecastConverter.dateConverter((String) currentWeather.get("timezone"), String.valueOf(datetime));
+            MiniDisplay day = new MiniDisplay(forecastConverter.getDay(), String.valueOf(key.get("max")), String.valueOf(key.get("min")), converter.capitalizeDescription((String) key.get("description")));
+            day.setUserData(counter);
             grid.add(day,counter,8);
             counter++;
         }
-
-
-
-
-
 
         Scene scene = new Scene(grid, 300, 275);
         primaryStage.setScene(scene);

@@ -6,6 +6,7 @@ public class Converter {
 
     private String time;
     private String date;
+    private String day;
 
 
     public String tempConverter(String temp) {
@@ -25,9 +26,8 @@ public class Converter {
             currentDate = new Date();
         } else {
             Double datetime = Double.valueOf(dt);
-            currentDate = new Date(datetime.longValue());
+            currentDate = new Date(datetime.longValue()*1000);
         }
-
 
         // the timezoneOffset is the time difference in minutes with GMT +0
         int timezoneOffset = currentDate.getTimezoneOffset();
@@ -38,11 +38,13 @@ public class Converter {
         Long currentTime = currentDate.getTime() + (timezoneOffset * 60000) + (tz.longValue() * 1000);
 
         // the times are then formatted via the DateFormat class
-        DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd");
+        DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd yyyy");
         DateFormat timeFormat = new SimpleDateFormat("h:mm aa");
-        Date finalUnformatedDate = new Date(currentTime);
-        date = dateFormat.format(finalUnformatedDate);
-        time = timeFormat.format(finalUnformatedDate);
+        DateFormat dayFormat = new SimpleDateFormat("EEEEEE");
+        Date finalUnformattedDate = new Date(currentTime);
+        date = dateFormat.format(finalUnformattedDate);
+        time = timeFormat.format(finalUnformattedDate);
+        day = dayFormat.format(finalUnformattedDate);
 
     }
 
@@ -77,5 +79,9 @@ public class Converter {
 
     public String getDate() {
         return date;
+    }
+
+    public String getDay() {
+        return day;
     }
 }

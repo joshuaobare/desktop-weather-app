@@ -14,13 +14,13 @@ public class Main {
 
         Map<String, String> locationData = caller.getLocationData();
         HashMap <String, Object> currentWeather = caller.getCurrentWeather();
-        ArrayList<HashMap<String, Object>> weatherData = caller.getWeatherForecastData();
+        ArrayList<HashMap<String, Object>> weatherForecastData = caller.getWeatherForecastData();
 
         //caller.currentWeatherCall("nairobi");
         //System.out.println(location);
         /*System.out.println(caller.unparsedCurrentWeather);
         System.out.println(currentWeather);*/
-        //System.out.println(weatherData);
+        System.out.println(weatherForecastData);
         //System.out.println(caller.unparsedWeatherForecastData);
 
        // System.out.println(locationData);
