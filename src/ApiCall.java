@@ -15,7 +15,7 @@ import org.json.simple.parser.ParseException;
 
 public class ApiCall {
     private HashMap<String, String> locationData = new HashMap<>();
-    public ArrayList<HashMap<String, Object>> weatherForecastData =new ArrayList<>();
+    public ArrayList<HashMap<String, Object>> weatherForecastData = new ArrayList<>();
     private HashMap<String, Object> currentWeather = new HashMap<>();;
     public HashMap<String, Object> unparsedCurrentWeather;
     public HashMap<String, Object> unparsedWeatherForecastData;
@@ -196,9 +196,13 @@ public class ApiCall {
                     weatherParser((LinkedTreeMap<String, Object>) entry.getValue(),currentIteration);
                 }
 
-                // the hashmap initialized at the beginning of this loop is pushed to the weatherForecastData Hashmap
-                weatherForecastData.add(currentIteration);
+
+
+
             }
+            // the hashmap initialized at the beginning of this loop is pushed to the weatherForecastData Hashmap
+            weatherForecastData.add(currentIteration);
+
             counter++;
         }
     }

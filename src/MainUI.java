@@ -32,6 +32,7 @@ public class MainUI extends Application {
         ApiCall caller = new ApiCall(locationChoice);
         HashMap<String, Object> currentWeather = caller.getCurrentWeather();
         Map<String, String> locationData = caller.getLocationData();
+        ArrayList<HashMap<String, Object>> weatherForecastData = caller.getWeatherForecastData();
 
         primaryStage.setTitle("Weather App");
         GridPane grid = new GridPane();
@@ -69,7 +70,7 @@ public class MainUI extends Application {
         humidityValue.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
         Text chanceOfRain = new Text("Chance of Rain");
         chanceOfRain.setFont(Font.font("Tahoma", FontWeight.NORMAL, 10));
-        Text chanceOfRainValue = new Text("42%");
+        Text chanceOfRainValue = new Text(String.valueOf((Double) currentWeather.get("pop") * 100) + "%");
         chanceOfRainValue.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
         Text windSpeed = new Text("Wind Speed");
         windSpeed.setFont(Font.font("Tahoma", FontWeight.NORMAL, 10));
@@ -86,7 +87,7 @@ public class MainUI extends Application {
         rightPane.add(windSpeedValue , 0 ,7);
         grid.add(rightPane , 7 ,0,1 ,7);
 
-        MiniDisplay dayOne = new MiniDisplay("Sunday", "30C", "10C", "cloudy");
+        /*MiniDisplay dayOne = new MiniDisplay("Sunday", "30C", "10C", "cloudy");
         MiniDisplay dayTwo = new MiniDisplay("Sunday", "30C", "10C", "cloudy");
         MiniDisplay dayThree = new MiniDisplay("Sunday", "30C", "10C", "cloudy");
         MiniDisplay dayFour = new MiniDisplay("Sunday", "30C", "10C", "cloudy");
@@ -100,7 +101,14 @@ public class MainUI extends Application {
         grid.add(dayFour , 3 ,8);
         grid.add(dayFive , 4 ,8);
         grid.add(daySix , 5 ,8);
-        grid.add(daySeven , 6 ,8);
+        grid.add(daySeven , 6 ,8);*/
+        int counter = 0;
+        System.out.println(weatherForecastData.size());
+        for(Map<String, Object> key: weatherForecastData){
+            MiniDisplay day = new MiniDisplay("Sunday", String.valueOf(key.get("max")), String.valueOf(key.get("min")), converter.capitalizeDescription((String) key.get("description")));
+            grid.add(day,counter,8);
+            counter++;
+        }
 
 
 

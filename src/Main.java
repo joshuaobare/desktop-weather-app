@@ -20,8 +20,9 @@ public class Main {
         //System.out.println(location);
         /*System.out.println(caller.unparsedCurrentWeather);
         System.out.println(currentWeather);*/
-        System.out.println(weatherData);
-        System.out.println(caller.unparsedWeatherForecastData);
+        //System.out.println(weatherData);
+        //System.out.println(caller.unparsedWeatherForecastData);
+
        // System.out.println(locationData);
 
         /*DBConnection db = new DBConnection();
