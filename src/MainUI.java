@@ -1,13 +1,23 @@
+import afester.javafx.svg.SvgLoader;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +30,7 @@ public class MainUI extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws IOException {
         Helper helper = new Helper();
         Scanner scanner = new Scanner(System.in);
         System.out.println("What location?");
@@ -50,15 +60,31 @@ public class MainUI extends Application {
         grid.add(time , 0 ,3);
         grid.add(temperature , 0 ,4);
 
+        SVGPath svgPath = new SVGPath();
+        //String weatherIconUrl =  new String(Files.readAllBytes(Paths.get( helper.weatherIconFetcher((String) currentWeather.get("icon")))));
+        //svgPath.setContent(weatherIconUrl);
+        InputStream svgFile =
+                getClass().getResourceAsStream(helper.weatherIconFetcher((String) currentWeather.get("icon")));
+        System.out.println(helper.weatherIconFetcher((String) currentWeather.get("icon")));
+        Button iconBtn = new Button();
+        SvgLoader svgLoader = new SvgLoader();
+        Group svgImage = svgLoader.loadSvg(svgFile);
+        svgImage.setScaleX(4);
+        svgImage.setScaleY(4);
+        Group graphic = new Group(svgImage);
+        iconBtn.setGraphic(graphic);
+
+        grid.add(graphic, 0, 6);
         TextField locationSearchField = new TextField();
         locationSearchField.setPromptText("Search location");
-        grid.add(locationSearchField, 0, 5);
+        //locationSearchField.setPadding(new Insets(20,0,0,0));
+        grid.add(locationSearchField, 0, 7);
 
         GridPane rightPane = new GridPane();
 
         Text feelsLike = new Text("Feels Like");
         feelsLike.setFont(Font.font("Tahoma", FontWeight.NORMAL, 10));
-        Text feelsLikeValue = new Text(helper.tempConverter((String) currentWeather.get("feels_like")) + " \u00B0C");
+        Text feelsLikeValue = new Text(helper.tempConverter((String) currentWeather.get("feels_like")) + "\u00B0C");
         feelsLikeValue.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
         Text humidity = new Text("Humidity");
         humidity.setFont(Font.font("Tahoma", FontWeight.NORMAL, 10));
@@ -83,7 +109,10 @@ public class MainUI extends Application {
         rightPane.add(windSpeedValue , 0 ,7);
         grid.add(rightPane , 7 ,0,1 ,7);
 
+
         int counter = 0;
+        GridPane bottomPane = new GridPane();
+        bottomPane.setPadding(new Insets(50,0,0,0));
 
         // this for loop loops over the forecastData and created a miniDisplay for each day and then appends it to the grid
         for(Map<String, Object> key: weatherForecastData){
@@ -92,9 +121,11 @@ public class MainUI extends Application {
             forecastHelper.dateConverter((String) currentWeather.get("timezone"), String.valueOf(datetime));
             MiniDisplay day = new MiniDisplay(forecastHelper.getDay(), String.valueOf(key.get("max")), String.valueOf(key.get("min")), helper.capitalizeDescription((String) key.get("description")));
             day.setUserData(counter);
-            grid.add(day,counter,8);
+            bottomPane.add(day,counter,0);
             counter++;
         }
+
+        grid.add(bottomPane, 1,9);
 
         Scene scene = new Scene(grid, 300, 275);
         primaryStage.setScene(scene);

@@ -44,5 +44,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="github.afester.javafx.FranzXaver" level="project" />
   </component>
 </module>

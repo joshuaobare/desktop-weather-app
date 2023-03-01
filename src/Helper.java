@@ -10,12 +10,12 @@ public class Helper {
 
 
     public String tempConverter(String temp) {
-        double tempValue = Double.valueOf(temp);
+        double tempValue = Double.parseDouble(temp);
 
-        // temperatures provided by the API are in K so they have to be converted to Cs
+        // temperatures provided by the API are in K, so they have to be converted to Cs
         double tempValueInC = Math.round(tempValue - 273.15);
 
-        return String.valueOf(tempValueInC);
+        return String.format("%d",(int) Math.round(tempValueInC));
     }
 
     // the time and date need to be accurate to whichever location is searched for
@@ -78,64 +78,64 @@ public class Helper {
 
         switch (icon){
             case "01d":
-                iconPath= "src/assets/sun.svg";
+                iconPath= ",/assets/sun.svg";
                 break;
 
             case "02d":
-                iconPath= "src/assets/cloudy-day.svg";
+                iconPath= "./assets/cloudy-day.svg";
             break;
 
             case "03d":
             case "04d":
-                iconPath= "src/assets/cloudy.svg";
+                iconPath= "./assets/cloudy.svg";
             break;
 
 
             case "09d":
             case "10d":
-                iconPath= "src/assets/rainy.svg";
+                iconPath= "./assets/rainy.svg";
             break;
 
             case "11d":
-                iconPath= "src/assets/lightning.svg";
+                iconPath= "./assets/lightning.svg";
             break;
 
             case "13d":
-                iconPath= "src/assets/snow.svg";
+                iconPath= "./assets/snow.svg";
             break;
 
             case "50d":
-                iconPath= "src/assets/mist.svg";
+                iconPath= "./assets/mist.svg";
             break;
 
             case "01n":
-                iconPath= "src/assets/moon.svg";
+                iconPath= "./assets/moon.svg";
             break;
 
             case "02n":
-                iconPath= "src/assets/cloudy-night.svg";
+                iconPath= "./assets/cloudy-night.svg";
             break;
 
             case "03n":
             case "04n":
-                iconPath= "src/assets/cloudy-night.svg";
+                iconPath= "./assets/cloudy-night.svg";
             break;
 
             case "09n":
             case "10n":
-                iconPath= "src/assets/rainy.svg";
+                iconPath= "./assets/rainy.svg";
             break;
 
             case "11n":
-                iconPath= "src/assets/lightning.svg";
+                iconPath= "./assets/lightning.svg";
             break;
 
             case "13n":
-                iconPath= "src/assets/snow.svg";
+                iconPath= "./assets/snow.svg";
             break;
 
             case "50n":
-                iconPath= "src/assets/mist.svg";
+                iconPath= "./assets/mist.svg";
             break;
 
             default:
