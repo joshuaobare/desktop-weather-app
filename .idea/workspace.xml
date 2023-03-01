@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="eba15fdd-819c-43b0-b499-aea566688b89" name="Changes" comment="MainUI will now call the API and display temperature and location">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Converter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Converter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Converter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Helper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ConverterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HelperTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MainUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -105,10 +105,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ConverterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="HelperTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="desktop-weather-app" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="ConverterTest" />
+      <option name="MAIN_CLASS_NAME" value="HelperTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -118,13 +118,13 @@
       <item itemvalue="Application.Main" />
       <item itemvalue="Application.Login" />
       <item itemvalue="Application.MainUI" />
-      <item itemvalue="JUnit.ConverterTest" />
+      <item itemvalue="JUnit.HelperTest" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.MainUI" />
         <item itemvalue="Application.Login" />
-        <item itemvalue="JUnit.ConverterTest" />
+        <item itemvalue="JUnit.HelperTest" />
       </list>
     </recent_temporary>
   </component>

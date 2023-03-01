@@ -2,7 +2,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Converter {
+public class Helper {
 
     private String time;
     private String date;
@@ -71,6 +71,80 @@ public class Converter {
         }
 
         return finalDescription;
+    }
+
+    public String weatherIconFetcher(String icon){
+        String iconPath = "";
+
+        switch (icon){
+            case "01d":
+                iconPath= "src/assets/sun.svg";
+                break;
+
+            case "02d":
+                iconPath= "src/assets/cloudy-day.svg";
+            break;
+
+            case "03d":
+            case "04d":
+                iconPath= "src/assets/cloudy.svg";
+            break;
+
+
+            case "09d":
+            case "10d":
+                iconPath= "src/assets/rainy.svg";
+            break;
+
+            case "11d":
+                iconPath= "src/assets/lightning.svg";
+            break;
+
+            case "13d":
+                iconPath= "src/assets/snow.svg";
+            break;
+
+            case "50d":
+                iconPath= "src/assets/mist.svg";
+            break;
+
+            case "01n":
+                iconPath= "src/assets/moon.svg";
+            break;
+
+            case "02n":
+                iconPath= "src/assets/cloudy-night.svg";
+            break;
+
+            case "03n":
+            case "04n":
+                iconPath= "src/assets/cloudy-night.svg";
+            break;
+
+            case "09n":
+            case "10n":
+                iconPath= "src/assets/rainy.svg";
+            break;
+
+            case "11n":
+                iconPath= "src/assets/lightning.svg";
+            break;
+
+            case "13n":
+                iconPath= "src/assets/snow.svg";
+            break;
+
+            case "50n":
+                iconPath= "src/assets/mist.svg";
+            break;
+
+            default:
+                System.out.println("Error");
+                break;
+        }
+
+        return iconPath;
+
     }
 
     public String getTime() {

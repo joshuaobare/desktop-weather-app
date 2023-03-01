@@ -1,11 +1,7 @@
-import com.google.gson.internal.LinkedTreeMap;
 import javafx.application.Application;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -25,7 +21,7 @@ public class MainUI extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Converter converter = new Converter();
+        Helper helper = new Helper();
         Scanner scanner = new Scanner(System.in);
         System.out.println("What location?");
         String locationChoice = scanner.nextLine();
@@ -37,12 +33,12 @@ public class MainUI extends Application {
         primaryStage.setTitle("Weather App");
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(25, 25, 25, 25));
-        Text weatherTitle = new Text(converter.capitalizeDescription((String) currentWeather.get("description")));
+        Text weatherTitle = new Text(helper.capitalizeDescription((String) currentWeather.get("description")));
         Text location = new Text((String) currentWeather.get("name") + " " + (String) currentWeather.get("country") );
-        converter.dateConverter((String) currentWeather.get("timezone"));
-        Text date = new Text(converter.getDate());
-        Text time = new Text(converter.getTime());
-        Text temperature = new Text( converter.tempConverter((String) currentWeather.get("temp")) + " \u00B0C");
+        helper.dateConverter((String) currentWeather.get("timezone"));
+        Text date = new Text(helper.getDate());
+        Text time = new Text(helper.getTime());
+        Text temperature = new Text( helper.tempConverter((String) currentWeather.get("temp")) + " \u00B0C");
         weatherTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
         location.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
         date.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
@@ -62,7 +58,7 @@ public class MainUI extends Application {
 
         Text feelsLike = new Text("Feels Like");
         feelsLike.setFont(Font.font("Tahoma", FontWeight.NORMAL, 10));
-        Text feelsLikeValue = new Text(converter.tempConverter((String) currentWeather.get("feels_like")) + " \u00B0C");
+        Text feelsLikeValue = new Text(helper.tempConverter((String) currentWeather.get("feels_like")) + " \u00B0C");
         feelsLikeValue.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
         Text humidity = new Text("Humidity");
         humidity.setFont(Font.font("Tahoma", FontWeight.NORMAL, 10));
@@ -91,10 +87,10 @@ public class MainUI extends Application {
 
         // this for loop loops over the forecastData and created a miniDisplay for each day and then appends it to the grid
         for(Map<String, Object> key: weatherForecastData){
-            Converter forecastConverter = new Converter();
+            Helper forecastHelper = new Helper();
             Double datetime = Double.valueOf((String) currentWeather.get("dt")) + (counter * (86400.0));
-            forecastConverter.dateConverter((String) currentWeather.get("timezone"), String.valueOf(datetime));
-            MiniDisplay day = new MiniDisplay(forecastConverter.getDay(), String.valueOf(key.get("max")), String.valueOf(key.get("min")), converter.capitalizeDescription((String) key.get("description")));
+            forecastHelper.dateConverter((String) currentWeather.get("timezone"), String.valueOf(datetime));
+            MiniDisplay day = new MiniDisplay(forecastHelper.getDay(), String.valueOf(key.get("max")), String.valueOf(key.get("min")), helper.capitalizeDescription((String) key.get("description")));
             day.setUserData(counter);
             grid.add(day,counter,8);
             counter++;
