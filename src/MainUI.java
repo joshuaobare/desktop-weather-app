@@ -40,6 +40,7 @@ public class MainUI extends Application {
         ArrayList<HashMap<String, Object>> weatherForecastData = model.getWeatherForecastData();
 
         primaryStage.setTitle("Weather App");
+
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(25, 25, 25, 25));
         Text weatherTitle = new Text(helper.capitalizeDescription((String) currentWeather.get("description")));
@@ -126,6 +127,8 @@ public class MainUI extends Application {
 
         Scene scene = new Scene(grid, 300, 275);
         primaryStage.setScene(scene);
+
+        primaryStage.hide();
         primaryStage.setMaximized(true);
         primaryStage.show();
 
@@ -133,7 +136,7 @@ public class MainUI extends Application {
             try {
                 String searchedLocation = locationSearchField.getText();
                 model.setData(searchedLocation);
-                primaryStage.setMaximized(true);
+
                 start(primaryStage);
 
 
