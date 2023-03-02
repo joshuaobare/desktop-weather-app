@@ -110,7 +110,8 @@ public class MainUI extends Application {
             Helper forecastHelper = new Helper();
             Double datetime = Double.valueOf((String) currentWeather.get("dt")) + (counter * (86400.0));
             forecastHelper.dateConverter((String) currentWeather.get("timezone"), String.valueOf(datetime));
-            MiniDisplay day = new MiniDisplay(forecastHelper.getDay(), String.valueOf(key.get("max")), String.valueOf(key.get("min")), helper.capitalizeDescription((String) key.get("description")));
+            MiniDisplay day = new MiniDisplay(forecastHelper.getDay(), String.valueOf(key.get("max")), String.valueOf(key.get("min")), helper.capitalizeDescription((String) key.get("description")),
+                    String.valueOf(key.get("icon")));
             day.setUserData(counter);
             bottomPane.add(day,counter,0);
             counter++;
