@@ -24,6 +24,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class MainUI extends Application {
+    DataModel model = new DataModel();
+    String data = model.setData();
 
     public static void main(String[] args) {
         launch(args);
@@ -34,10 +36,6 @@ public class MainUI extends Application {
     public void start(Stage primaryStage) throws IOException {
         Helper helper = new Helper();
 
-        //ApiCall caller = new ApiCall("nairobi");
-
-        Model model = new Model();
-        model.setData();
         HashMap<String, Object> currentWeather = model.getCurrentWeather();
         ArrayList<HashMap<String, Object>> weatherForecastData = model.getWeatherForecastData();
 
@@ -133,7 +131,12 @@ public class MainUI extends Application {
 
         submitButton.setOnAction((event) -> {
             try {
+                String searchedLocation = locationSearchField.getText();
+                model.setData(searchedLocation);
+                primaryStage.setMaximized(true);
                 start(primaryStage);
+
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

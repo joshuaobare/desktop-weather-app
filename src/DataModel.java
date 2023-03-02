@@ -1,14 +1,15 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Model {
+public class DataModel {
         private HashMap<String, Object> currentWeather;
         private ArrayList<HashMap<String, Object>> weatherForecastData;
 
-        public void setData(){
+        public String setData(){
             ApiCall caller = new ApiCall("nairobi");
             currentWeather = caller.getCurrentWeather();
             weatherForecastData = caller.getWeatherForecastData();
+            return "";
         }
 
         public void setData(String location){
