@@ -32,10 +32,8 @@ public class MainUI extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         Helper helper = new Helper();
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("What location?");
-        String locationChoice = scanner.nextLine();
-        ApiCall caller = new ApiCall(locationChoice);
+
+        ApiCall caller = new ApiCall("nairobi");
         HashMap<String, Object> currentWeather = caller.getCurrentWeather();
         Map<String, String> locationData = caller.getLocationData();
         ArrayList<HashMap<String, Object>> weatherForecastData = caller.getWeatherForecastData();
@@ -48,7 +46,7 @@ public class MainUI extends Application {
         helper.dateConverter((String) currentWeather.get("timezone"));
         Text date = new Text(helper.getDate());
         Text time = new Text(helper.getTime());
-        Text temperature = new Text( helper.tempConverter((String) currentWeather.get("temp")) + " \u00B0C");
+        Text temperature = new Text( helper.tempConverter((String) currentWeather.get("temp")) + "\u00B0C");
         weatherTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
         location.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
         date.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
@@ -60,24 +58,17 @@ public class MainUI extends Application {
         grid.add(time , 0 ,3);
         grid.add(temperature , 0 ,4);
 
-        SVGPath svgPath = new SVGPath();
-        //String weatherIconUrl =  new String(Files.readAllBytes(Paths.get( helper.weatherIconFetcher((String) currentWeather.get("icon")))));
-        //svgPath.setContent(weatherIconUrl);
         InputStream svgFile =
                 getClass().getResourceAsStream(helper.weatherIconFetcher((String) currentWeather.get("icon")));
-        System.out.println(helper.weatherIconFetcher((String) currentWeather.get("icon")));
-        Button iconBtn = new Button();
+
         SvgLoader svgLoader = new SvgLoader();
         Group svgImage = svgLoader.loadSvg(svgFile);
         svgImage.setScaleX(4);
         svgImage.setScaleY(4);
         Group graphic = new Group(svgImage);
-        iconBtn.setGraphic(graphic);
-
         grid.add(graphic, 0, 6);
         TextField locationSearchField = new TextField();
         locationSearchField.setPromptText("Search location");
-        //locationSearchField.setPadding(new Insets(20,0,0,0));
         grid.add(locationSearchField, 0, 7);
 
         GridPane rightPane = new GridPane();
@@ -92,7 +83,7 @@ public class MainUI extends Application {
         humidityValue.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
         Text chanceOfRain = new Text("Chance of Rain");
         chanceOfRain.setFont(Font.font("Tahoma", FontWeight.NORMAL, 10));
-        Text chanceOfRainValue = new Text(String.valueOf((Double) currentWeather.get("pop") * 100) + "%");
+        Text chanceOfRainValue = new Text(String.valueOf(Math.round((Double) currentWeather.get("pop") * 100)) + "%");
         chanceOfRainValue.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
         Text windSpeed = new Text("Wind Speed");
         windSpeed.setFont(Font.font("Tahoma", FontWeight.NORMAL, 10));

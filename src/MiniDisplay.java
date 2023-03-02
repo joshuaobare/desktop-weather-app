@@ -12,10 +12,10 @@ public class MiniDisplay extends GridPane {
         Text dayTitle = new Text(daytitle);
         dayTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 16));
         add(dayTitle, 0 ,0);
-        Text highTemperature = new Text(hightemptitle);
+        Text highTemperature = new Text(String.valueOf(Math.round(Double.valueOf(hightemptitle)))+ "\u00B0C");
         highTemperature.setFont(Font.font("Tahoma", FontWeight.NORMAL, 24));
         add(highTemperature, 0 ,1);
-        Text lowTemperature = new Text(lowtemptitle);
+        Text lowTemperature = new Text(String.valueOf(Math.round(Double.valueOf(lowtemptitle)))+ "\u00B0C");
         lowTemperature.setFont(Font.font("Tahoma", FontWeight.NORMAL, 10));
         add(lowTemperature, 0 ,2);
         Text weatherIcon = new Text(weathericontitle);

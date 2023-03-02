@@ -5,50 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eba15fdd-819c-43b0-b499-aea566688b89" name="Changes" comment="MainUI will now call the API and display temperature and location">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/github_afester_javafx_FranzXaver.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/FranzXaver-0.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/batik-anim-1.9.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/batik-awt-util-1.9.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/batik-bridge-1.9.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/batik-constants-1.9.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/batik-css-1.9.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/batik-dom-1.9.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/batik-ext-1.9.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/batik-gvt-1.9.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/batik-i18n-1.9.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/batik-parser-1.9.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/batik-script-1.9.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/batik-svg-dom-1.9.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/batik-util-1.9.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/batik-xml-1.9.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/commons-io-1.3.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/commons-logging-1.0.4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/log4j-api-2.5.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/log4j-core-2.5.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/serializer-2.7.2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/xalan-2.7.2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/xml-apis-1.3.04.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/xml-apis-ext-1.3.04.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/xmlgraphics-commons-2.1.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop-weather-app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/desktop-weather-app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Helper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MainUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/arrow_left.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/arrow_left.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/arrow_right.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/arrow_right.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/cloud.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/cloud.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/cloudy-day.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/cloudy-day.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/cloudy-night.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/cloudy-night.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/cloudy.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/cloudy.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/humidity.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/humidity.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/lightning.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/lightning.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/mist.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/mist.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/moon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/moon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/rainy.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/rainy.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/snow.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/snow.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/sun.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/sun.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/thermo.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/thermo.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/wind.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/wind.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MiniDisplay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MiniDisplay.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,27 +53,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Downloaded.Files.Path.Enabled": "true",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "create.test.in.the.same.root": "true",
-    "last_opened_file_path": "C:/Users/Joshua Obare/Documents/Java/Testing",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pathVariables"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;true&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Joshua Obare/Documents/Java/Testing&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pathVariables&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
