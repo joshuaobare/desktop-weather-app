@@ -29,6 +29,7 @@ public class MainUI extends Application {
         launch(args);
     }
 
+
     @Override
     public void start(Stage primaryStage) throws IOException {
         Helper helper = new Helper();
@@ -70,6 +71,8 @@ public class MainUI extends Application {
         TextField locationSearchField = new TextField();
         locationSearchField.setPromptText("Search location");
         grid.add(locationSearchField, 0, 7);
+        Button submitButton = new Button("Submit");
+        grid.add(submitButton, 1,7);
 
         GridPane rightPane = new GridPane();
 
@@ -119,10 +122,21 @@ public class MainUI extends Application {
 
         grid.add(bottomPane, 1,9);
 
+
+
         Scene scene = new Scene(grid, 300, 275);
         primaryStage.setScene(scene);
         primaryStage.setMaximized(true);
         primaryStage.show();
+
+        submitButton.setOnAction((event) -> {
+            try {
+                start(primaryStage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        });
 
     }
 }
