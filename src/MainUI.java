@@ -5,29 +5,23 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 public class MainUI extends Application {
+    // The model object is initalized globally to handle data changes when the user searches
     DataModel model = new DataModel();
     String data = model.setData();
 
@@ -38,34 +32,51 @@ public class MainUI extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+        // the Helper object is initialized as well as currentWeather and weatherForecastData
         Helper helper = new Helper();
-
         HashMap<String, Object> currentWeather = model.getCurrentWeather();
         ArrayList<HashMap<String, Object>> weatherForecastData = model.getWeatherForecastData();
 
+        // The window's title is set, as well as the GridPane object that holds all the data
         primaryStage.setTitle("Weather App");
-
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(25, 25, 25, 25));
+
+        // TOP SECTION - This section displays the currentWeather data and is divided into the right and left sections
+        // LEFT SECTION
+
+        // different Text nodes are created and populated with data from the currentWeather HashMap
         Text weatherTitle = new Text(helper.capitalizeDescription((String) currentWeather.get("description")));
+        weatherTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
         Text location = new Text((String) currentWeather.get("name") + " " + (String) currentWeather.get("country") );
+        location.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
+
+        /* this helper method is run to retrieve the location's local time, which is retrieved and then added
+           to some Text nodes */
         helper.dateConverter((String) currentWeather.get("timezone"));
         Text date = new Text(helper.getDate());
-        Text time = new Text(helper.getTime());
-        Text temperature = new Text( helper.tempConverter((String) currentWeather.get("temp")) + "\u00B0C");
-        weatherTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
-        location.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
         date.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
+        Text time = new Text(helper.getTime());
         time.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
+
+        // the temperature provided by the API is in Kelvin, so it has to be converted to Celsius
+        Text temperature = new Text( helper.tempConverter((String) currentWeather.get("temp")) + "\u00B0C");
         temperature.setFont(Font.font("Tahoma", FontWeight.NORMAL, 50));
+
+        // The nodes are added to the main GridPane object
         grid.add(weatherTitle , 0 ,0);
         grid.add(location , 0 ,1);
         grid.add(date , 0 ,2);
         grid.add(time , 0 ,3);
         grid.add(temperature , 0 ,4);
 
+        /* the description image is an SVG file, and is handled differently compared to if it was jpg or png
+           Stream is used to retrieve the file's local URL, and the helper object will retrieve that specific
+           icon based on the current weather description */
+
         InputStream svgFile =
-                getClass().getResourceAsStream(helper.weatherIconFetcher((String) currentWeather.get("icon")));
+                getClass()
+                .getResourceAsStream(helper.weatherIconFetcher((String) currentWeather.get("icon")));
 
         SvgLoader svgLoader = new SvgLoader();
         Group svgImage = svgLoader.loadSvg(svgFile);
@@ -73,14 +84,18 @@ public class MainUI extends Application {
         svgImage.setScaleY(4);
         Group graphic = new Group(svgImage);
         grid.add(graphic, 0, 6);
+
+        // the remaining relevant Text objects are created and added to the GridPane object
         TextField locationSearchField = new TextField();
         locationSearchField.setPromptText("Search location");
-        grid.add(locationSearchField, 0, 7);
         Button submitButton = new Button("Submit");
+        grid.add(locationSearchField, 0, 7);
         grid.add(submitButton, 1,7);
 
-        GridPane rightPane = new GridPane();
+        // RIGHT SECTION
 
+        // a GridPane object for the right section is created and populated
+        GridPane rightPane = new GridPane();
         Text feelsLike = new Text("Feels Like");
         feelsLike.setFont(Font.font("Tahoma", FontWeight.NORMAL, 10));
         Text feelsLikeValue = new Text(helper.tempConverter((String) currentWeather.get("feels_like")) + "\u00B0C");
@@ -106,44 +121,55 @@ public class MainUI extends Application {
         rightPane.add(chanceOfRainValue , 0 ,5);
         rightPane.add(windSpeed , 0 ,6);
         rightPane.add(windSpeedValue , 0 ,7);
+
+        // the rightPane is then added to the main GridPane
         grid.add(rightPane , 7 ,0,1 ,7);
 
 
+        // BOTTOM SECTION - Displays the weather forecast data
+
+        // a counter variable is used to keep track of the current iteration in the upcoming loop
         int counter = 0;
         GridPane bottomPane = new GridPane();
         bottomPane.setPadding(new Insets(50,0,0,0));
 
-        // this for loop loops over the forecastData and created a miniDisplay for each day and then appends it to the grid
+        // this loops over the forecastData and creates a miniDisplay for each day and then appends it to the grid
         for(Map<String, Object> key: weatherForecastData){
             Helper forecastHelper = new Helper();
+
+            // the datetime value of any given day is calculated before being passed into the dateConverter
+            // so day x will have a datetime value of current dt value + (x * 86400 seconds) - 86400 being the number of seconds in a day
             Double datetime = Double.valueOf((String) currentWeather.get("dt")) + (counter * (86400.0));
             forecastHelper.dateConverter((String) currentWeather.get("timezone"), String.valueOf(datetime));
+
+            // The weather attributes for that day are passed into a MiniDisplay object which is then added
+            // to the bottomPane
             MiniDisplay day = new MiniDisplay(forecastHelper.getDay(), String.valueOf(key.get("max")), String.valueOf(key.get("min")), helper.capitalizeDescription((String) key.get("description")),
                     String.valueOf(key.get("icon")));
+
+            // the index of the day in the forecast array is added to each MiniDisplay object
             day.setUserData(counter);
             bottomPane.add(day,counter,0);
             counter++;
         }
 
+        // the bottomPane is added to the main GridPane object
         grid.add(bottomPane, 1,9);
-
-
         grid.setBackground(new Background(new BackgroundFill(Color.DARKGRAY,  new CornerRadii(0), new Insets(0))));
+
+        // the gridPane is added to a Scene which is set to the Window display
         Scene scene = new Scene(grid, 300, 275);
-
         primaryStage.setScene(scene);
-
         primaryStage.hide();
         primaryStage.setMaximized(true);
         primaryStage.show();
 
+        // this event listener handles user searches and resets the data in the model and Window
         submitButton.setOnAction((event) -> {
             try {
                 String searchedLocation = locationSearchField.getText();
                 model.setData(searchedLocation);
-
                 start(primaryStage);
-
 
             } catch (Exception e) {
                 e.printStackTrace();

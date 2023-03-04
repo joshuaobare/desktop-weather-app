@@ -78,33 +78,30 @@ public class Helper {
 
         switch (icon){
             case "01d":
-                iconPath= ",/assets/sun.svg";
+                iconPath= "./assets/sun.svg";
                 break;
 
             case "02d":
                 iconPath= "./assets/cloudy-day.svg";
             break;
 
-            case "03d":
-            case "04d":
+            case "03d" ,"04d":
                 iconPath= "./assets/cloudy.svg";
             break;
 
-
-            case "09d":
-            case "10d":
+            case "09d","10d", "09n", "10n":
                 iconPath= "./assets/rainy.svg";
             break;
 
-            case "11d":
+            case "11d", "11n":
                 iconPath= "./assets/lightning.svg";
             break;
 
-            case "13d":
+            case "13d", "13n":
                 iconPath= "./assets/snow.svg";
             break;
 
-            case "50d":
+            case "50d", "50n":
                 iconPath= "./assets/mist.svg";
             break;
 
@@ -112,30 +109,8 @@ public class Helper {
                 iconPath= "./assets/moon.svg";
             break;
 
-            case "02n":
+            case "02n", "03n", "04n":
                 iconPath= "./assets/cloudy-night.svg";
-            break;
-
-            case "03n":
-            case "04n":
-                iconPath= "./assets/cloudy-night.svg";
-            break;
-
-            case "09n":
-            case "10n":
-                iconPath= "./assets/rainy.svg";
-            break;
-
-            case "11n":
-                iconPath= "./assets/lightning.svg";
-            break;
-
-            case "13n":
-                iconPath= "./assets/snow.svg";
-            break;
-
-            case "50n":
-                iconPath= "./assets/mist.svg";
             break;
 
             default:

@@ -32,6 +32,7 @@ public class Login extends Application {
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
+
         Text scenetitle = new Text("Welcome Back");
         Text welcometitle = new Text("Please enter your details");
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
@@ -71,6 +72,7 @@ public class Login extends Application {
 
         Scene scene = new Scene(grid, 300, 275);
         primaryStage.setScene(scene);
+        primaryStage.setMaximized(true);
         primaryStage.show();
 
         btn.setOnAction((event) -> {
