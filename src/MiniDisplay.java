@@ -7,6 +7,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+
+import static javafx.scene.text.TextAlignment.CENTER;
 
 public class MiniDisplay extends GridPane {
     public MiniDisplay(String daytitle,String hightemptitle,String lowtemptitle,String weathericontitle, String icon) {
