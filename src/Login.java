@@ -75,7 +75,8 @@ public class Login extends Application {
         primaryStage.show();
 
         btn.setOnAction((event) -> {
-            MainUI mainUI = new MainUI();
+            DataModel model = new DataModel();
+            MainUI mainUI = new MainUI(model);
             Stage stage = new Stage();
             try {
                 mainUI.start(stage);

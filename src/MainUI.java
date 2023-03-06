@@ -22,13 +22,17 @@ import java.util.Map;
 
 public class MainUI extends Application {
     // The model object is initalized globally to handle data changes when the user searches
-    DataModel model = new DataModel();
-    String data = model.setData();
+    DataModel model;
+
 
     public static void main(String[] args) {
         launch(args);
     }
 
+    public MainUI(DataModel model) {
+        this.model = model;
+         this.model.setData();
+    }
 
     @Override
     public void start(Stage primaryStage) throws IOException {

@@ -25,17 +25,36 @@ public class DBConnection {
         }
     }
 
-    public void select() {
-
+    public Boolean userAuthentication(String emailAddress, String password) throws SQLException {
         try {
-            statement = conn.createStatement();
-            rs = statement.executeQuery("SELECT * FROM users");
+            //statement = conn.createStatement();
+            //rs = statement.executeQuery(String.format("SELECT * FROM users where email = %s and password = %s", emailAddress , password));
+            prstatement = conn.prepareStatement("SELECT * FROM USERS WHERE EMAIL = ? AND PASSWORD = ?");
+            prstatement.setString(1, emailAddress);
+            prstatement.setString(2, password);
+            rs = prstatement.executeQuery();
+
+            //System.out.println(rs.getString(1));
+            if( !rs.isBeforeFirst()){
+                System.out.println("Empty");
+            }
+
 
 
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
+        }
+
+        while(rs.next()){
+            System.out.println(rs.getString(2));
+        }
+
+        if (rs != null){
+            return true;
+        } else {
+            return false;
         }
     }
 
