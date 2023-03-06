@@ -1,6 +1,7 @@
 import com.google.gson.internal.LinkedTreeMap;
 import org.json.simple.JSONObject;
 import java.sql.*;
+import java.util.HashMap;
 import java.util.Map;
 
 public class DBConnection {
@@ -8,6 +9,8 @@ public class DBConnection {
     private Statement statement = null;
     private ResultSet rs = null;
     private PreparedStatement prstatement = null;
+
+    private HashMap<String, Object> userData = new HashMap<>();
 
     public DBConnection() {
         connect();
@@ -34,28 +37,45 @@ public class DBConnection {
             prstatement.setString(2, password);
             rs = prstatement.executeQuery();
 
-            //System.out.println(rs.getString(1));
-            if( !rs.isBeforeFirst()){
-                System.out.println("Empty");
+            while(rs.next()){
+                userData.put("name", rs.getString(2));
+                userData.put("email", rs.getString(3));
+                userData.put("isAdmin", rs.getBoolean(4));
+               // userData.put("signUpDate", String.valueOf(rs.getDate(5)));
+                userData.put("password", rs.getString(6));
             }
-
 
 
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
+        } finally {
+            // the resources are release in reverse-order of their creation
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException sqlEx) { } // ignore
+
+                rs = null;
+            }
+
+            if (prstatement != null) {
+                try {
+                    prstatement.close();
+                } catch (SQLException sqlEx) { } // ignore
+
+                prstatement = null;
+            }
         }
 
-        while(rs.next()){
-            System.out.println(rs.getString(2));
-        }
-
-        if (rs != null){
+        if (userData.get("email").equals(emailAddress) && userData.get("password").equals(password)){
             return true;
         } else {
             return false;
         }
+
+
     }
 
     public void update(LinkedTreeMap obj, Map locationData) {
