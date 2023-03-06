@@ -62,20 +62,14 @@ public class Login extends Application {
         final Text actiontarget = new Text();
         grid.add(actiontarget, 1, 6);
 
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent e) {
-                actiontarget.setFill(Color.FIREBRICK);
-                actiontarget.setText("Sign in button pressed");
-            }
-        });
 
         Scene scene = new Scene(grid, 300, 275);
         primaryStage.setScene(scene);
         primaryStage.setMaximized(true);
         primaryStage.show();
 
+        // An EventListener is attached to the Login button, if the user's credentials are accurate
+        // the user is logged in and the view switches to the MainUI
         btn.setOnAction((event) -> {
             DataModel model = new DataModel();
             MainUI mainUI = new MainUI(model);
@@ -83,12 +77,14 @@ public class Login extends Application {
             String userPass = pwBox.getText();
             Boolean isAuthenticated;
 
+            // the user's input is compared to what's in the DB
             try {
                 isAuthenticated = db.userAuthentication(userEmail,userPass);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
 
+            // if authentication is successful, the view is switched to MainUI
             if(isAuthenticated){
                 Stage stage = new Stage();
                 try {
