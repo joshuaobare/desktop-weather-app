@@ -98,5 +98,8 @@ public class DBConnection {
         }
     }
 
+    public HashMap<String,Object> getUserData(){
+        return userData;
+    }
 
 }
