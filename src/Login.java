@@ -54,10 +54,12 @@ public class Login extends Application {
         grid.add(pwBox, 1, 3);
 
 
-        Button btn = new Button("Sign in");
+        Button signInBtn = new Button("Sign in");
+        Button signUpBtn = new Button("Sign up");
         HBox hbBtn = new HBox(10);
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-        hbBtn.getChildren().add(btn);
+        hbBtn.getChildren().add(signInBtn);
+        hbBtn.getChildren().add(signUpBtn);
         grid.add(hbBtn, 1, 4);
         final Text actiontarget = new Text();
         grid.add(actiontarget, 1, 6);
@@ -70,7 +72,7 @@ public class Login extends Application {
 
         // An EventListener is attached to the Login button, if the user's credentials are accurate
         // the user is logged in and the view switches to the MainUI
-        btn.setOnAction((event) -> {
+        signInBtn.setOnAction((event) -> {
             DataModel model = new DataModel();
             MainUI mainUI = new MainUI(model);
             String userEmail = userTextField.getText();
@@ -97,9 +99,13 @@ public class Login extends Application {
                 actiontarget.setFill(Color.FIREBRICK);
                 actiontarget.setText("Incorrect details, try again");
             }
+        });
 
-
-
+        signUpBtn.setOnAction((event) -> {
+            SignUp signUp = new SignUp();
+            Stage stage = new Stage();
+            signUp.start(stage);
+            primaryStage.close();
         });
 
     }
