@@ -40,7 +40,7 @@ public class SignUp extends Application {
         Label licenseLabel = new Label("License");
         TextField licenseField = new TextField();
 
-        Button signUpBtn = new Button("Sign UP");
+        Button signUpBtn = new Button("Sign Up");
 
         grid.add(sceneTitle,0,0);
         grid.add(createAccountTitle,0,1);
@@ -58,5 +58,12 @@ public class SignUp extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setMaximized(true);
+
+        signUpBtn.setOnAction((event) -> {
+            Stage stage = new Stage();
+            Login login = new Login();
+            login.start(stage);
+            primaryStage.close();
+        });
     }
 }
