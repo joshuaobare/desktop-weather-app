@@ -1,5 +1,6 @@
 import com.google.gson.internal.LinkedTreeMap;
 import org.json.simple.JSONObject;
+
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +30,8 @@ public class DBConnection {
     }
 
     public Boolean userAuthentication(String emailAddress, String password) throws SQLException {
+        String userEmail;
+        String userPass;
         try {
             //statement = conn.createStatement();
             //rs = statement.executeQuery(String.format("SELECT * FROM users where email = %s and password = %s", emailAddress , password));
@@ -37,12 +40,19 @@ public class DBConnection {
             prstatement.setString(2, password);
             rs = prstatement.executeQuery();
 
-            while(rs.next()){
-                userData.put("name", rs.getString(2));
-                userData.put("email", rs.getString(3));
-                userData.put("isAdmin", rs.getBoolean(4));
-               // userData.put("signUpDate", String.valueOf(rs.getDate(5)));
-                userData.put("password", rs.getString(6));
+            if (rs != null) {
+                while (rs.next()) {
+
+                    userEmail = rs.getString(3);
+                    userPass = rs.getString(6);
+                    userData.put("name", rs.getString(2));
+                    userData.put("email", rs.getString(3));
+                    userData.put("isAdmin", rs.getBoolean(4));
+                    // userData.put("signUpDate", String.valueOf(rs.getDate(5)));
+                    userData.put("password", rs.getString(6));
+                }
+            } else {
+                return false;
             }
 
 
@@ -51,11 +61,12 @@ public class DBConnection {
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
         } finally {
-            // the resources are release in reverse-order of their creation
+            // the resources are released in reverse-order of their creation
             if (rs != null) {
                 try {
                     rs.close();
-                } catch (SQLException sqlEx) { } // ignore
+                } catch (SQLException sqlEx) {
+                } // ignore
 
                 rs = null;
             }
@@ -63,15 +74,20 @@ public class DBConnection {
             if (prstatement != null) {
                 try {
                     prstatement.close();
-                } catch (SQLException sqlEx) { } // ignore
+                } catch (SQLException sqlEx) {
+                } // ignore
 
                 prstatement = null;
             }
         }
 
-        if (userData.get("email").equals(emailAddress) && userData.get("password").equals(password)){
-            return true;
-        } else {
+        try {
+            if (userData.get("email").equals(emailAddress) && userData.get("password").equals(password)) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
             return false;
         }
 
@@ -81,8 +97,7 @@ public class DBConnection {
     public void update(LinkedTreeMap obj, Map locationData) {
 
         try {
-            prstatement = conn.prepareStatement("INSERT INTO  CURRENT_WEATHER (userID , location , " +
-                    "weathercode , temperature , windspeed , time , winddirection) VALUES ( 1 ,? ,? ,? ,? , ? , ?)");
+            prstatement = conn.prepareStatement("INSERT INTO  CURRENT_WEATHER (userID , location , " + "weathercode , temperature , windspeed , time , winddirection) VALUES ( 1 ,? ,? ,? ,? , ? , ?)");
             prstatement.setObject(1, locationData.get("name"));
             prstatement.setObject(2, obj.get("weathercode"));
             prstatement.setObject(3, obj.get("temperature"));
@@ -98,7 +113,7 @@ public class DBConnection {
         }
     }
 
-    public HashMap<String,Object> getUserData(){
+    public HashMap<String, Object> getUserData() {
         return userData;
     }
 

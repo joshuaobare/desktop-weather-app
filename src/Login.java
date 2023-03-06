@@ -16,6 +16,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class Login extends Application {
 
@@ -25,6 +26,7 @@ public class Login extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        DBConnection db = new DBConnection();
         primaryStage.setTitle("Weather App");
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -39,8 +41,8 @@ public class Login extends Application {
         grid.add(scenetitle, 0, 0, 2, 1);
         grid.add(welcometitle, 0, 1, 2, 1);
 
-        Label userName = new Label("User Name:");
-        grid.add(userName, 0, 2);
+        Label email = new Label("Email:");
+        grid.add(email, 0, 2);
 
         TextField userTextField = new TextField();
         grid.add(userTextField, 1, 2);
@@ -77,13 +79,31 @@ public class Login extends Application {
         btn.setOnAction((event) -> {
             DataModel model = new DataModel();
             MainUI mainUI = new MainUI(model);
-            Stage stage = new Stage();
+            String userEmail = userTextField.getText();
+            String userPass = pwBox.getText();
+            Boolean isAuthenticated;
+
             try {
-                mainUI.start(stage);
-            } catch (IOException e) {
+                isAuthenticated = db.userAuthentication(userEmail,userPass);
+            } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            primaryStage.close();
+
+            if(isAuthenticated){
+                Stage stage = new Stage();
+                try {
+                    mainUI.start(stage);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                primaryStage.close();
+            } else {
+                actiontarget.setFill(Color.FIREBRICK);
+                actiontarget.setText("Incorrect details, try again");
+            }
+
+
+
         });
 
     }
