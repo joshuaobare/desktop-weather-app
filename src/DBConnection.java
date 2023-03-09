@@ -112,7 +112,6 @@ public class DBConnection {
         boolean licenseValid = false;
 
         while(rs.next()){
-
             if(((rs.getString(1)).equals(licenseID)) && ((rs.getString(2)).equals("0"))){
                 licenseValid = true;
             }
@@ -161,16 +160,18 @@ public class DBConnection {
         }
     }
 
-    public void update(LinkedTreeMap obj, Map locationData) {
+    public void weatherSearch(Map userData , Map currentWeather) {
 
         try {
-            prstatement = conn.prepareStatement("INSERT INTO  CURRENT_WEATHER (userID , location , " + "weathercode , temperature , windspeed , time , winddirection) VALUES ( 1 ,? ,? ,? ,? , ? , ?)");
-            prstatement.setObject(1, locationData.get("name"));
-            prstatement.setObject(2, obj.get("weathercode"));
-            prstatement.setObject(3, obj.get("temperature"));
-            prstatement.setObject(4, obj.get("windspeed"));
-            prstatement.setObject(5, obj.get("time"));
-            prstatement.setObject(6, obj.get("winddirection"));
+            prstatement = conn.prepareStatement("INSERT INTO  WEATHER_SEARCHES (userID , location , " + "weather_description , temperature , wind_speed , time , feels_like, humidity) " +
+                    "VALUES ( ?,? ,? ,? ,? ,CURRENT_TIMESTAMP() , ? , ?)");
+            prstatement.setObject(1, userData.get("id"));
+            prstatement.setObject(2, currentWeather.get("name"));
+            prstatement.setObject(3, currentWeather.get("description"));
+            prstatement.setObject(4, currentWeather.get("temp"));
+            prstatement.setObject(5, currentWeather.get("speed"));
+            prstatement.setObject(6, currentWeather.get("feels_like"));
+            prstatement.setObject(7, currentWeather.get("humidity"));
             prstatement.execute();
 
         } catch (SQLException ex) {
