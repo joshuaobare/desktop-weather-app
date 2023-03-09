@@ -1,6 +1,5 @@
 import com.google.gson.internal.LinkedTreeMap;
 import org.json.simple.JSONObject;
-
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -45,6 +44,7 @@ public class DBConnection {
 
                     userEmail = rs.getString(3);
                     userPass = rs.getString(6);
+                    userData.put("id", rs.getString(1));
                     userData.put("name", rs.getString(2));
                     userData.put("email", rs.getString(3));
                     userData.put("isAdmin", rs.getBoolean(4));
@@ -92,6 +92,21 @@ public class DBConnection {
         }
 
 
+    }
+
+    public void signUp(String name, String email, String password){
+        try{
+            prstatement = conn.prepareStatement("INSERT INTO USERS(name , email,isAdmin,signUpDate,password) values ( ? ,? ,0 ,CURRENT_TIMESTAMP() ,?)");
+            prstatement.setString(1, name);
+            prstatement.setString(2, email);
+            prstatement.setString(3, password);
+            prstatement.execute();
+
+        }catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
     }
 
     public void update(LinkedTreeMap obj, Map locationData) {

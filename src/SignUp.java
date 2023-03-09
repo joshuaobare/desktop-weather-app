@@ -11,6 +11,8 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
+
 public class SignUp extends Application {
 
     public static void main(String[] args) {
@@ -19,7 +21,7 @@ public class SignUp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-
+        DBConnection db = new DBConnection();
         primaryStage.setTitle("Weather App");
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -60,6 +62,17 @@ public class SignUp extends Application {
         primaryStage.setMaximized(true);
 
         signUpBtn.setOnAction((event) -> {
+            String name = nameField.getText();
+            String password = passwordField.getText();
+            String email = emailField.getText();
+
+            try{
+                db.signUp(name,email,password);
+            } catch (Exception e){
+                throw new RuntimeException(e);
+            }
+
+
             Stage stage = new Stage();
             Login login = new Login();
             login.start(stage);
