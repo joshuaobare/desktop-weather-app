@@ -97,10 +97,16 @@ public class DBConnection {
     public void signUp(String name, String email, String password){
         try{
             prstatement = conn.prepareStatement("INSERT INTO USERS(name , email,isAdmin,signUpDate,password) values ( ? ,? ,0 ,CURRENT_TIMESTAMP() ,?)");
-            prstatement.setString(1, name);
-            prstatement.setString(2, email);
-            prstatement.setString(3, password);
-            prstatement.execute();
+
+            if(!name.equals("") && !email.equals("") && !password.equals("")){
+                prstatement.setString(1, name);
+                prstatement.setString(2, email);
+                prstatement.setString(3, password);
+                prstatement.execute();
+            } else {
+                throw new RuntimeException("Name, Email or Password are blank");
+            }
+
 
         }catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());

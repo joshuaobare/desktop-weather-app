@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -43,6 +44,8 @@ public class SignUp extends Application {
         TextField licenseField = new TextField();
 
         Button signUpBtn = new Button("Sign Up");
+        final Text actiontarget = new Text();
+
 
         grid.add(sceneTitle,0,0);
         grid.add(createAccountTitle,0,1);
@@ -55,6 +58,7 @@ public class SignUp extends Application {
         grid.add(licenseLabel,0,8);
         grid.add(licenseField,0,9);
         grid.add(signUpBtn,0,10,2,1);
+        grid.add(actiontarget, 0, 11);
 
         Scene scene = new Scene(grid, 300, 400);
         primaryStage.setScene(scene);
@@ -65,18 +69,27 @@ public class SignUp extends Application {
             String name = nameField.getText();
             String password = passwordField.getText();
             String email = emailField.getText();
+            Boolean signUpSuccessful = false;
 
             try{
                 db.signUp(name,email,password);
-            } catch (Exception e){
-                throw new RuntimeException(e);
+                signUpSuccessful = true;
+
+            } catch (RuntimeException e){
+                System.out.println(e.getMessage());
             }
 
+            if(signUpSuccessful){
+                Stage stage = new Stage();
+                Login login = new Login();
+                login.start(stage);
+                primaryStage.close();
+            } else {
+                actiontarget.setFill(Color.FIREBRICK);
+                actiontarget.setText("Name, Email or Password are blank");
 
-            Stage stage = new Stage();
-            Login login = new Login();
-            login.start(stage);
-            primaryStage.close();
+            }
+
         });
     }
 }
