@@ -93,36 +93,64 @@ public class DBConnection {
         }
     }
 
-    private Boolean licenseVerification(String userID, String licenseID) throws SQLException {
+    private void licenseAllocation(String userID,String licenseID) throws SQLException{
+        prstatement = conn.prepareStatement("INSERT INTO LICENSE_ALLOCATION (userID , licenseID) VALUES (?,?)");
+        prstatement.setObject(1, userID);
+        prstatement.setObject(2, licenseID);
+        prstatement.execute();
+
+        prstatement = conn.prepareStatement("UPDATE LICENSES SET ISALLOCATED = 1 WHERE LICENSEID = ?");
+        prstatement.setObject(1, licenseID);
+        prstatement.execute();
+    }
+
+
+
+    private boolean licenseValidation(String licenseID) throws SQLException {
         statement = conn.createStatement();
         rs = statement.executeQuery("SELECT * FROM LICENSES");
-        boolean licenseExists = false;
+        boolean licenseValid = false;
 
         while(rs.next()){
-            if(rs.getString(1) == licenseID){
-                licenseExists = true;
+
+            if(((rs.getString(1)).equals(licenseID)) && ((rs.getString(2)).equals("0"))){
+                licenseValid = true;
             }
         }
-
-        return licenseExists;
+        return licenseValid;
 
     }
 
-    public void signUp(String name, String email, String password , String license) {
+    public void signUp(String name, String email, String password , String licenseID) {
         try {
-            prstatement = conn.prepareStatement("INSERT INTO USERS(name , email,isAdmin,signUpDate,password) values ( ? ,? ,0 ,CURRENT_TIMESTAMP() ,?)");
+            prstatement = conn.prepareStatement("INSERT INTO USERS(name , email,isAdmin,signUpDate,password) values ( ? ,? ,0 ,CURRENT_TIMESTAMP() ,?)",
+                    Statement.RETURN_GENERATED_KEYS);
+            String userID = "";
 
             if (!name.equals("") && !email.equals("") && !password.equals("")) {
                 prstatement.setString(1, name);
                 prstatement.setString(2, email);
                 prstatement.setString(3, password);
                 prstatement.execute();
+                ResultSet rs = prstatement.getGeneratedKeys();
+
+                while(rs.next()){
+                    userID = rs.getString(1);
+
+                }
+
             } else {
                 throw new RuntimeException("Name, Email or Password are blank");
             }
 
-            if(!license.equals("")){
+            if(!licenseID.equals("")){
+                boolean licenseValid = licenseValidation(licenseID);
 
+                if(licenseValid){
+                    licenseAllocation(userID, licenseID);
+                }else {
+                    throw new RuntimeException("License is invalid");
+                }
             }
 
 
