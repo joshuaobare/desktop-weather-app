@@ -17,6 +17,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Login extends Application {
 
@@ -74,18 +76,21 @@ public class Login extends Application {
         // the user is logged in and the view switches to the MainUI
         signInBtn.setOnAction((event) -> {
             DataModel model = new DataModel();
-            MainUI mainUI = new MainUI(model);
             String userEmail = userTextField.getText();
             String userPass = pwBox.getText();
             Boolean isAuthenticated;
+            HashMap userData;
 
             // the user's input is compared to what's in the DB
             try {
                 isAuthenticated = db.userAuthentication(userEmail,userPass);
+                userData = db.getUserData();
+                model.setUserData(userData);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
 
+            MainUI mainUI = new MainUI(model);
             // if authentication is successful, the view is switched to MainUI
             if(isAuthenticated){
                 Stage stage = new Stage();

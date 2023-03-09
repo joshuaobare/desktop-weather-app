@@ -21,6 +21,8 @@ public class DataModel {
             ApiCall caller = new ApiCall(location);
             currentWeather = caller.getCurrentWeather();
             weatherForecastData = caller.getWeatherForecastData();
+            DBConnection db = new DBConnection();
+            db.weatherSearch(userData, currentWeather);
         }
 
         public HashMap<String, Object> getCurrentWeather(){
