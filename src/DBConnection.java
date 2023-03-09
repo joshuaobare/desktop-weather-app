@@ -1,5 +1,6 @@
 import com.google.gson.internal.LinkedTreeMap;
 import org.json.simple.JSONObject;
+
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -90,15 +91,28 @@ public class DBConnection {
         } catch (Exception e) {
             return false;
         }
+    }
 
+    private Boolean licenseVerification(String userID, String licenseID) throws SQLException {
+        statement = conn.createStatement();
+        rs = statement.executeQuery("SELECT * FROM LICENSES");
+        boolean licenseExists = false;
+
+        while(rs.next()){
+            if(rs.getString(1) == licenseID){
+                licenseExists = true;
+            }
+        }
+
+        return licenseExists;
 
     }
 
-    public void signUp(String name, String email, String password){
-        try{
+    public void signUp(String name, String email, String password , String license) {
+        try {
             prstatement = conn.prepareStatement("INSERT INTO USERS(name , email,isAdmin,signUpDate,password) values ( ? ,? ,0 ,CURRENT_TIMESTAMP() ,?)");
 
-            if(!name.equals("") && !email.equals("") && !password.equals("")){
+            if (!name.equals("") && !email.equals("") && !password.equals("")) {
                 prstatement.setString(1, name);
                 prstatement.setString(2, email);
                 prstatement.setString(3, password);
@@ -107,8 +121,12 @@ public class DBConnection {
                 throw new RuntimeException("Name, Email or Password are blank");
             }
 
+            if(!license.equals("")){
 
-        }catch (SQLException ex) {
+            }
+
+
+        } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());

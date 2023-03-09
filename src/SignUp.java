@@ -69,14 +69,16 @@ public class SignUp extends Application {
             String name = nameField.getText();
             String password = passwordField.getText();
             String email = emailField.getText();
+            String license = licenseField.getText();
             Boolean signUpSuccessful = false;
 
             try{
-                db.signUp(name,email,password);
+                db.signUp(name,email,password,license);
                 signUpSuccessful = true;
 
             } catch (RuntimeException e){
-                System.out.println(e.getMessage());
+                actiontarget.setFill(Color.FIREBRICK);
+                actiontarget.setText(e.getMessage());
             }
 
             if(signUpSuccessful){
@@ -84,12 +86,7 @@ public class SignUp extends Application {
                 Login login = new Login();
                 login.start(stage);
                 primaryStage.close();
-            } else {
-                actiontarget.setFill(Color.FIREBRICK);
-                actiontarget.setText("Name, Email or Password are blank");
-
             }
-
         });
     }
 }
