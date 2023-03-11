@@ -1,6 +1,5 @@
 import com.google.gson.internal.LinkedTreeMap;
 import org.json.simple.JSONObject;
-
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,8 +32,7 @@ public class DBConnection {
         String userEmail;
         String userPass;
         try {
-            //statement = conn.createStatement();
-            //rs = statement.executeQuery(String.format("SELECT * FROM users where email = %s and password = %s", emailAddress , password));
+
             prstatement = conn.prepareStatement("SELECT * FROM USERS WHERE EMAIL = ? AND PASSWORD = ?");
             prstatement.setString(1, emailAddress);
             prstatement.setString(2, password);
@@ -49,7 +47,7 @@ public class DBConnection {
                     userData.put("name", rs.getString(2));
                     userData.put("email", rs.getString(3));
                     userData.put("isAdmin", rs.getBoolean(4));
-                    // userData.put("signUpDate", String.valueOf(rs.getDate(5)));
+                    userData.put("signUpDate", String.valueOf(rs.getDate(5)));
                     userData.put("password", rs.getString(6));
                 }
             } else {
