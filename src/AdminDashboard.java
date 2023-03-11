@@ -61,13 +61,19 @@ public class AdminDashboard extends Application {
         center.getChildren().addAll(centerTop,centerBottom);
 
         VBox right = new VBox();
+        right.prefWidthProperty().bind(primaryStage.widthProperty().multiply(0.20));
+        right.setPadding(new Insets(0, 25, 25, 25));
+
         VBox rightTop = new VBox();
+        rightTop.setAlignment(Pos.TOP_RIGHT);
+        VBox.setMargin(rightTop, new Insets(10,0,0,0));
         Text adminName = new Text("John Oloo");
         Label adminLabel = new Label("ADMIN");
 
         rightTop.getChildren().addAll(adminName,adminLabel);
 
         VBox rightCenter = new VBox();
+        VBox.setMargin(rightCenter, new Insets(30,0,0,0));
         Text rightCenterHeader = new Text("Most Searched Locations");
         Text locationone = new Text("Nairobi: 100");
         Text locationtwo = new Text("Kampala: 100");
@@ -79,6 +85,7 @@ public class AdminDashboard extends Application {
         rightCenter.getChildren().addAll(rightCenterHeader,locationone,locationtwo, locationthree, locationfour, locationfive, locationsix);
 
         VBox rightBottom = new VBox();
+        VBox.setMargin(rightBottom, new Insets(30,0,0,0));
         Text rightBottomHeader = new Text("Free Trials");
         TableView trialsUsersTable = new TableView<>();
         trialsUsersTable.setEditable(true);
