@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eba15fdd-819c-43b0-b499-aea566688b89" name="Changes" comment="MainUI will now call the API and display temperature and location">
-      <change afterPath="$PROJECT_DIR$/src/AdminDashboard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DBConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AdminDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AdminDashboard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +82,15 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Login">
+  <component name="RunManager" selected="Application.AdminDashboard">
+    <configuration name="AdminDashboard" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="AdminDashboard" />
+      <module name="desktop-weather-app" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;C:\Program Files\Java\javafx-sdk-19.0.2.1\lib&quot; --add-modules=javafx.base,javafx.controls,javafx.graphics,javafx.media" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Login" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Login" />
       <module name="desktop-weather-app" />
@@ -134,6 +141,7 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.AdminDashboard" />
       <item itemvalue="Application.Main" />
       <item itemvalue="Application.SignUp" />
       <item itemvalue="Application.UIController" />
