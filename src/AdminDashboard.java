@@ -8,6 +8,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -23,23 +25,28 @@ public class AdminDashboard extends Application {
         BorderPane borderPane = new BorderPane();
 
         VBox left = new VBox();
+        left.setPadding(new Insets(100,0,0,10));
         Button mainUIBtn = new Button("Weather App");
         left.getChildren().add(mainUIBtn);
         left.prefWidthProperty().bind(primaryStage.widthProperty().multiply(0.20));
 
         VBox center = new VBox();
-
+        center.setPadding(new Insets(25, 25, 25, 25));
         center.setAlignment(Pos.TOP_CENTER);
         center.setBackground(new Background(new BackgroundFill(Color.DARKGRAY,  new CornerRadii(0), new Insets(0))));
         VBox centerTop = new VBox();
 
         Text centerHeading = new Text("Dashboard");
+        centerHeading.setFont(Font.font("Tahoma", FontWeight.BOLD, 32));
         Text apiCallsHeader = new Text("API Calls This Week");
+        apiCallsHeader.setFont(Font.font("Tahoma", FontWeight.BOLD, 16));
         centerTop.getChildren().addAll(centerHeading,apiCallsHeader);
 
         HBox centerBottom = new HBox();
+        centerBottom.setPadding(new Insets(200,0,0,0));
         VBox centerBottomLeft = new VBox();
         Text centerBottomLeftHeader = new Text("Registered Users");
+        centerBottomLeftHeader.setFont(Font.font("Tahoma", FontWeight.BOLD, 16));
         TableView regUsersTables = new TableView<>();
         regUsersTables.setEditable(true);
         TableColumn user = new TableColumn<>("User");
@@ -49,12 +56,16 @@ public class AdminDashboard extends Application {
 
         centerBottomLeft.getChildren().addAll(centerBottomLeftHeader,regUsersTables);
         VBox centerBottomRight = new VBox();
+        centerBottomRight.setPadding(new Insets(0,0,0,100));
         Text centerBottomRightHeader = new Text("Statistics");
+        centerBottomRightHeader.setFont(Font.font("Tahoma", FontWeight.BOLD, 16));
         Text apiCallNumber = new Text("API Calls");
         Text apiCallsRemaining = new Text("API Calls Remaining");
         Text totalSearches = new Text("Total Searches");
         Text mostSearched = new Text("Most Searched Location");
         Text usersCount = new Text("Number of Active Users");
+
+        VBox.setMargin(centerBottomLeft, new Insets(50,0,0,0));
 
         centerBottomRight.getChildren().addAll(centerBottomRightHeader,apiCallNumber,apiCallsRemaining,totalSearches,mostSearched,usersCount);
         centerBottom.getChildren().addAll(centerBottomLeft,centerBottomRight);
@@ -75,6 +86,7 @@ public class AdminDashboard extends Application {
         VBox rightCenter = new VBox();
         VBox.setMargin(rightCenter, new Insets(30,0,0,0));
         Text rightCenterHeader = new Text("Most Searched Locations");
+        rightCenterHeader.setFont(Font.font("Tahoma", FontWeight.BOLD, 16));
         Text locationone = new Text("Nairobi: 100");
         Text locationtwo = new Text("Kampala: 100");
         Text locationthree = new Text("Cape Town: 100");
@@ -87,6 +99,7 @@ public class AdminDashboard extends Application {
         VBox rightBottom = new VBox();
         VBox.setMargin(rightBottom, new Insets(30,0,0,0));
         Text rightBottomHeader = new Text("Free Trials");
+        rightBottomHeader.setFont(Font.font("Tahoma", FontWeight.BOLD, 16));
         TableView trialsUsersTable = new TableView<>();
         trialsUsersTable.setEditable(true);
         TableColumn userCol = new TableColumn<>("User");
