@@ -89,16 +89,22 @@ public class Login extends Application {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-
+            System.out.println(userData);
             MainUI mainUI = new MainUI(model);
             // if authentication is successful, the view is switched to MainUI
             if(isAuthenticated){
                 Stage stage = new Stage();
-                try {
-                    mainUI.start(stage);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                if((userData.get("isAdmin").equals(true))){
+                    AdminDashboard adminDashboard = new AdminDashboard(mainUI);
+                    adminDashboard.start(stage);
+                } else{
+                    try {
+                        mainUI.start(stage);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
+
                 primaryStage.close();
             } else {
                 actiontarget.setFill(Color.FIREBRICK);
