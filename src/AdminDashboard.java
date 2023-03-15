@@ -6,12 +6,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 public class AdminDashboard extends Application {
 
@@ -26,7 +30,12 @@ public class AdminDashboard extends Application {
 
         VBox left = new VBox();
         left.setPadding(new Insets(100,0,0,10));
-        Button mainUIBtn = new Button("Weather App");
+
+        Image weatherIcon = new Image("assets/snowy.png");
+        ImageView imageView = new ImageView(weatherIcon);
+        Button mainUIBtn = new Button("Weather App", imageView);
+        mainUIBtn.setAlignment(Pos.CENTER);
+        //mainUIBtn.setPadding(new Insets(5,5,10,10));
         left.getChildren().add(mainUIBtn);
         left.prefWidthProperty().bind(primaryStage.widthProperty().multiply(0.20));
 
