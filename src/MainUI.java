@@ -21,8 +21,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainUI extends Application {
+
     // The model object is initalized globally to handle data changes when the user searches
-    DataModel model;
+    private DataModel model;
 
 
     public static void main(String[] args) {
@@ -32,6 +33,10 @@ public class MainUI extends Application {
     public MainUI(DataModel model) {
         this.model = model;
          this.model.setData();
+    }
+
+    public DataModel getModel() {
+        return model;
     }
 
     @Override

@@ -89,7 +89,7 @@ public class Login extends Application {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            System.out.println(userData);
+
             MainUI mainUI = new MainUI(model);
             // if authentication is successful, the view is switched to MainUI
             if(isAuthenticated){
