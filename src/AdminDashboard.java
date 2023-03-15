@@ -16,8 +16,14 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 
 public class AdminDashboard extends Application {
+    MainUI mainUI;
+
+    public AdminDashboard(MainUI mainUI) {
+        this.mainUI = mainUI;
+    }
 
     public static void main(String[] args) {
         launch(args);
@@ -121,6 +127,16 @@ public class AdminDashboard extends Application {
         borderPane.setLeft(left);
         borderPane.setRight(right);
         borderPane.setCenter(center);
+
+        mainUIBtn.setOnAction((event)->{
+            Stage stage = new Stage();
+            try {
+                mainUI.start(stage);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            primaryStage.close();
+        });
 
         Scene scene = new Scene(borderPane);
         primaryStage.setScene(scene);
