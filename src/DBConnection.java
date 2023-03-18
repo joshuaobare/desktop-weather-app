@@ -28,6 +28,18 @@ public class DBConnection {
         }
     }
 
+    public void retrieveRegisteredUsers() throws SQLException {
+        prstatement = conn.prepareStatement(
+                                "SELECT USERS.* , LICENSE_ALLOCATION.* " +
+                                    "FROM LICENSE_ALLOCATION " +
+                                    "INNER JOIN USERS ON LICENSE_ALLOCATION.USERID = USERS.USERID");
+        rs = prstatement.executeQuery();
+
+        while(rs.next()){
+            System.out.println(rs.getString(1)+" "+rs.getString(2));
+        }
+    }
+
     public Boolean userAuthentication(String emailAddress, String password) throws SQLException {
         String userEmail;
         String userPass;

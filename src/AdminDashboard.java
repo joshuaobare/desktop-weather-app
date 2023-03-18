@@ -25,6 +25,13 @@ public class AdminDashboard extends Application {
         this.mainUI = mainUI;
     }
 
+    public AdminDashboard() {
+        DataModel model = new DataModel();
+        Stage stage = new Stage();
+        mainUI = new MainUI(model);
+
+    }
+
     public static void main(String[] args) {
         launch(args);
     }
