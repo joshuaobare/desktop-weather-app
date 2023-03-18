@@ -32,7 +32,7 @@ public class MainUI extends Application {
 
     public MainUI(DataModel model) {
         this.model = model;
-         this.model.setData();
+
     }
 
     public DataModel getModel() {

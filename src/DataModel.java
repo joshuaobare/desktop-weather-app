@@ -11,6 +11,7 @@ public class DataModel {
     private HashMap<String, Object> statistics;
 
     public DataModel(){
+        setData();
         try {
             statistics = db.getStatistics();
         } catch (SQLException ex) {

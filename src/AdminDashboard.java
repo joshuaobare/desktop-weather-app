@@ -17,16 +17,19 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class AdminDashboard extends Application {
     MainUI mainUI;
+    DataModel model;
 
     public AdminDashboard(MainUI mainUI) {
         this.mainUI = mainUI;
+        model = mainUI.getModel();
     }
 
     public AdminDashboard() {
-        DataModel model = new DataModel();
+        model = new DataModel();
         Stage stage = new Stage();
         mainUI = new MainUI(model);
 
@@ -38,6 +41,7 @@ public class AdminDashboard extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        HashMap<String, Object>  statistics = model.getStatistics();
         primaryStage.setTitle("Weather App");
         BorderPane borderPane = new BorderPane();
 
@@ -81,11 +85,11 @@ public class AdminDashboard extends Application {
         centerBottomRight.setPadding(new Insets(0,0,0,100));
         Text centerBottomRightHeader = new Text("Statistics");
         centerBottomRightHeader.setFont(Font.font("Tahoma", FontWeight.BOLD, 16));
-        Text apiCallNumber = new Text("API Calls");
-        Text apiCallsRemaining = new Text("API Calls Remaining");
-        Text totalSearches = new Text("Total Searches");
+        Text apiCallNumber = new Text(String.format("API Calls: %s", statistics.get("apiCalls")));
+        Text apiCallsRemaining = new Text(String.format("API Calls Remaining: %s", (String.valueOf(1000 - Integer.valueOf((String) statistics.get("apiCalls"))))));
+        Text totalSearches = new Text(String.format("Total Searches: %s", statistics.get("totalSearches")));
         Text mostSearched = new Text("Most Searched Location");
-        Text usersCount = new Text("Number of Active Users");
+        Text usersCount = new Text(String.format("Number of Active Users: %s", statistics.get("userCount")));
 
         VBox.setMargin(centerBottomLeft, new Insets(50,0,0,0));
 
