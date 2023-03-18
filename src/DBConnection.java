@@ -38,6 +38,20 @@ public class DBConnection {
         while(rs.next()){
             System.out.println(rs.getString(1)+" "+rs.getString(2));
         }
+
+        // Unlicensed users are selected
+        prstatement = conn.prepareStatement(
+                                        "SELECT * " +
+                                                "FROM USERS " +
+                                                "WHERE USERID NOT IN " +
+                                                "(SELECT USERID " +
+                                                "FROM LICENSE_ALLOCATION)"
+                                            );
+        rs = prstatement.executeQuery();
+
+        while(rs.next()){
+            System.out.println(rs.getString(1)+" "+rs.getString(2));
+        }
     }
 
     public Boolean userAuthentication(String emailAddress, String password) throws SQLException {
