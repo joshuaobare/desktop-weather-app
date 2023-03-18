@@ -139,7 +139,6 @@ public class DBConnection {
 
         while(rs.next()){
             statistics.put("totalSearches", rs.getString(1));
-            statistics.put("apiCallsLeft", (100 - Integer.valueOf(rs.getString(1))));
         }
 
         prstatement = conn.prepareStatement("SELECT COUNT(*) FROM USERS");
@@ -149,7 +148,15 @@ public class DBConnection {
             statistics.put("userCount", rs.getString(1));
 
         }
-        System.out.println(statistics);
+
+        prstatement = conn.prepareStatement("SELECT COUNT(*) FROM API_CALLS");
+        rs = prstatement.executeQuery();
+
+        while(rs.next()){
+            statistics.put("apiCalls", rs.getString(1));
+
+        }
+
     }
 
     public void apiCallIncrement() throws SQLException {
