@@ -152,6 +152,11 @@ public class DBConnection {
         System.out.println(statistics);
     }
 
+    public void apiCallIncrement() throws SQLException {
+        prstatement = conn.prepareStatement("INSERT INTO API_CALLS (time) VALUES (CURRENT_TIMESTAMP())");
+        prstatement.execute();
+    }
+
 
     private boolean licenseValidation(String licenseID) throws SQLException {
         statement = conn.createStatement();

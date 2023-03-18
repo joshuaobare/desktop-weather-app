@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.json.simple.JSONObject;
@@ -20,6 +21,7 @@ public class ApiCall {
     public HashMap<String, Object> unparsedCurrentWeather;
     public HashMap<String, Object> unparsedWeatherForecastData;
     private String location;
+    DBConnection db = new DBConnection();
 
     public ApiCall(String location) {
         this.location = location;
@@ -76,9 +78,19 @@ public class ApiCall {
                 locationData.put("locationName" , locationName);
 
             }
+            // the API call database is updated
+            try {
+                db.apiCallIncrement();
+            } catch (SQLException ex){
+                System.out.println("SQLException: " + ex.getMessage());
+                System.out.println("SQLState: " + ex.getSQLState());
+                System.out.println("VendorError: " + ex.getErrorCode());
+            }
         } catch (IOException | ParseException error) {
             System.out.println(error);
         }
+
+
     }
 
     private void weatherForecastCall(String location) {
@@ -117,9 +129,19 @@ public class ApiCall {
                 unparsedWeatherForecastData = gson.fromJson(data_obj.toString(), type);
 
             }
+            // the API call database is updated
+            try {
+                db.apiCallIncrement();
+            } catch (SQLException ex){
+                System.out.println("SQLException: " + ex.getMessage());
+                System.out.println("SQLState: " + ex.getSQLState());
+                System.out.println("VendorError: " + ex.getErrorCode());
+            }
         } catch (IOException | ParseException error) {
             System.out.println(error);
         }
+
+
     }
 
     // The nested values within the unparsed Map Objects make it tiresome to work with
