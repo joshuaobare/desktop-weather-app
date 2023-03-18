@@ -13,6 +13,7 @@ public class DBConnection {
     private HashMap<String, Object> userData = new HashMap<>();
     private HashMap<String,Object> registeredUsers = new HashMap<>();
     private HashMap<String,Object> unregisteredUsers = new HashMap<>();
+    private HashMap<String,Object> statistics = new HashMap<>();
 
     public DBConnection() {
         connect();
@@ -132,6 +133,24 @@ public class DBConnection {
         prstatement.execute();
     }
 
+    public void fetchStatistics() throws SQLException {
+        prstatement = conn.prepareStatement("SELECT COUNT(*) FROM WEATHER_SEARCHES");
+        rs = prstatement.executeQuery();
+
+        while(rs.next()){
+            statistics.put("totalSearches", rs.getString(1));
+            statistics.put("apiCallsLeft", (100 - Integer.valueOf(rs.getString(1))));
+        }
+
+        prstatement = conn.prepareStatement("SELECT COUNT(*) FROM USERS");
+        rs = prstatement.executeQuery();
+
+        while(rs.next()){
+            statistics.put("userCount", rs.getString(1));
+
+        }
+        System.out.println(statistics);
+    }
 
 
     private boolean licenseValidation(String licenseID) throws SQLException {
