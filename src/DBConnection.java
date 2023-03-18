@@ -11,6 +11,8 @@ public class DBConnection {
     private PreparedStatement prstatement = null;
 
     private HashMap<String, Object> userData = new HashMap<>();
+    private HashMap<String,Object> registeredUsers = new HashMap<>();
+    private HashMap<String,Object> unregisteredUsers = new HashMap<>();
 
     public DBConnection() {
         connect();
@@ -36,7 +38,8 @@ public class DBConnection {
         rs = prstatement.executeQuery();
 
         while(rs.next()){
-            System.out.println(rs.getString(1)+" "+rs.getString(2));
+            registeredUsers.put("name",rs.getString(2));
+            registeredUsers.put("signUpDate",rs.getString(5));
         }
 
         // Unlicensed users are selected
@@ -50,7 +53,8 @@ public class DBConnection {
         rs = prstatement.executeQuery();
 
         while(rs.next()){
-            System.out.println(rs.getString(1)+" "+rs.getString(2));
+            unregisteredUsers.put("name",rs.getString(2));
+            unregisteredUsers.put("signUpDate",rs.getString(5));
         }
     }
 
