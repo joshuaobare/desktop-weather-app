@@ -133,7 +133,7 @@ public class DBConnection {
         prstatement.execute();
     }
 
-    public void fetchStatistics() throws SQLException {
+    private void fetchStatistics() throws SQLException {
         prstatement = conn.prepareStatement("SELECT COUNT(*) FROM WEATHER_SEARCHES");
         rs = prstatement.executeQuery();
 
@@ -244,4 +244,8 @@ public class DBConnection {
         return userData;
     }
 
+    public HashMap<String, Object> getStatistics() throws SQLException {
+        fetchStatistics();
+        return statistics;
+    }
 }
