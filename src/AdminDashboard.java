@@ -17,7 +17,9 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class AdminDashboard extends Application {
     MainUI mainUI;
@@ -42,6 +44,9 @@ public class AdminDashboard extends Application {
     @Override
     public void start(Stage primaryStage) {
         HashMap<String, Object>  statistics = model.getStatistics();
+        ArrayList<HashMap<String, Object>> registeredUsers = model.getRegisteredUsers();
+        ArrayList<HashMap<String, Object>> unRegisteredUsers = model.getUnregisteredUsers();
+        System.out.println(unRegisteredUsers);
         primaryStage.setTitle("Weather App");
         BorderPane borderPane = new BorderPane();
 
@@ -73,14 +78,25 @@ public class AdminDashboard extends Application {
         VBox centerBottomLeft = new VBox();
         Text centerBottomLeftHeader = new Text("Registered Users");
         centerBottomLeftHeader.setFont(Font.font("Tahoma", FontWeight.BOLD, 16));
-        TableView regUsersTables = new TableView<>();
+        /*TableView regUsersTables = new TableView<>();
         regUsersTables.setEditable(true);
         TableColumn user = new TableColumn<>("User");
         TableColumn dateAdded = new TableColumn<>("Date Added");
         TableColumn revokeUser = new TableColumn<>("");
-        regUsersTables.getColumns().addAll(user,dateAdded,revokeUser);
+        regUsersTables.getColumns().addAll(user,dateAdded,revokeUser);*/
 
-        centerBottomLeft.getChildren().addAll(centerBottomLeftHeader,regUsersTables);
+        centerBottomLeft.getChildren().addAll(centerBottomLeftHeader);
+
+        for(Map.Entry<String,Object> user: unRegisteredUsers.entrySet()){
+            System.out.println(unRegisteredUsers);
+            HBox hBox = new HBox();
+            Text name = new Text(user.getKey());
+            Text date = new Text((String) user.getValue());
+            hBox.getChildren().addAll(name,date);
+            centerBottomLeft.getChildren().add(hBox);
+        }
+
+
         VBox centerBottomRight = new VBox();
         centerBottomRight.setPadding(new Insets(0,0,0,100));
         Text centerBottomRightHeader = new Text("Statistics");

@@ -1,6 +1,5 @@
-import com.google.gson.internal.LinkedTreeMap;
-import org.json.simple.JSONObject;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,9 +10,10 @@ public class DBConnection {
     private PreparedStatement prstatement = null;
 
     private HashMap<String, Object> userData = new HashMap<>();
-    private HashMap<String,Object> registeredUsers = new HashMap<>();
-    private HashMap<String,Object> unregisteredUsers = new HashMap<>();
+    private ArrayList<HashMap<String,Object>> registeredUsers = new ArrayList<>();
+    private ArrayList<HashMap<String,Object>> unregisteredUsers = new ArrayList<>();
     private HashMap<String,Object> statistics = new HashMap<>();
+
 
     public DBConnection() {
         connect();
@@ -39,8 +39,10 @@ public class DBConnection {
         rs = prstatement.executeQuery();
 
         while(rs.next()){
-            registeredUsers.put("name",rs.getString(2));
-            registeredUsers.put("signUpDate",rs.getString(5));
+            HashMap <String, Object> hashMap = new HashMap<>();
+            hashMap.put("name",rs.getString(2));
+            hashMap.put("signUpDate",rs.getString(5));
+            registeredUsers.add(hashMap);
         }
 
         // Unlicensed users are selected
@@ -54,8 +56,10 @@ public class DBConnection {
         rs = prstatement.executeQuery();
 
         while(rs.next()){
-            unregisteredUsers.put("name",rs.getString(2));
-            unregisteredUsers.put("signUpDate",rs.getString(5));
+            HashMap <String, Object> hashMap = new HashMap<>();
+            hashMap.put("name",rs.getString(2));
+            hashMap.put("signUpDate",rs.getString(5));
+            unregisteredUsers.add(hashMap);
         }
     }
 
@@ -247,5 +251,13 @@ public class DBConnection {
     public HashMap<String, Object> getStatistics() throws SQLException {
         fetchStatistics();
         return statistics;
+    }
+
+    public ArrayList<HashMap<String, Object>> getRegisteredUsers() {
+        return registeredUsers;
+    }
+
+    public ArrayList<HashMap<String, Object>> getUnregisteredUsers() {
+        return unregisteredUsers;
     }
 }

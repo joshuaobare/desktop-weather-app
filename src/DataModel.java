@@ -10,10 +10,16 @@ public class DataModel {
     private HashMap<String, Object> userData;
     private HashMap<String, Object> statistics;
 
+    private ArrayList<HashMap<String, Object>> registeredUsers = new ArrayList<>();
+    private ArrayList<HashMap<String, Object>> unregisteredUsers = new ArrayList<>();
+
     public DataModel(){
         setData();
         try {
             statistics = db.getStatistics();
+            db.retrieveRegisteredUsers();
+            registeredUsers = db.getRegisteredUsers();
+            unregisteredUsers = db.getUnregisteredUsers();
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
@@ -40,6 +46,7 @@ public class DataModel {
         // each time a user makes a search the statistics hashmap will be updated
         try {
             statistics = db.getStatistics();
+
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
@@ -66,5 +73,13 @@ public class DataModel {
 
     public HashMap<String, Object> getStatistics() {
         return statistics;
+    }
+
+    public ArrayList<HashMap<String, Object>> getRegisteredUsers() {
+        return registeredUsers;
+    }
+
+    public ArrayList<HashMap<String, Object>> getUnregisteredUsers() {
+        return unregisteredUsers;
     }
 }
