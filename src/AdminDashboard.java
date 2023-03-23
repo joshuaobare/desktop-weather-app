@@ -45,7 +45,7 @@ public class AdminDashboard extends Application {
     public void start(Stage primaryStage) {
         HashMap<String, Object>  statistics = model.getStatistics();
         ArrayList<HashMap<String, Object>> registeredUsers = model.getRegisteredUsers();
- &&        ArrayList<HashMap<String, Object>> unregisteredUsers = model.getUnregisteredUsers();
+        ArrayList<HashMap<String, Object>> unregisteredUsers = model.getUnregisteredUsers();
 
         primaryStage.setTitle("Weather App");
         BorderPane borderPane = new BorderPane();
@@ -88,7 +88,8 @@ public class AdminDashboard extends Application {
         centerBottomLeft.getChildren().addAll(centerBottomLeftHeader);
 
         for(HashMap<String,Object> user: registeredUsers){
-            if((user.get("isAdmin")).equals('0')){
+
+            if((user.get("isAdmin")).equals("0")){
                 HBox hBox = new HBox();
                 Text name = new Text((String) user.get("name"));
                 Text date = new Text((String) user.get("signUpDate"));
