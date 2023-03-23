@@ -88,20 +88,6 @@ public class AdminDashboard extends Application {
         centerBottomLeftHeader.setFont(Font.font("Tahoma", FontWeight.BOLD, 16));
 
 
-
-
-
-        for(HashMap<String,Object> user: registeredUsers){
-
-            if((user.get("isAdmin")).equals("0")){
-                HBox hBox = new HBox();
-                Text name = new Text((String) user.get("name"));
-                Text date = new Text((String) user.get("signUpDate"));
-                hBox.getChildren().addAll(name,date);
-                centerBottomLeft.getChildren().add(hBox);
-            }
-
-        }
         TableView regUsersTables = new TableView<>();
         regUsersTables.setEditable(true);
         TableColumn user = new TableColumn<>("User");
@@ -113,7 +99,7 @@ public class AdminDashboard extends Application {
         for(HashMap<String,Object> map :registeredUsers){
             SimpleStringProperty userName = new SimpleStringProperty((String) map.get("name"));
             System.out.println(userName);
-            SimpleStringProperty userDateAdded = new SimpleStringProperty((String) map.get("dateAdded"));
+            SimpleStringProperty userDateAdded = new SimpleStringProperty((String) map.get("signUpDate"));
             users.add(new User(userName,userDateAdded));
         }
 
@@ -172,11 +158,28 @@ public class AdminDashboard extends Application {
         VBox.setMargin(rightBottom, new Insets(30,0,0,0));
         Text rightBottomHeader = new Text("Free Trials");
         rightBottomHeader.setFont(Font.font("Tahoma", FontWeight.BOLD, 16));
+
+
         TableView trialsUsersTable = new TableView<>();
         trialsUsersTable.setEditable(true);
         TableColumn userCol = new TableColumn<>("User");
-        TableColumn accessCol = new TableColumn<>("");
+        TableColumn accessCol = new TableColumn<>("Date Added");
         trialsUsersTable.getColumns().addAll(userCol,accessCol);
+
+        ArrayList<User> users2 = new ArrayList<>();
+        System.out.println(unregisteredUsers);
+        for(HashMap<String,Object> map :unregisteredUsers){
+            SimpleStringProperty userName = new SimpleStringProperty((String) map.get("name"));
+            SimpleStringProperty userDateAdded = new SimpleStringProperty((String) map.get("signUpDate"));
+            users2.add(new User(userName,userDateAdded));
+        }
+
+        final ObservableList<User> data2 = FXCollections.observableArrayList(users2);
+
+        userCol.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
+        accessCol.setCellValueFactory(new PropertyValueFactory<User,String>("dateAdded"));
+
+        regUsersTables.setItems(data2);
 
         rightBottom.getChildren().addAll(rightBottomHeader,trialsUsersTable);
 
