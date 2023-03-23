@@ -1,4 +1,9 @@
 import javafx.application.Application;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -6,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.MapValueFactory;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -14,6 +21,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.File;
 import java.io.IOException;
@@ -78,14 +86,10 @@ public class AdminDashboard extends Application {
         VBox centerBottomLeft = new VBox();
         Text centerBottomLeftHeader = new Text("Registered Users");
         centerBottomLeftHeader.setFont(Font.font("Tahoma", FontWeight.BOLD, 16));
-        /*TableView regUsersTables = new TableView<>();
-        regUsersTables.setEditable(true);
-        TableColumn user = new TableColumn<>("User");
-        TableColumn dateAdded = new TableColumn<>("Date Added");
-        TableColumn revokeUser = new TableColumn<>("");
-        regUsersTables.getColumns().addAll(user,dateAdded,revokeUser);*/
 
-        centerBottomLeft.getChildren().addAll(centerBottomLeftHeader);
+
+
+
 
         for(HashMap<String,Object> user: registeredUsers){
 
@@ -98,7 +102,30 @@ public class AdminDashboard extends Application {
             }
 
         }
+        TableView regUsersTables = new TableView<>();
+        regUsersTables.setEditable(true);
+        TableColumn user = new TableColumn<>("User");
+        TableColumn dateAdded = new TableColumn<>("Date Added");
+        regUsersTables.getColumns().addAll(user,dateAdded);
 
+        ArrayList<User> users = new ArrayList<>();
+
+        for(HashMap<String,Object> map :registeredUsers){
+            SimpleStringProperty userName = new SimpleStringProperty((String) map.get("name"));
+            System.out.println(userName);
+            SimpleStringProperty userDateAdded = new SimpleStringProperty((String) map.get("dateAdded"));
+            users.add(new User(userName,userDateAdded));
+        }
+
+        final ObservableList<User> data = FXCollections.observableArrayList(users);
+
+        user.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
+        dateAdded.setCellValueFactory(new PropertyValueFactory<User,String>("dateAdded"));
+
+        regUsersTables.setItems(data);
+
+
+        centerBottomLeft.getChildren().addAll(centerBottomLeftHeader, regUsersTables);
 
         VBox centerBottomRight = new VBox();
         centerBottomRight.setPadding(new Insets(0,0,0,100));
@@ -174,3 +201,4 @@ public class AdminDashboard extends Application {
         primaryStage.show();
     }
 }
+
