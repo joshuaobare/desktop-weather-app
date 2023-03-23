@@ -8,7 +8,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AdminDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AdminDashboard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DBConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataModel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
