@@ -59,7 +59,9 @@ public class DBConnection {
 
         while(rs.next()){
             HashMap <String, Object> hashMap = new HashMap<>();
+            hashMap.put("userID",rs.getString(1));
             hashMap.put("name",rs.getString(2));
+            hashMap.put("isAdmin",rs.getString(4));
             hashMap.put("signUpDate",rs.getString(5));
             unregisteredUsers.add(hashMap);
         }

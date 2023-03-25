@@ -168,11 +168,14 @@ public class AdminDashboard extends Application {
 
         ArrayList<User> users2 = new ArrayList<>();
         System.out.println(unregisteredUsers);
-        for(HashMap<String,Object> map :unregisteredUsers){
 
-            SimpleStringProperty userName = new SimpleStringProperty((String) map.get("name"));
-            SimpleStringProperty userDateAdded = new SimpleStringProperty((String) map.get("signUpDate"));
-            users2.add(new User(userName,userDateAdded));
+        for(HashMap<String,Object> map :unregisteredUsers){
+            if((map.get("isAdmin")).equals("0")){
+                SimpleStringProperty userName = new SimpleStringProperty((String) map.get("name"));
+                SimpleStringProperty userDateAdded = new SimpleStringProperty((String) map.get("signUpDate"));
+                users2.add(new User(userName,userDateAdded));
+            }
+
         }
 
         final ObservableList<User> data2 = FXCollections.observableArrayList(users2);
