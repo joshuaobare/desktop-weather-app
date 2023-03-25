@@ -23,6 +23,7 @@ import javafx.util.Callback;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,8 +38,9 @@ public class AdminDashboard extends Application {
         model = mainUI.getModel();
     }
 
-    public AdminDashboard() {
+    public AdminDashboard() throws SQLException {
         model = new DataModel();
+
         model.setGlobalMostSearchedLocations(db.getGlobalMostSearchedLocations());
         Stage stage = new Stage();
         mainUI = new MainUI(model);
@@ -55,6 +57,7 @@ public class AdminDashboard extends Application {
         HashMap<String, Object>  statistics = model.getStatistics();
         ArrayList<HashMap<String, Object>> registeredUsers = model.getRegisteredUsers();
         ArrayList<HashMap<String, Object>> unregisteredUsers = model.getUnregisteredUsers();
+        HashMap<String,Object> globalMostSearchedLocations = model.getGlobalMostSearchedLocations();
 
         primaryStage.setTitle("Weather App");
         BorderPane borderPane = new BorderPane();
@@ -175,14 +178,12 @@ public class AdminDashboard extends Application {
         VBox.setMargin(rightCenter, new Insets(30,0,0,0));
         Text rightCenterHeader = new Text("Most Searched Locations");
         rightCenterHeader.setFont(Font.font("Tahoma", FontWeight.BOLD, 16));
-        Text locationone = new Text("Nairobi: 100");
-        Text locationtwo = new Text("Kampala: 100");
-        Text locationthree = new Text("Cape Town: 100");
-        Text locationfour = new Text("London: 100");
-        Text locationfive = new Text("Jamaica: 100");
-        Text locationsix = new Text("Togo: 100");
+        rightCenter.getChildren().add(rightCenterHeader);
 
-        rightCenter.getChildren().addAll(rightCenterHeader,locationone,locationtwo, locationthree, locationfour, locationfive, locationsix);
+        for(Map.Entry<String,Object> value: globalMostSearchedLocations.entrySet()){
+            rightCenter.getChildren().add(new Text(value.getKey() +": " + value.getValue()));
+        }
+
 
         VBox rightBottom = new VBox();
         VBox.setMargin(rightBottom, new Insets(30,0,0,0));

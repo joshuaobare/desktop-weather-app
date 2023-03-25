@@ -47,13 +47,12 @@ public class DBConnection {
 
     }
 
-    public void globalMostSearched() throws SQLException {
+    private void globalMostSearched() throws SQLException {
         prstatement = conn.prepareStatement(
                 "SELECT LOCATION, COUNT(*) FROM WEATHER_SEARCHES GROUP BY LOCATION_ID");
         rs = prstatement.executeQuery();
 
         while(rs.next()){
-            System.out.println(rs.getString(1) + "\t" + rs.getString(2) + "\t" );
             globalMostSearchedLocations.put(rs.getString(1),rs.getString(2));
         }
     }
@@ -292,7 +291,8 @@ public class DBConnection {
         return unregisteredUsers;
     }
 
-    public HashMap<String, Object> getGlobalMostSearchedLocations() {
+    public HashMap<String, Object> getGlobalMostSearchedLocations() throws SQLException {
+        globalMostSearched();
         return globalMostSearchedLocations;
     }
 
