@@ -27,6 +27,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class AdminDashboard extends Application {
     MainUI mainUI;
@@ -153,7 +154,10 @@ public class AdminDashboard extends Application {
         Text apiCallNumber = new Text(String.format("API Calls: %s", statistics.get("apiCalls")));
         Text apiCallsRemaining = new Text(String.format("API Calls Remaining: %s", (String.valueOf(1000 - Integer.valueOf((String) statistics.get("apiCalls"))))));
         Text totalSearches = new Text(String.format("Total Searches: %s", statistics.get("totalSearches")));
-        Text mostSearched = new Text("Most Searched Location");
+        Set<String> keys = globalMostSearchedLocations.keySet();
+        String mostSearchedLocation = keys.toArray(new String[keys.size()])[0];
+        System.out.println(mostSearchedLocation);
+        Text mostSearched = new Text(String.format("Most Searched Location: %s",mostSearchedLocation));
         Text usersCount = new Text(String.format("Number of Active Users: %s", statistics.get("userCount")));
 
         VBox.setMargin(centerBottomLeft, new Insets(50,0,0,0));
@@ -176,7 +180,8 @@ public class AdminDashboard extends Application {
 
         VBox rightCenter = new VBox();
         VBox.setMargin(rightCenter, new Insets(30,0,0,0));
-        Text rightCenterHeader = new Text("Most Searched Locations");
+
+        Text rightCenterHeader = new Text("Most Searched Locations: ");
         rightCenterHeader.setFont(Font.font("Tahoma", FontWeight.BOLD, 16));
         rightCenter.getChildren().add(rightCenterHeader);
 
@@ -207,7 +212,6 @@ public class AdminDashboard extends Application {
                 SimpleStringProperty userDateAdded = new SimpleStringProperty((String) map.get("signUpDate"));
                 users2.add(new User(userName,userDateAdded));
             }
-
         }
 
         final ObservableList<User> data2 = FXCollections.observableArrayList(users2);
