@@ -13,6 +13,8 @@ public class DBConnection {
     private ArrayList<HashMap<String,Object>> registeredUsers = new ArrayList<>();
     private ArrayList<HashMap<String,Object>> unregisteredUsers = new ArrayList<>();
     private HashMap<String,Object> statistics = new HashMap<>();
+    private HashMap<String,Object> globalMostSearchedLocations = new HashMap<>();
+    private HashMap<String,Object> userMostSearchedLocations = new HashMap<>();
 
 
     public DBConnection() {
@@ -31,6 +33,30 @@ public class DBConnection {
         }
     }
 
+    public void userMostSearched(String userId) throws SQLException {
+        prstatement = conn.prepareStatement(
+                "SELECT LOCATION, COUNT(*) " +
+                        "FROM WEATHER_SEARCHES WHERE USERID = ? GROUP BY LOCATION_ID "
+        );
+        prstatement.setObject(1, userId);
+        rs  = prstatement.executeQuery();
+
+        while(rs.next()){
+            userMostSearchedLocations.put(rs.getString(1),rs.getString(2));
+        }
+
+    }
+
+    public void globalMostSearched() throws SQLException {
+        prstatement = conn.prepareStatement(
+                "SELECT LOCATION, COUNT(*) FROM WEATHER_SEARCHES GROUP BY LOCATION_ID");
+        rs = prstatement.executeQuery();
+
+        while(rs.next()){
+            System.out.println(rs.getString(1) + "\t" + rs.getString(2) + "\t" );
+            globalMostSearchedLocations.put(rs.getString(1),rs.getString(2));
+        }
+    }
     public void retrieveRegisteredUsers() throws SQLException {
         prstatement = conn.prepareStatement(
                                 "SELECT USERS.* , LICENSE_ALLOCATION.* " +
