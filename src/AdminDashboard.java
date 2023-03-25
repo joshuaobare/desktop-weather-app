@@ -30,6 +30,7 @@ import java.util.Map;
 public class AdminDashboard extends Application {
     MainUI mainUI;
     DataModel model;
+    DBConnection db = new DBConnection();
 
     public AdminDashboard(MainUI mainUI) {
         this.mainUI = mainUI;
@@ -38,8 +39,10 @@ public class AdminDashboard extends Application {
 
     public AdminDashboard() {
         model = new DataModel();
+        model.setGlobalMostSearchedLocations(db.getGlobalMostSearchedLocations());
         Stage stage = new Stage();
         mainUI = new MainUI(model);
+
 
     }
 

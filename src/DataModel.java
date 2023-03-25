@@ -12,6 +12,8 @@ public class DataModel {
 
     private ArrayList<HashMap<String, Object>> registeredUsers = new ArrayList<>();
     private ArrayList<HashMap<String, Object>> unregisteredUsers = new ArrayList<>();
+    private HashMap<String,Object> globalMostSearchedLocations = new HashMap<>();
+    private HashMap<String,Object> userMostSearchedLocations = new HashMap<>();
 
     public DataModel(){
         setData();
@@ -81,5 +83,21 @@ public class DataModel {
 
     public ArrayList<HashMap<String, Object>> getUnregisteredUsers() {
         return unregisteredUsers;
+    }
+
+    public HashMap<String, Object> getGlobalMostSearchedLocations() {
+        return globalMostSearchedLocations;
+    }
+
+    public void setGlobalMostSearchedLocations(HashMap<String, Object> globalMostSearchedLocations) {
+        this.globalMostSearchedLocations = globalMostSearchedLocations;
+    }
+
+    public HashMap<String, Object> getUserMostSearchedLocations() {
+        return userMostSearchedLocations;
+    }
+
+    public void setUserMostSearchedLocations(HashMap<String, Object> userMostSearchedLocations) {
+        this.userMostSearchedLocations = userMostSearchedLocations;
     }
 }

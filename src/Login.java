@@ -85,7 +85,10 @@ public class Login extends Application {
             try {
                 isAuthenticated = db.userAuthentication(userEmail,userPass);
                 userData = db.getUserData();
+                db.userMostSearched((String) userData.get("id"));
                 model.setUserData(userData);
+                model.setUserMostSearchedLocations(db.getUserMostSearchedLocations());
+                model.setGlobalMostSearchedLocations(db.getGlobalMostSearchedLocations());
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

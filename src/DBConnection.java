@@ -291,4 +291,12 @@ public class DBConnection {
     public ArrayList<HashMap<String, Object>> getUnregisteredUsers() {
         return unregisteredUsers;
     }
+
+    public HashMap<String, Object> getGlobalMostSearchedLocations() {
+        return globalMostSearchedLocations;
+    }
+
+    public HashMap<String, Object> getUserMostSearchedLocations() {
+        return userMostSearchedLocations;
+    }
 }
