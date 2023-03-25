@@ -90,7 +90,8 @@ public class AdminDashboard extends Application {
         regUsersTables.setEditable(true);
         TableColumn user = new TableColumn<>("User");
         TableColumn dateAdded = new TableColumn<>("Date Added");
-        regUsersTables.getColumns().addAll(user,dateAdded);
+        TableColumn buttonColumn = new TableColumn<>("");
+        regUsersTables.getColumns().addAll(user,dateAdded,buttonColumn);
 
         ArrayList<User> users = new ArrayList<>();
 
@@ -105,6 +106,34 @@ public class AdminDashboard extends Application {
 
         user.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
         dateAdded.setCellValueFactory(new PropertyValueFactory<User,String>("dateAdded"));
+
+        Callback<TableColumn<User, Void>, TableCell<User, Void>> regUserTableCellFactory = new Callback<TableColumn<User, Void>, TableCell<User, Void>>() {
+            @Override
+            public TableCell<User, Void> call(final TableColumn<User, Void> param) {
+                final TableCell<User, Void> cell = new TableCell<User, Void>() {
+
+                    private final Button btn = new Button("Revoke License");
+
+                    {
+                        btn.setOnAction((ActionEvent event) -> {
+                            //
+                        });
+                    }
+
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(btn);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+        buttonColumn.setCellFactory(regUserTableCellFactory);
 
         regUsersTables.setItems(data);
 

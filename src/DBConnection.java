@@ -230,15 +230,16 @@ public class DBConnection {
     public void weatherSearch(Map userData , Map currentWeather) {
 
         try {
-            prstatement = conn.prepareStatement("INSERT INTO  WEATHER_SEARCHES (userID , location , " + "weather_description , temperature , wind_speed , time , feels_like, humidity) " +
-                    "VALUES ( ?,? ,? ,? ,? ,CURRENT_TIMESTAMP() , ? , ?)");
+            prstatement = conn.prepareStatement("INSERT INTO  WEATHER_SEARCHES (userID , location , location_id," + "weather_description , temperature , wind_speed , time , feels_like, humidity) " +
+                    "VALUES ( ?,?,? ,? ,? ,? ,CURRENT_TIMESTAMP() , ? , ?)");
             prstatement.setObject(1, userData.get("id"));
             prstatement.setObject(2, currentWeather.get("name"));
-            prstatement.setObject(3, currentWeather.get("description"));
-            prstatement.setObject(4, currentWeather.get("temp"));
-            prstatement.setObject(5, currentWeather.get("speed"));
-            prstatement.setObject(6, currentWeather.get("feels_like"));
-            prstatement.setObject(7, currentWeather.get("humidity"));
+            prstatement.setObject(3, currentWeather.get("id"));
+            prstatement.setObject(4, currentWeather.get("description"));
+            prstatement.setObject(5, currentWeather.get("temp"));
+            prstatement.setObject(6, currentWeather.get("speed"));
+            prstatement.setObject(7, currentWeather.get("feels_like"));
+            prstatement.setObject(8, currentWeather.get("humidity"));
             prstatement.execute();
 
         } catch (SQLException ex) {
