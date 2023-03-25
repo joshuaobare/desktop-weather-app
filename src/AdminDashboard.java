@@ -4,13 +4,11 @@ import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -164,7 +162,8 @@ public class AdminDashboard extends Application {
         trialsUsersTable.setEditable(true);
         TableColumn userCol = new TableColumn<>("User");
         TableColumn accessCol = new TableColumn<>("Date Added");
-        trialsUsersTable.getColumns().addAll(userCol,accessCol);
+        TableColumn btnCol = new TableColumn<>("");
+        trialsUsersTable.getColumns().addAll(userCol,accessCol,btnCol);
 
         ArrayList<User> users2 = new ArrayList<>();
         System.out.println(unregisteredUsers);
@@ -183,6 +182,33 @@ public class AdminDashboard extends Application {
         userCol.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
         accessCol.setCellValueFactory(new PropertyValueFactory<User,String>("dateAdded"));
 
+        Callback<TableColumn<User, Void>, TableCell<User, Void>> cellFactory = new Callback<TableColumn<User, Void>, TableCell<User, Void>>() {
+            @Override
+            public TableCell<User, Void> call(final TableColumn<User, Void> param) {
+                final TableCell<User, Void> cell = new TableCell<User, Void>() {
+
+                    private final Button btn = new Button("Extend Period");
+
+                    {
+                        btn.setOnAction((ActionEvent event) -> {
+                            //
+                        });
+                    }
+
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(btn);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+        btnCol.setCellFactory(cellFactory);
         trialsUsersTable.setItems(data2);
 
         rightBottom.getChildren().addAll(rightBottomHeader,trialsUsersTable);
