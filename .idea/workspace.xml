@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="eba15fdd-819c-43b0-b499-aea566688b89" name="Changes" comment="MainUI will now call the API and display temperature and location">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AdminDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AdminDashboard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,27 +52,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Downloaded.Files.Path.Enabled": "true",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "create.test.in.the.same.root": "true",
-    "last_opened_file_path": "C:/Users/Joshua Obare/Documents/Java/desktop-weather-app/lib/javafx-sdk-19.0.2.1/lib",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "inlay.hints"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;true&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Joshua Obare/Documents/Java/desktop-weather-app/lib/javafx-sdk-19.0.2.1/lib&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -82,11 +81,11 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.AdminDashboard">
+  <component name="RunManager" selected="Application.SignUp">
     <configuration name="AdminDashboard" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="AdminDashboard" />
       <module name="desktop-weather-app" />
-      <option name="VM_PARAMETERS" value="--module-path &quot;C:\Users\Joshua Obare\Documents\Java\desktop-weather-app\lib\javafx-sdk-19.0.2.1\lib&quot; --add-modules=javafx.base,javafx.controls,javafx.graphics,javafx.media" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;$PROJECT_DIR$\lib\javafx-sdk-19.0.2.1\lib&quot; --add-modules=javafx.base,javafx.controls,javafx.graphics,javafx.media" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -94,7 +93,7 @@
     <configuration name="Login" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Login" />
       <module name="desktop-weather-app" />
-      <option name="VM_PARAMETERS" value="--module-path &quot;C:\Users\Joshua Obare\Documents\Java\desktop-weather-app\lib\javafx-sdk-19.0.2.1\lib&quot; --add-modules=javafx.base,javafx.controls,javafx.graphics,javafx.media" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;$PROJECT_DIR$\lib\javafx-sdk-19.0.2.1\lib&quot; --add-modules=javafx.base,javafx.controls,javafx.graphics,javafx.media" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -102,7 +101,7 @@
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="desktop-weather-app" />
-      <option name="VM_PARAMETERS" value="--module-path &quot;C:\Program Files\Java\javafx-sdk-19.0.2.1\lib&quot; --add-modules=javafx.base,javafx.controls,javafx.graphics,javafx.media" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;$PROJECT_DIR$\lib\javafx-sdk-19.0.2.1\lib&quot; --add-modules=javafx.base,javafx.controls,javafx.graphics,javafx.media" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -110,7 +109,7 @@
     <configuration name="MainUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="MainUI" />
       <module name="desktop-weather-app" />
-      <option name="VM_PARAMETERS" value="--module-path &quot;C:\Users\Joshua Obare\Documents\Java\desktop-weather-app\lib\javafx-sdk-19.0.2.1\lib&quot; --add-modules=javafx.base,javafx.controls,javafx.graphics,javafx.media" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;$PROJECT_DIR$\lib\javafx-sdk-19.0.2.1\lib&quot; --add-modules=javafx.base,javafx.controls,javafx.graphics,javafx.media" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -118,7 +117,7 @@
     <configuration name="SignUp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="SignUp" />
       <module name="desktop-weather-app" />
-      <option name="VM_PARAMETERS" value="--module-path &quot;C:\Users\Joshua Obare\Documents\Java\desktop-weather-app\lib\javafx-sdk-19.0.2.1\lib&quot; --add-modules=javafx.base,javafx.controls,javafx.graphics,javafx.media" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;$PROJECT_DIR$\lib\javafx-sdk-19.0.2.1\lib&quot; --add-modules=javafx.base,javafx.controls,javafx.graphics,javafx.media" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -141,10 +140,10 @@
     <list>
       <item itemvalue="Application.AdminDashboard" />
       <item itemvalue="Application.Main" />
-      <item itemvalue="Application.SignUp" />
-      <item itemvalue="Application.U" />
       <item itemvalue="Application.Login" />
       <item itemvalue="Application.MainUI" />
+      <item itemvalue="Application.SignUp" />
+      <item itemvalue="Application.U" />
       <item itemvalue="JUnit.HelperTest" />
     </list>
     <recent_temporary>
