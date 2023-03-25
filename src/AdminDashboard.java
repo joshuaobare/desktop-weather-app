@@ -169,6 +169,7 @@ public class AdminDashboard extends Application {
         ArrayList<User> users2 = new ArrayList<>();
         System.out.println(unregisteredUsers);
         for(HashMap<String,Object> map :unregisteredUsers){
+
             SimpleStringProperty userName = new SimpleStringProperty((String) map.get("name"));
             SimpleStringProperty userDateAdded = new SimpleStringProperty((String) map.get("signUpDate"));
             users2.add(new User(userName,userDateAdded));
@@ -179,7 +180,7 @@ public class AdminDashboard extends Application {
         userCol.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
         accessCol.setCellValueFactory(new PropertyValueFactory<User,String>("dateAdded"));
 
-        regUsersTables.setItems(data2);
+        trialsUsersTable.setItems(data2);
 
         rightBottom.getChildren().addAll(rightBottomHeader,trialsUsersTable);
 
@@ -205,3 +206,36 @@ public class AdminDashboard extends Application {
     }
 }
 
+class User {
+    private final SimpleStringProperty name;
+    private final SimpleStringProperty dateAdded;
+
+    public User(SimpleStringProperty name, SimpleStringProperty dateAdded) {
+        this.name = name;
+        this.dateAdded = dateAdded;
+    }
+
+    public String getName() {
+        return name.get();
+    }
+
+    public SimpleStringProperty nameProperty() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name.set(name);
+    }
+
+    public String getDateAdded() {
+        return dateAdded.get();
+    }
+
+    public SimpleStringProperty dateAddedProperty() {
+        return dateAdded;
+    }
+
+    public void setDateAdded(String dateAdded) {
+        this.dateAdded.set(dateAdded);
+    }
+}
