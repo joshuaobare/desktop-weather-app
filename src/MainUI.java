@@ -5,10 +5,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -95,11 +92,16 @@ public class MainUI extends Application {
         grid.add(graphic, 0, 6);
 
         // the remaining relevant Text objects are created and added to the GridPane object
+        HBox search = new HBox();
+        search.setPadding(new Insets(10,0,0,0));
         TextField locationSearchField = new TextField();
         locationSearchField.setPromptText("Search location");
         Button submitButton = new Button("Submit");
-        grid.add(locationSearchField, 0, 7);
-        grid.add(submitButton, 1,7);
+        Text searchErrorMessage = new Text();
+        search.getChildren().add(locationSearchField);
+        search.getChildren().add(submitButton);
+        search.getChildren().add(searchErrorMessage);
+        grid.add(search, 0,7);
 
         // RIGHT SECTION
 
@@ -177,8 +179,16 @@ public class MainUI extends Application {
         submitButton.setOnAction((event) -> {
             try {
                 String searchedLocation = locationSearchField.getText();
-                model.setData(searchedLocation);
-                start(primaryStage);
+                try{
+                    model.setData(searchedLocation);
+                    start(primaryStage);
+                } catch(Exception e){
+                    searchErrorMessage.setFill(Color.FIREBRICK);
+                    searchErrorMessage.setText("Error, try again");
+
+                }
+
+
 
             } catch (Exception e) {
                 e.printStackTrace();

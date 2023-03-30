@@ -103,11 +103,12 @@ public class AdminDashboard extends Application {
             series.getData().add(new XYChart.Data(dayString,day.getValue()));
         }
         lineChart.getData().add(series);
+        lineChart.prefHeightProperty().bind(primaryStage.heightProperty().multiply(0.5));
         centerTop.getChildren().addAll(centerHeading,apiCallsHeader,lineChart);
 
 
         HBox centerBottom = new HBox();
-        centerBottom.setPadding(new Insets(200,0,0,0));
+        centerBottom.setPadding(new Insets(10,0,0,0));
         VBox centerBottomLeft = new VBox();
         Text centerBottomLeftHeader = new Text("Registered Users");
         centerBottomLeftHeader.setFont(Font.font("Tahoma", FontWeight.BOLD, 16));
@@ -119,6 +120,7 @@ public class AdminDashboard extends Application {
         TableColumn dateAdded = new TableColumn<>("Date Added");
         TableColumn buttonColumn = new TableColumn<>("");
         regUsersTables.getColumns().addAll(user,dateAdded,buttonColumn);
+        regUsersTables.setPrefWidth(350);
 
         ArrayList<User> users = new ArrayList<>();
 
@@ -211,7 +213,7 @@ public class AdminDashboard extends Application {
 
 
         VBox rightBottom = new VBox();
-        VBox.setMargin(rightBottom, new Insets(30,0,0,0));
+        VBox.setMargin(rightBottom, new Insets(300,0,0,0));
         Text rightBottomHeader = new Text("Free Trials");
         rightBottomHeader.setFont(Font.font("Tahoma", FontWeight.BOLD, 16));
 
