@@ -28,7 +28,7 @@ public class Main {
 
         DBConnection db = new DBConnection();
         Boolean checker = db.userAuthentication("jobare.obare@gmail.com","test" );
-        db.userMostSearched("1");
+        db.apiCallData();
         //db.fetchStatistics();
     }
 }

@@ -32,6 +32,19 @@ public class DBConnection {
             System.out.println("VendorError: " + ex.getErrorCode());
         }
     }
+    public void apiCallData() throws SQLException{
+        prstatement = conn.prepareStatement("SELECT DATE(time) AS date,\n" +
+                                                " COUNT(*) AS calls\n" +
+                                                " FROM   API_CALLS\n" +
+                                                " GROUP BY DATE(time)\n" +
+                                                " ORDER BY date");
+        rs = prstatement.executeQuery();
+
+        while(rs.next()){
+            System.out.println(rs.getString(1));
+            System.out.println(rs.getString(2));
+        }
+    }
 
     public void userMostSearched(String userId) throws SQLException {
         prstatement = conn.prepareStatement(
