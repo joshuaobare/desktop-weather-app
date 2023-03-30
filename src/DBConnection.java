@@ -55,7 +55,7 @@ public class DBConnection {
 
         Date firstDay = formatter.parse(days.get(0));
         Date today = new Date();
-        //today = formatter.parse(today.toString());
+
         Date lastDay = formatter.parse(days.get(days.size() - 1));
         Calendar start = Calendar.getInstance();
         start.setTime(firstDay);
@@ -63,9 +63,7 @@ public class DBConnection {
         end.setTime(today);
 
         for (Date date = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), date = start.getTime()) {
-
             String day = formatter.format(date);
-            System.out.println(day);
             String calls;
             try {
                 calls = (String) callsPerDay.get(day);
@@ -79,8 +77,8 @@ public class DBConnection {
         List<Map.Entry<Date,Integer>> dateList = new LinkedList<>(callCount.entrySet());
 
         Collections.sort(dateList, new Comparator<Map.Entry<Date,Integer>>() {
-            public int compare(Map.Entry<Date,Integer> o1, Map.Entry<Date,Integer> o2) {
-                return o1.getKey().compareTo(o2.getKey());
+            public int compare(Map.Entry<Date,Integer> item1, Map.Entry<Date,Integer> item2) {
+                return item1.getKey().compareTo(item2.getKey());
             }
         });
 
@@ -89,11 +87,6 @@ public class DBConnection {
             apiCallCount.put(entry.getKey(), entry.getValue());
         }
 
-        System.out.println(days.get(0));
-        System.out.println(firstDay);
-        System.out.println(lastDay);
-        System.out.println(today);
-        System.out.println(apiCallCount);
 
     }
 
@@ -362,5 +355,10 @@ public class DBConnection {
 
     public HashMap<String, Object> getUserMostSearchedLocations() {
         return userMostSearchedLocations;
+    }
+
+    public TreeMap<Date, Integer> getApiCallCount() throws SQLException, ParseException {
+        apiCallData();
+        return apiCallCount;
     }
 }

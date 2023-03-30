@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -24,10 +25,7 @@ import javafx.util.Callback;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class AdminDashboard extends Application {
     MainUI mainUI;
@@ -59,6 +57,7 @@ public class AdminDashboard extends Application {
         ArrayList<HashMap<String, Object>> registeredUsers = model.getRegisteredUsers();
         ArrayList<HashMap<String, Object>> unregisteredUsers = model.getUnregisteredUsers();
         HashMap<String,Object> globalMostSearchedLocations = model.getGlobalMostSearchedLocations();
+        TreeMap<Date, Integer> apiCallCount = model.getApiCallCount();
 
         primaryStage.setTitle("Weather App");
         BorderPane borderPane = new BorderPane();
@@ -84,7 +83,28 @@ public class AdminDashboard extends Application {
         centerHeading.setFont(Font.font("Tahoma", FontWeight.BOLD, 32));
         Text apiCallsHeader = new Text("API Calls This Week");
         apiCallsHeader.setFont(Font.font("Tahoma", FontWeight.BOLD, 16));
-        centerTop.getChildren().addAll(centerHeading,apiCallsHeader);
+
+
+        final CategoryAxis xAxis = new CategoryAxis();
+        xAxis.setLabel("Day");
+        final NumberAxis yAxis = new NumberAxis();
+        yAxis.setLabel("Number of Calls");
+
+        final LineChart<String, Number> lineChart = new LineChart<>(xAxis,yAxis);
+        lineChart.setTitle("Number of Calls per Day");
+        XYChart.Series series = new XYChart.Series();
+        series.setName("Calls");
+
+
+        for(Map.Entry<Date,Integer> day: apiCallCount.entrySet()){
+            System.out.println(day.getKey());
+            System.out.println(day.getValue());
+            String dayString = day.getKey().toString().substring(0,10);
+            series.getData().add(new XYChart.Data(dayString,day.getValue()));
+        }
+        lineChart.getData().add(series);
+        centerTop.getChildren().addAll(centerHeading,apiCallsHeader,lineChart);
+
 
         HBox centerBottom = new HBox();
         centerBottom.setPadding(new Insets(200,0,0,0));

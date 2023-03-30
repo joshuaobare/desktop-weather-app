@@ -1,6 +1,9 @@
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 // this class stores and updates the data used by the application
 public class DataModel {
@@ -14,6 +17,7 @@ public class DataModel {
     private ArrayList<HashMap<String, Object>> unregisteredUsers = new ArrayList<>();
     private HashMap<String,Object> globalMostSearchedLocations = new HashMap<>();
     private HashMap<String,Object> userMostSearchedLocations = new HashMap<>();
+    private TreeMap<Date, Integer> apiCallCount;
 
     public DataModel(){
         setData();
@@ -22,10 +26,13 @@ public class DataModel {
             db.retrieveRegisteredUsers();
             registeredUsers = db.getRegisteredUsers();
             unregisteredUsers = db.getUnregisteredUsers();
+            apiCallCount = db.getApiCallCount();
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -99,5 +106,9 @@ public class DataModel {
 
     public void setUserMostSearchedLocations(HashMap<String, Object> userMostSearchedLocations) {
         this.userMostSearchedLocations = userMostSearchedLocations;
+    }
+
+    public TreeMap<Date, Integer> getApiCallCount() {
+        return apiCallCount;
     }
 }
