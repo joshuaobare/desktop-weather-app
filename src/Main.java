@@ -28,7 +28,12 @@ public class Main {
 
         DBConnection db = new DBConnection();
         Boolean checker = db.userAuthentication("jobare.obare@gmail.com","test" );
-        db.apiCallData();
+        try {
+            db.apiCallData();
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
         //db.fetchStatistics();
     }
 }

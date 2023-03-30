@@ -1,7 +1,8 @@
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.Date;
 
 public class DBConnection {
     private Connection conn = null;
@@ -15,6 +16,7 @@ public class DBConnection {
     private HashMap<String,Object> statistics = new HashMap<>();
     private HashMap<String,Object> globalMostSearchedLocations = new HashMap<>();
     private HashMap<String,Object> userMostSearchedLocations = new HashMap<>();
+    private TreeMap<Date, Integer> apiCallCount;
 
 
     public DBConnection() {
@@ -32,18 +34,67 @@ public class DBConnection {
             System.out.println("VendorError: " + ex.getErrorCode());
         }
     }
-    public void apiCallData() throws SQLException{
+    public void apiCallData() throws SQLException, ParseException {
         prstatement = conn.prepareStatement("SELECT DATE(time) AS date,\n" +
                                                 " COUNT(*) AS calls\n" +
                                                 " FROM   API_CALLS\n" +
                                                 " GROUP BY DATE(time)\n" +
                                                 " ORDER BY date");
         rs = prstatement.executeQuery();
+        ArrayList<String> days = new ArrayList<>();
+        HashMap<String, Object> callsPerDay = new HashMap<>();
+        HashMap<Date, Integer> callCount = new HashMap<>();
 
+        int count = 0;
         while(rs.next()){
-            System.out.println(rs.getString(1));
-            System.out.println(rs.getString(2));
+            days.add(rs.getString(1));
+            callsPerDay.put(rs.getString(1), rs.getString(2));
         }
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+
+        Date firstDay = formatter.parse(days.get(0));
+        Date today = new Date();
+        //today = formatter.parse(today.toString());
+        Date lastDay = formatter.parse(days.get(days.size() - 1));
+        Calendar start = Calendar.getInstance();
+        start.setTime(firstDay);
+        Calendar end = Calendar.getInstance();
+        end.setTime(today);
+
+        for (Date date = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), date = start.getTime()) {
+
+            String day = formatter.format(date);
+            System.out.println(day);
+            String calls;
+            try {
+                calls = (String) callsPerDay.get(day);
+                callCount.put(date,Integer.valueOf(calls));
+            } catch(Exception e){
+                callCount.put(date,0);
+            }
+
+        }
+
+        List<Map.Entry<Date,Integer>> dateList = new LinkedList<>(callCount.entrySet());
+
+        Collections.sort(dateList, new Comparator<Map.Entry<Date,Integer>>() {
+            public int compare(Map.Entry<Date,Integer> o1, Map.Entry<Date,Integer> o2) {
+                return o1.getKey().compareTo(o2.getKey());
+            }
+        });
+
+        apiCallCount = new TreeMap<>();
+        for (Map.Entry<Date,Integer> entry : dateList) {
+            apiCallCount.put(entry.getKey(), entry.getValue());
+        }
+
+        System.out.println(days.get(0));
+        System.out.println(firstDay);
+        System.out.println(lastDay);
+        System.out.println(today);
+        System.out.println(apiCallCount);
+
     }
 
     public void userMostSearched(String userId) throws SQLException {
