@@ -3,6 +3,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -136,5 +137,16 @@ public class Login extends Application {
             primaryStage.close();
         });
 
+    }
+}
+
+class expiredUser extends Scene {
+
+    public expiredUser(Parent parent) {
+        super(parent);
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        Text textMessage = new Text("Your trial period has expired\n Contact your administrator");
+        grid.add(textMessage,0,0);
     }
 }
