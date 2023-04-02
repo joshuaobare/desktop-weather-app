@@ -21,8 +21,12 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.Temporal;
+import java.util.*;
 
 public class Login extends Application {
 
@@ -93,7 +97,9 @@ public class Login extends Application {
             DataModel model = new DataModel();
             String userEmail = userTextField.getText();
             String userPass = pwBox.getText();
+            ArrayList<HashMap<String, Object>> unregisteredUsers = new ArrayList<>();
             Boolean isAuthenticated;
+            Boolean registrationValid = false;
             HashMap userData;
 
             // the user's input is compared to what's in the DB
@@ -104,26 +110,57 @@ public class Login extends Application {
                 model.setUserData(userData);
                 model.setUserMostSearchedLocations(db.getUserMostSearchedLocations());
                 model.setGlobalMostSearchedLocations(db.getGlobalMostSearchedLocations());
+                unregisteredUsers = model.getUnregisteredUsers();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
 
+
+            for(HashMap<String, Object> user : unregisteredUsers){
+                String currentUser = (String) userData.get("name");
+                LocalDate today = LocalDate.now();
+                LocalDate signUpDate;
+                long daysBetween;
+
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+                String date = ((String) user.get("signUpDate")).split(" ")[0];
+                signUpDate = LocalDate.parse(date);
+                daysBetween = ChronoUnit.DAYS.between( signUpDate, today);
+                System.out.println(daysBetween <= 7);
+                if(daysBetween <= 7){
+                    registrationValid = true;
+                }
+            }
+
             MainUI mainUI = new MainUI(model);
+
             // if authentication is successful, the view is switched to MainUI
             if(isAuthenticated){
                 Stage stage = new Stage();
                 if((userData.get("isAdmin").equals(true))){
                     AdminDashboard adminDashboard = new AdminDashboard(mainUI);
                     adminDashboard.start(stage);
-                } else{
+                    primaryStage.close();
+                } else if(!registrationValid){
+                    GridPane grid2 = new GridPane();
+                    grid2.setAlignment(Pos.CENTER);
+                    Text textMessage = new Text("Your trial period has expired\n Contact your administrator");
+                    grid2.add(textMessage,0,0);
+                    Scene scene2 = new Scene(grid2,300, 275);
+                    primaryStage.setScene(scene2);
+                    primaryStage.setMaximized(true);
+                    primaryStage.hide();
+                    primaryStage.show();
+                }else{
                     try {
                         mainUI.start(stage);
+                        primaryStage.close();
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                 }
 
-                primaryStage.close();
+
             } else {
                 actiontarget.setFill(Color.FIREBRICK);
                 actiontarget.setText("Incorrect details, try again");
@@ -140,13 +177,3 @@ public class Login extends Application {
     }
 }
 
-class expiredUser extends Scene {
-
-    public expiredUser(Parent parent) {
-        super(parent);
-        GridPane grid = new GridPane();
-        grid.setAlignment(Pos.CENTER);
-        Text textMessage = new Text("Your trial period has expired\n Contact your administrator");
-        grid.add(textMessage,0,0);
-    }
-}
