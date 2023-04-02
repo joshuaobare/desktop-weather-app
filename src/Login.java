@@ -8,12 +8,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -31,29 +34,40 @@ public class Login extends Application {
         DBConnection db = new DBConnection();
         primaryStage.setTitle("Weather App");
         GridPane grid = new GridPane();
-        grid.setAlignment(Pos.CENTER);
+        grid.setAlignment(Pos.TOP_CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
+        Image weatherIcon = new Image("assets/snowy.png");
+        ImageView imageView = new ImageView(weatherIcon);
+        Text loginTitle = new Text(" WEATHER APP");
+        loginTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 30));
+        HBox loginHeader = new HBox(imageView,loginTitle);
+        loginHeader.setAlignment(Pos.CENTER);
+        loginHeader.setPadding(new Insets(50,0,30,0));
+
         Text scenetitle = new Text("Welcome Back");
+        scenetitle.setTextAlignment(TextAlignment.CENTER);
         Text welcometitle = new Text("Please enter your details");
+        welcometitle.setTextAlignment(TextAlignment.CENTER);
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         welcometitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
-        grid.add(scenetitle, 0, 0, 2, 1);
-        grid.add(welcometitle, 0, 1, 2, 1);
+        grid.add(loginHeader, 0, 0, 2, 1);
+        grid.add(scenetitle, 0, 1, 2, 1);
+        grid.add(welcometitle, 0, 2, 2, 1);
 
         Label email = new Label("Email:");
-        grid.add(email, 0, 2);
+        grid.add(email, 0, 3);
 
         TextField userTextField = new TextField();
-        grid.add(userTextField, 1, 2);
+        grid.add(userTextField, 1, 3);
 
         Label pw = new Label("Password:");
-        grid.add(pw, 0, 3);
+        grid.add(pw, 0, 4);
 
         PasswordField pwBox = new PasswordField();
-        grid.add(pwBox, 1, 3);
+        grid.add(pwBox, 1, 4);
 
 
         Button signInBtn = new Button("Sign in");
@@ -62,9 +76,9 @@ public class Login extends Application {
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtn.getChildren().add(signInBtn);
         hbBtn.getChildren().add(signUpBtn);
-        grid.add(hbBtn, 1, 4);
+        grid.add(hbBtn, 1, 5);
         final Text actiontarget = new Text();
-        grid.add(actiontarget, 1, 6);
+        grid.add(actiontarget, 1, 7);
 
 
         Scene scene = new Scene(grid, 300, 275);

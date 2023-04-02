@@ -1,11 +1,15 @@
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -25,10 +29,16 @@ public class SignUp extends Application {
         DBConnection db = new DBConnection();
         primaryStage.setTitle("Weather App");
         GridPane grid = new GridPane();
-        grid.setAlignment(Pos.CENTER);
+        grid.setAlignment(Pos.TOP_CENTER);
 
-        Text sceneTitle = new Text("WEATHER APP");
-        sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 30));
+        Image weatherIcon = new Image("assets/snowy.png");
+        ImageView imageView = new ImageView(weatherIcon);
+        Text loginTitle = new Text(" WEATHER APP");
+        loginTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 30));
+        HBox signUpHeader = new HBox(imageView,loginTitle);
+        signUpHeader.setAlignment(Pos.CENTER);
+        signUpHeader.setPadding(new Insets(50,0,30,0));
+
         Text createAccountTitle = new Text("Create an account");
         createAccountTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         Label nameLabel = new Label("Name");
@@ -47,7 +57,7 @@ public class SignUp extends Application {
         final Text actiontarget = new Text();
 
 
-        grid.add(sceneTitle,0,0);
+        grid.add(signUpHeader,0,0);
         grid.add(createAccountTitle,0,1);
         grid.add(nameLabel,0,2);
         grid.add(nameField,0,3);
