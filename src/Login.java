@@ -99,7 +99,7 @@ public class Login extends Application {
             String userPass = pwBox.getText();
             ArrayList<HashMap<String, Object>> unregisteredUsers = new ArrayList<>();
             Boolean isAuthenticated;
-            Boolean registrationValid = false;
+            Boolean registrationValid = true;
             HashMap userData;
 
             // the user's input is compared to what's in the DB
@@ -126,10 +126,14 @@ public class Login extends Application {
                 String date = ((String) user.get("signUpDate")).split(" ")[0];
                 signUpDate = LocalDate.parse(date);
                 daysBetween = ChronoUnit.DAYS.between( signUpDate, today);
-                System.out.println(daysBetween <= 7);
-                if(daysBetween <= 7){
-                    registrationValid = true;
+                System.out.println("db "+ (daysBetween <= 7));
+                System.out.println("cu " + currentUser.equals(user.get("name")));
+                if(currentUser.equals(user.get("name"))){
+                    if(daysBetween >= 7){
+                        registrationValid = false;
+                    }
                 }
+
             }
 
             MainUI mainUI = new MainUI(model);
@@ -141,22 +145,24 @@ public class Login extends Application {
                     AdminDashboard adminDashboard = new AdminDashboard(mainUI);
                     adminDashboard.start(stage);
                     primaryStage.close();
-                } else if(!registrationValid){
-                    GridPane grid2 = new GridPane();
-                    grid2.setAlignment(Pos.CENTER);
-                    Text textMessage = new Text("Your trial period has expired\n Contact your administrator");
-                    grid2.add(textMessage,0,0);
-                    Scene scene2 = new Scene(grid2,300, 275);
-                    primaryStage.setScene(scene2);
-                    primaryStage.setMaximized(true);
-                    primaryStage.hide();
-                    primaryStage.show();
-                }else{
-                    try {
-                        mainUI.start(stage);
-                        primaryStage.close();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+                } else {
+                    if(!registrationValid){
+                        GridPane grid2 = new GridPane();
+                        grid2.setAlignment(Pos.CENTER);
+                        Text textMessage = new Text("Your trial period has expired\n Contact your administrator");
+                        grid2.add(textMessage,0,0);
+                        Scene scene2 = new Scene(grid2,300, 275);
+                        primaryStage.setScene(scene2);
+                        primaryStage.setMaximized(true);
+                        primaryStage.hide();
+                        primaryStage.show();
+                    } else {
+                        try {
+                            mainUI.start(stage);
+                            primaryStage.close();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
 
