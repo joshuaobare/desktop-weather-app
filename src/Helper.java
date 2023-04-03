@@ -7,6 +7,7 @@ public class Helper {
     private String time;
     private String date;
     private String day;
+    private String backgroundUrl;
 
 
     public String tempConverter(String temp) {
@@ -79,38 +80,47 @@ public class Helper {
         switch (icon){
             case "01d":
                 iconPath= "./assets/sun.svg";
+                backgroundUrl = "./assets/clearday.jpg";
                 break;
 
             case "02d":
                 iconPath= "./assets/cloudy-day.svg";
+                backgroundUrl = "./assets/cloudyday.jpg";
             break;
 
             case "03d" ,"04d":
                 iconPath= "./assets/cloudy.svg";
+                backgroundUrl = "./assets/cloudyday.jpg";
             break;
 
             case "09d","10d", "09n", "10n":
                 iconPath= "./assets/rainy.svg";
+                backgroundUrl = "./assets/rainy.jpg";
             break;
 
             case "11d", "11n":
                 iconPath= "./assets/lightning.svg";
+                backgroundUrl = "./assets/stormynight.jpg";
             break;
 
             case "13d", "13n":
                 iconPath= "./assets/snow.svg";
+                backgroundUrl = "./assets/snowynight.jpg";
             break;
 
             case "50d", "50n":
                 iconPath= "./assets/mist.svg";
+                backgroundUrl = "./assets/foggy.jpg";
             break;
 
             case "01n":
                 iconPath= "./assets/moon.svg";
+                backgroundUrl = "./assets/clearnight.jpg";
             break;
 
             case "02n", "03n", "04n":
                 iconPath= "./assets/cloudy-night.svg";
+                backgroundUrl = "./assets/cloudynight.jpg";
             break;
 
             default:
@@ -132,5 +142,10 @@ public class Helper {
 
     public String getDay() {
         return day;
+    }
+
+    public String getBackgroundUrl(String code) {
+        weatherIconFetcher(code);
+        return backgroundUrl;
     }
 }

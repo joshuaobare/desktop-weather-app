@@ -88,6 +88,7 @@ public class Login extends Application {
 
         Scene scene = new Scene(grid, 300, 275);
         primaryStage.setScene(scene);
+        primaryStage.hide();
         primaryStage.setMaximized(true);
         primaryStage.show();
 
@@ -150,7 +151,16 @@ public class Login extends Application {
                         GridPane grid2 = new GridPane();
                         grid2.setAlignment(Pos.CENTER);
                         Text textMessage = new Text("Your trial period has expired\n Contact your administrator");
+                        Button redirectBtn = new Button("Back to Login");
+                        HBox btnBox = new HBox(redirectBtn);
+                        btnBox.setPadding(new Insets(10,0,0,0));
+
+                        redirectBtn.setOnAction((event2) -> {
+                            start(primaryStage);
+                        });
+
                         grid2.add(textMessage,0,0);
+                        grid2.add(btnBox,0,1);
                         Scene scene2 = new Scene(grid2,300, 275);
                         primaryStage.setScene(scene2);
                         primaryStage.setMaximized(true);
