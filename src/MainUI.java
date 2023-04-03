@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.awt.*;
@@ -180,9 +181,11 @@ public class MainUI extends Application {
         System.out.println(url);
         Image backgroundImage = new Image(backgroundUrl);
         ImageView backgroundImageView = new ImageView(backgroundImage);
+        backgroundImageView.setFitWidth(Screen.getPrimary().getVisualBounds().getWidth());
+        backgroundImageView.setFitHeight(Screen.getPrimary().getVisualBounds().getHeight());
         grid.setBackground(new Background(new BackgroundImage(backgroundImageView.getImage(),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,
-                new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false))));
+                new BackgroundSize(grid.getWidth(), grid.getHeight(), true, true, true, true))));
 
         // the gridPane is added to a Scene which is set to the Window display
         Scene scene = new Scene(grid, 300, 275);
