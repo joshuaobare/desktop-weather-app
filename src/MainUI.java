@@ -5,14 +5,20 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -166,7 +172,17 @@ public class MainUI extends Application {
 
         // the bottomPane is added to the main GridPane object
         grid.add(bottomPane, 1,9);
-        grid.setBackground(new Background(new BackgroundFill(Color.DARKGRAY,  new CornerRadii(0), new Insets(0))));
+        //grid.setBackground(new Background(new BackgroundFill(Color.DARKGRAY,  new CornerRadii(0), new Insets(0))));
+        String backgroundUrl = helper.getBackgroundUrl((String) currentWeather.get("icon"));
+
+        File file = new File(backgroundUrl);
+        URL url = file.toURI().toURL();
+        System.out.println(url);
+        Image backgroundImage = new Image(backgroundUrl);
+        ImageView backgroundImageView = new ImageView(backgroundImage);
+        grid.setBackground(new Background(new BackgroundImage(backgroundImageView.getImage(),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,
+                new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false))));
 
         // the gridPane is added to a Scene which is set to the Window display
         Scene scene = new Scene(grid, 300, 275);
