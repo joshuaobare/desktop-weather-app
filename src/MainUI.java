@@ -205,10 +205,18 @@ public class MainUI extends Application {
         userName.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
         userName.setFill(Color.WHITE);
         Button logout = new Button("Logout");
+        logout.setStyle("-fx-background-color: transparent;-fx-text-fill: #ffffff;-fx-border-color: white;-fx-cursor: hand;");
+
+        logout.setOnAction((event) -> {
+            Login login = new Login();
+            Stage stage = new Stage();
+            login.start(stage);
+            primaryStage.close();
+        });
         HBox menu = new HBox(userName,logout);
         menu.setSpacing(10);
         menu.setAlignment(Pos.CENTER);
-        logout.setStyle("-fx-background-color: transparent;-fx-text-fill: #ffffff;-fx-border-color: white;-fx-cursor: hand;");
+
         logoutBar.setRight(menu);
         fullApp.add(grid,0,1);
 

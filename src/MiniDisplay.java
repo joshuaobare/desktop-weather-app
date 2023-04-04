@@ -35,5 +35,6 @@ public class MiniDisplay extends GridPane {
         add(weatherIcon, 0 ,4);
         setPrefWidth(300);
 
+
     }
 }
