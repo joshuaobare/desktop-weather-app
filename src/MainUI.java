@@ -229,10 +229,13 @@ public class MainUI extends Application {
         Group backBtnGraphic = new Group(backBtnSvgImage);
         Button backBtn = new Button("",backBtnGraphic);
         backBtn.setStyle("-fx-background-color: transparent;-fx-text-fill: #ffffff;-fx-border-color: white;-fx-cursor: hand;");
-        HBox backBtnCont = new HBox(backBtn);
-
         logoutBar.setRight(menu);
-        logoutBar.setLeft(backBtnCont);
+
+        if(userData.get("isAdmin").equals(true)){
+            HBox backBtnCont = new HBox(backBtn);
+            logoutBar.setLeft(backBtnCont);
+        }
+
         fullApp.add(grid,0,1);
 
         String backgroundUrl = helper.getBackgroundUrl((String) currentWeather.get("icon"));
