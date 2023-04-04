@@ -216,6 +216,7 @@ public class MainUI extends Application {
         HBox menu = new HBox(userName,logout);
         menu.setSpacing(10);
         menu.setAlignment(Pos.CENTER);
+        logoutBar.setRight(menu);
 
 
         InputStream backBtnSvgFile =
@@ -229,7 +230,14 @@ public class MainUI extends Application {
         Group backBtnGraphic = new Group(backBtnSvgImage);
         Button backBtn = new Button("",backBtnGraphic);
         backBtn.setStyle("-fx-background-color: transparent;-fx-text-fill: #ffffff;-fx-border-color: white;-fx-cursor: hand;");
-        logoutBar.setRight(menu);
+
+        backBtn.setOnAction((event) -> {
+            MainUI mainUI = new MainUI(model);
+            AdminDashboard adminDashboard = new AdminDashboard(mainUI);
+            Stage stage = new Stage();
+            adminDashboard.start(stage);
+            primaryStage.close();
+        });
 
         if(userData.get("isAdmin").equals(true)){
             HBox backBtnCont = new HBox(backBtn);
