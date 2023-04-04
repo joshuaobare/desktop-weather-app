@@ -61,20 +61,25 @@ public class MainUI extends Application {
         // different Text nodes are created and populated with data from the currentWeather HashMap
         Text weatherTitle = new Text(helper.capitalizeDescription((String) currentWeather.get("description")));
         weatherTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
+        weatherTitle.setFill(Color.WHITE);
         Text location = new Text((String) currentWeather.get("name") + " " + (String) currentWeather.get("country") );
         location.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
+        location.setFill(Color.WHITE);
 
         /* this helper method is run to retrieve the location's local time, which is retrieved and then added
            to some Text nodes */
         helper.dateConverter((String) currentWeather.get("timezone"));
         Text date = new Text(helper.getDate());
         date.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
+        date.setFill(Color.WHITE);
         Text time = new Text(helper.getTime());
         time.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
+        time.setFill(Color.WHITE);
 
         // the temperature provided by the API is in Kelvin, so it has to be converted to Celsius
         Text temperature = new Text( helper.tempConverter((String) currentWeather.get("temp")) + "\u00B0C");
         temperature.setFont(Font.font("Tahoma", FontWeight.NORMAL, 50));
+        temperature.setFill(Color.WHITE);
 
         // The nodes are added to the main GridPane object
         grid.add(weatherTitle , 0 ,0);
@@ -116,20 +121,29 @@ public class MainUI extends Application {
         GridPane rightPane = new GridPane();
         Text feelsLike = new Text("Feels Like");
         feelsLike.setFont(Font.font("Tahoma", FontWeight.NORMAL, 10));
+        feelsLike.setFill(Color.WHITE);
+
         Text feelsLikeValue = new Text(helper.tempConverter((String) currentWeather.get("feels_like")) + "\u00B0C");
         feelsLikeValue.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
+        feelsLikeValue.setFill(Color.WHITE);
         Text humidity = new Text("Humidity");
         humidity.setFont(Font.font("Tahoma", FontWeight.NORMAL, 10));
+        humidity.setFill(Color.WHITE);
         Text humidityValue = new Text((String) currentWeather.get("humidity") + "%");
         humidityValue.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
+        humidityValue.setFill(Color.WHITE);
         Text chanceOfRain = new Text("Chance of Rain");
         chanceOfRain.setFont(Font.font("Tahoma", FontWeight.NORMAL, 10));
+        chanceOfRain.setFill(Color.WHITE);
         Text chanceOfRainValue = new Text(String.valueOf(Math.round((Double) currentWeather.get("pop") * 100)) + "%");
         chanceOfRainValue.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
+        chanceOfRainValue.setFill(Color.WHITE);
         Text windSpeed = new Text("Wind Speed");
         windSpeed.setFont(Font.font("Tahoma", FontWeight.NORMAL, 10));
+        windSpeed.setFill(Color.WHITE);
         Text windSpeedValue = new Text((String) currentWeather.get("speed") + "m/s");
         windSpeedValue.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
+        windSpeedValue.setFill(Color.WHITE);
 
         rightPane.add(feelsLike , 0 ,0);
         rightPane.add(feelsLikeValue , 0 ,1);
