@@ -217,7 +217,22 @@ public class MainUI extends Application {
         menu.setSpacing(10);
         menu.setAlignment(Pos.CENTER);
 
+
+        InputStream backBtnSvgFile =
+                getClass()
+                        .getResourceAsStream("assets/backbtn.svg");
+
+        SvgLoader backBtnSvgLoader = new SvgLoader();
+        Group backBtnSvgImage = backBtnSvgLoader.loadSvg(backBtnSvgFile);
+        backBtnSvgImage.setScaleX(.03);
+        backBtnSvgImage.setScaleY(.03);
+        Group backBtnGraphic = new Group(backBtnSvgImage);
+        Button backBtn = new Button("",backBtnGraphic);
+        backBtn.setStyle("-fx-background-color: transparent;-fx-text-fill: #ffffff;-fx-border-color: white;-fx-cursor: hand;");
+        HBox backBtnCont = new HBox(backBtn);
+
         logoutBar.setRight(menu);
+        logoutBar.setLeft(backBtnCont);
         fullApp.add(grid,0,1);
 
         String backgroundUrl = helper.getBackgroundUrl((String) currentWeather.get("icon"));
