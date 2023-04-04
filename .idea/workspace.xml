@@ -6,21 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="eba15fdd-819c-43b0-b499-aea566688b89" name="Changes" comment="added code to redirect expired users to an error page - currently buggy">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/arrow_left.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/arrow_left.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/arrow_right.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/arrow_right.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/cloud.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/cloud.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/cloudy-day.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/cloudy-day.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/cloudy-night.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/cloudy-night.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/cloudy.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/cloudy.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/humidity.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/humidity.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/lightning.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/lightning.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/mist.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/mist.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/moon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/moon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/rainy.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/rainy.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/snow.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/snow.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/sun.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/sun.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/thermo.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/thermo.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/wind.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/wind.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MainUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

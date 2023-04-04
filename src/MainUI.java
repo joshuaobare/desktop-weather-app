@@ -1,6 +1,7 @@
 import afester.javafx.svg.SvgLoader;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -49,6 +50,7 @@ public class MainUI extends Application {
         Helper helper = new Helper();
         HashMap<String, Object> currentWeather = model.getCurrentWeather();
         ArrayList<HashMap<String, Object>> weatherForecastData = model.getWeatherForecastData();
+        HashMap<String, Object> userData = model.getUserData();
 
         // The window's title is set, as well as the GridPane object that holds all the data
         primaryStage.setTitle("Weather App");
@@ -188,8 +190,29 @@ public class MainUI extends Application {
         // the bottomPane is added to the main GridPane object
         grid.add(bottomPane, 1,9);
         //grid.setBackground(new Background(new BackgroundFill(Color.DARKGRAY,  new CornerRadii(0), new Insets(0))));
-        String backgroundUrl = helper.getBackgroundUrl((String) currentWeather.get("icon"));
 
+
+
+
+
+        BorderPane logoutBar = new BorderPane();
+        logoutBar.setPadding(new Insets(5,5,5,5));
+        BorderPane.setAlignment(logoutBar,Pos.CENTER);
+        GridPane fullApp = new GridPane();
+       // fullApp.setAlignment(Pos.TOP);
+        fullApp.add(logoutBar,0,0,10,1);
+        Text userName = new Text((String) userData.get("name"));
+        userName.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
+        userName.setFill(Color.WHITE);
+        Button logout = new Button("Logout");
+        HBox menu = new HBox(userName,logout);
+        menu.setSpacing(10);
+        menu.setAlignment(Pos.CENTER);
+        logout.setStyle("-fx-background-color: transparent;-fx-text-fill: #ffffff;-fx-border-color: white;-fx-cursor: hand;");
+        logoutBar.setRight(menu);
+        fullApp.add(grid,0,1);
+
+        String backgroundUrl = helper.getBackgroundUrl((String) currentWeather.get("icon"));
         File file = new File(backgroundUrl);
         URL url = file.toURI().toURL();
         System.out.println(url);
@@ -197,12 +220,12 @@ public class MainUI extends Application {
         ImageView backgroundImageView = new ImageView(backgroundImage);
         backgroundImageView.setFitWidth(Screen.getPrimary().getVisualBounds().getWidth());
         backgroundImageView.setFitHeight(Screen.getPrimary().getVisualBounds().getHeight());
-        grid.setBackground(new Background(new BackgroundImage(backgroundImageView.getImage(),
+        fullApp.setBackground(new Background(new BackgroundImage(backgroundImageView.getImage(),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,
                 new BackgroundSize(grid.getWidth(), grid.getHeight(), true, true, true, true))));
 
         // the gridPane is added to a Scene which is set to the Window display
-        Scene scene = new Scene(grid, 300, 275);
+        Scene scene = new Scene(fullApp, 300, 275);
         primaryStage.setScene(scene);
         primaryStage.hide();
         primaryStage.setMaximized(true);
