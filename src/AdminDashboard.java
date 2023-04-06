@@ -118,8 +118,8 @@ public class AdminDashboard extends Application {
         regUsersTables.setEditable(true);
         TableColumn user = new TableColumn<>("User");
         TableColumn dateAdded = new TableColumn<>("Date Added");
-        TableColumn buttonColumn = new TableColumn<>("");
-        regUsersTables.getColumns().addAll(user,dateAdded,buttonColumn);
+        //TableColumn buttonColumn = new TableColumn<>("");
+        regUsersTables.getColumns().addAll(user,dateAdded);
         regUsersTables.setPrefWidth(350);
 
         ArrayList<User> users = new ArrayList<>();
@@ -136,7 +136,7 @@ public class AdminDashboard extends Application {
         user.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
         dateAdded.setCellValueFactory(new PropertyValueFactory<User,String>("dateAdded"));
 
-        Callback<TableColumn<User, Void>, TableCell<User, Void>> regUserTableCellFactory = new Callback<TableColumn<User, Void>, TableCell<User, Void>>() {
+       /* Callback<TableColumn<User, Void>, TableCell<User, Void>> regUserTableCellFactory = new Callback<TableColumn<User, Void>, TableCell<User, Void>>() {
             @Override
             public TableCell<User, Void> call(final TableColumn<User, Void> param) {
                 final TableCell<User, Void> cell = new TableCell<User, Void>() {
@@ -161,8 +161,8 @@ public class AdminDashboard extends Application {
                 };
                 return cell;
             }
-        };
-        buttonColumn.setCellFactory(regUserTableCellFactory);
+        };*/
+       // buttonColumn.setCellFactory(regUserTableCellFactory);
 
         regUsersTables.setItems(data);
 
