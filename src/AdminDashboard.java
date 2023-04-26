@@ -59,6 +59,7 @@ public class AdminDashboard extends Application {
         HashMap<String,Integer> globalMostSearchedLocations = model.getGlobalMostSearchedLocations();
         TreeMap<Date, Integer> apiCallCount = model.getApiCallCount();
         HashMap<String, Integer> sortedGlobalMostSearchedLocations = helper.sortByValue(globalMostSearchedLocations);
+        HashMap<String, Object> userData = model.getUserData();
 
         primaryStage.setTitle("Weather App");
         BorderPane borderPane = new BorderPane();
@@ -70,14 +71,16 @@ public class AdminDashboard extends Application {
         ImageView imageView = new ImageView(weatherIcon);
         Button mainUIBtn = new Button("Weather App", imageView);
         mainUIBtn.setAlignment(Pos.CENTER);
-        //mainUIBtn.setPadding(new Insets(5,5,10,10));
+        mainUIBtn.setStyle(" -fx-background-color: transparent;-fx-border:none;-fx-cursor: hand;");
         left.getChildren().add(mainUIBtn);
         left.prefWidthProperty().bind(primaryStage.widthProperty().multiply(0.20));
+        left.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY,  new CornerRadii(0), new Insets(0))));
 
         VBox center = new VBox();
         center.setPadding(new Insets(25, 25, 25, 25));
         center.setAlignment(Pos.TOP_CENTER);
-        center.setBackground(new Background(new BackgroundFill(Color.DARKGRAY,  new CornerRadii(0), new Insets(0))));
+        center.setStyle("-fx-border-width: 0 4 0 4;-fx-border-color: black");
+        //center.setBackground(new Background(new BackgroundFill(Color.DARKGRAY,  new CornerRadii(0), new Insets(0))));
         VBox centerTop = new VBox();
 
         Text centerHeading = new Text("Dashboard");
@@ -114,69 +117,25 @@ public class AdminDashboard extends Application {
         Text centerBottomLeftHeader = new Text("Registered Users");
         centerBottomLeftHeader.setFont(Font.font("Tahoma", FontWeight.BOLD, 16));
 
-/*
-        TableView regUsersTables = new TableView<>();
-        regUsersTables.setEditable(true);
-        TableColumn user = new TableColumn<>("User");
-        TableColumn dateAdded = new TableColumn<>("Date Added");
-        //TableColumn buttonColumn = new TableColumn<>("");
-        regUsersTables.getColumns().addAll(user,dateAdded);
-        regUsersTables.setPrefWidth(350);
-
-        ArrayList<User> users = new ArrayList<>();
-
-        for(HashMap<String,Object> map :registeredUsers){
-            SimpleStringProperty userName = new SimpleStringProperty((String) map.get("name"));
-            System.out.println(userName);
-            SimpleStringProperty userDateAdded = new SimpleStringProperty((String) map.get("signUpDate"));
-            users.add(new User(userName,userDateAdded));
-        }
-
-        final ObservableList<User> data = FXCollections.observableArrayList(users);
-
-        user.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
-        dateAdded.setCellValueFactory(new PropertyValueFactory<User,String>("dateAdded"));
-
-       /* Callback<TableColumn<User, Void>, TableCell<User, Void>> regUserTableCellFactory = new Callback<TableColumn<User, Void>, TableCell<User, Void>>() {
-            @Override
-            public TableCell<User, Void> call(final TableColumn<User, Void> param) {
-                final TableCell<User, Void> cell = new TableCell<User, Void>() {
-
-                    private final Button btn = new Button("Revoke License");
-
-                    {
-                        btn.setOnAction((ActionEvent event) -> {
-                            //
-                        });
-                    }
-
-                    @Override
-                    public void updateItem(Void item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                        } else {
-                            setGraphic(btn);
-                        }
-                    }
-                };
-                return cell;
-            }
-        };
-       // buttonColumn.setCellFactory(regUserTableCellFactory);
-
-        regUsersTables.setItems(data);
-
-        */
         centerBottomLeft.getChildren().addAll(centerBottomLeftHeader);
 
 
         for(HashMap<String,Object> map:registeredUsers){
+            System.out.println(map);
             HBox userBox = new HBox();
             userBox.setPadding(new Insets(10 ,0 ,0 ,0));
             userBox.setSpacing(10);
             Text userName = new Text((String) map.get("name"));
             Button btn = new Button("Remove User");
+
+            btn.setOnAction((event) -> {
+                try {
+                    db.deleteUser((String) map.get("userID"));
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
             userBox.getChildren().addAll(userName, btn);
             centerBottomLeft.getChildren().addAll(userBox);
         }
@@ -210,8 +169,12 @@ public class AdminDashboard extends Application {
         VBox rightTop = new VBox();
         rightTop.setAlignment(Pos.TOP_RIGHT);
         VBox.setMargin(rightTop, new Insets(10,0,0,0));
-        Text adminName = new Text("John Oloo");
+        Text adminName = new Text((String) userData.get("name"));
+        adminName.setStyle("-fx-font-weight: bold;");
         Label adminLabel = new Label("ADMIN");
+        adminLabel.setStyle("-fx-font-size: 10;");
+
+
 
         rightTop.getChildren().addAll(adminName,adminLabel);
 
@@ -297,6 +260,15 @@ public class AdminDashboard extends Application {
                 Text userName = new Text((String) map.get("name"));
                 //Text joinDate = new Text((String) map.get("signUpDate"));
                 Button btn = new Button("Renew Trial");
+
+                btn.setOnAction((event) -> {
+                    try {
+                        db.renewTrial((String) map.get("userID"));
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+
                 userBox.getChildren().addAll(userName, btn);
                 rightBottom.getChildren().addAll(userBox);
             }

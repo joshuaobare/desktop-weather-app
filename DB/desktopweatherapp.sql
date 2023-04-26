@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 26, 2023 at 10:05 PM
+-- Generation Time: Apr 26, 2023 at 11:08 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -670,7 +670,37 @@ INSERT INTO `api_calls` (`callID`, `time`) VALUES
 (631, '2023-04-26 20:31:43'),
 (632, '2023-04-26 20:31:44'),
 (633, '2023-04-26 20:32:10'),
-(634, '2023-04-26 20:32:12');
+(634, '2023-04-26 20:32:12'),
+(635, '2023-04-26 23:17:24'),
+(636, '2023-04-26 23:17:28'),
+(637, '2023-04-26 23:39:41'),
+(638, '2023-04-26 23:39:42'),
+(639, '2023-04-26 23:40:49'),
+(640, '2023-04-26 23:40:52'),
+(641, '2023-04-26 23:42:47'),
+(642, '2023-04-26 23:42:48'),
+(643, '2023-04-26 23:45:04'),
+(644, '2023-04-26 23:45:05'),
+(645, '2023-04-26 23:48:15'),
+(646, '2023-04-26 23:48:17'),
+(647, '2023-04-26 23:48:27'),
+(648, '2023-04-26 23:48:27'),
+(649, '2023-04-26 23:50:29'),
+(650, '2023-04-26 23:50:31'),
+(651, '2023-04-26 23:52:03'),
+(652, '2023-04-26 23:52:04'),
+(653, '2023-04-26 23:53:02'),
+(654, '2023-04-26 23:53:03'),
+(655, '2023-04-26 23:54:36'),
+(656, '2023-04-26 23:54:37'),
+(657, '2023-04-26 23:59:39'),
+(658, '2023-04-26 23:59:41'),
+(659, '2023-04-27 00:00:59'),
+(660, '2023-04-27 00:01:00'),
+(661, '2023-04-27 00:02:19'),
+(662, '2023-04-27 00:02:21'),
+(663, '2023-04-27 00:07:45'),
+(664, '2023-04-27 00:07:46');
 
 -- --------------------------------------------------------
 
@@ -738,9 +768,10 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`userID`, `name`, `email`, `isAdmin`, `signUpDate`, `password`) VALUES
 (1, 'Nina Oloo', 'admin@gmail.com', 1, '2023-02-01 17:30:58', 'test'),
-(2, 'Jack', 'jack@gmail.com', 0, '2023-03-09 17:48:41', 'test'),
-(3, 'Jill', 'jill@gmail.com', 0, '2023-03-23 21:25:08', 'test'),
-(4, 'Barbara Muema', 'bmuema@gmail.com', 0, '2023-03-30 19:50:40', 'test');
+(2, 'Jack Jackson', 'jack@gmail.com', 0, '2023-03-09 17:48:41', 'test'),
+(3, 'Jill Kemunto', 'jill@gmail.com', 0, '2023-03-23 21:25:08', 'test'),
+(4, 'Barbara Muema', 'bmuema@gmail.com', 0, '2023-03-30 19:50:40', 'test'),
+(5, 'Peter Abdul', 'pabdul@gmail.com', 0, '2023-04-26 23:54:40', 'test');
 
 -- --------------------------------------------------------
 
@@ -858,7 +889,7 @@ ALTER TABLE `weather_searches`
 -- AUTO_INCREMENT for table `api_calls`
 --
 ALTER TABLE `api_calls`
-  MODIFY `callID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=635;
+  MODIFY `callID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=665;
 
 --
 -- AUTO_INCREMENT for table `license_allocation`
@@ -870,7 +901,7 @@ ALTER TABLE `license_allocation`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `weather_searches`

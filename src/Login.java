@@ -150,6 +150,7 @@ public class Login extends Application {
                         GridPane grid2 = new GridPane();
                         grid2.setAlignment(Pos.CENTER);
                         Text textMessage = new Text("Your trial period has expired\n Contact your administrator");
+                        textMessage.setStyle("-fx-color:red");
                         Button redirectBtn = new Button("Back to Login");
                         HBox btnBox = new HBox(redirectBtn);
                         btnBox.setPadding(new Insets(10,0,0,0));
