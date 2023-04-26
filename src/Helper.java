@@ -74,18 +74,16 @@ public class Helper {
         return finalDescription;
     }
 
-    public HashMap<String, Integer> sortByValue(HashMap<String, Integer> hm)
-    {
+    public HashMap<String, Integer> sortByValue(HashMap<String, Integer> hashmap) {
         // Create a list from elements of HashMap
-        List<Map.Entry<String, Integer> > list =
-                new LinkedList<Map.Entry<String, Integer> >(hm.entrySet());
+        List<Map.Entry<String, Integer>> list =
+                new LinkedList<Map.Entry<String, Integer>>(hashmap.entrySet());
 
         // Sort the list
-        Collections.sort(list, new Comparator<Map.Entry<String, Integer> >() {
-            public int compare(Map.Entry<String, Integer> o1,
-                               Map.Entry<String, Integer> o2)
-            {
-                return (o1.getValue()).compareTo(o2.getValue());
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+            public int compare(Map.Entry<String, Integer> item1,
+                               Map.Entry<String, Integer> item2) {
+                return (item2.getValue()).compareTo(item1.getValue());
             }
         });
 
