@@ -104,11 +104,16 @@ public class DBConnection {
 
     }
 
-    public void renewTrial(String userId){
-
+    public void renewTrial(String userId) throws SQLException {
+        prstatement = conn.prepareStatement("UPDATE USERS SET SIGNUPDATE = CURRENT_TIMESTAMP() WHERE USERID = ?");
+        prstatement.setString(1, userId);
+        prstatement.execute();
     }
 
-    public void deleteUser(String userId){
+    public void deleteUser(String userId) throws SQLException {
+        prstatement = conn.prepareStatement("DELETE FROM USERS WHERE USERID = ?");
+        prstatement.setString(1, userId);
+        prstatement.execute();
 
     }
 
