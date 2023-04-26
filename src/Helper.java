@@ -89,8 +89,8 @@ public class Helper {
 
         // put data from sorted list to hashmap
         HashMap<String, Integer> temp = new LinkedHashMap<String, Integer>();
-        for (Map.Entry<String, Integer> aa : list) {
-            temp.put(aa.getKey(), aa.getValue());
+        for (Map.Entry<String, Integer> item : list) {
+            temp.put(item.getKey(), item.getValue());
         }
         return temp;
     }

@@ -127,8 +127,7 @@ public class Login extends Application {
                 String date = ((String) user.get("signUpDate")).split(" ")[0];
                 signUpDate = LocalDate.parse(date);
                 daysBetween = ChronoUnit.DAYS.between( signUpDate, today);
-                System.out.println("db "+ (daysBetween <= 7));
-                System.out.println("cu " + currentUser.equals(user.get("name")));
+
                 if(currentUser.equals(user.get("name"))){
                     if(daysBetween >= 7){
                         registrationValid = false;

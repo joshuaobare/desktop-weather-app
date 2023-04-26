@@ -31,6 +31,7 @@ public class AdminDashboard extends Application {
     MainUI mainUI;
     DataModel model;
     DBConnection db = new DBConnection();
+    Helper helper = new Helper();
 
     public AdminDashboard(MainUI mainUI) {
         this.mainUI = mainUI;
@@ -39,7 +40,6 @@ public class AdminDashboard extends Application {
 
     public AdminDashboard() throws SQLException {
         model = new DataModel();
-
         model.setGlobalMostSearchedLocations(db.getGlobalMostSearchedLocations());
         Stage stage = new Stage();
         mainUI = new MainUI(model);
@@ -58,6 +58,7 @@ public class AdminDashboard extends Application {
         ArrayList<HashMap<String, Object>> unregisteredUsers = model.getUnregisteredUsers();
         HashMap<String,Integer> globalMostSearchedLocations = model.getGlobalMostSearchedLocations();
         TreeMap<Date, Integer> apiCallCount = model.getApiCallCount();
+        HashMap<String, Integer> sortedGlobalMostSearchedLocations = helper.sortByValue(globalMostSearchedLocations);
 
         primaryStage.setTitle("Weather App");
         BorderPane borderPane = new BorderPane();
@@ -97,8 +98,8 @@ public class AdminDashboard extends Application {
 
 
         for(Map.Entry<Date,Integer> day: apiCallCount.entrySet()){
-            System.out.println(day.getKey());
-            System.out.println(day.getValue());
+           // System.out.println(day.getKey());
+           // System.out.println(day.getValue());
             String dayString = day.getKey().toString().substring(0,10);
             series.getData().add(new XYChart.Data(dayString,day.getValue()));
         }
@@ -113,7 +114,7 @@ public class AdminDashboard extends Application {
         Text centerBottomLeftHeader = new Text("Registered Users");
         centerBottomLeftHeader.setFont(Font.font("Tahoma", FontWeight.BOLD, 16));
 
-
+/*
         TableView regUsersTables = new TableView<>();
         regUsersTables.setEditable(true);
         TableColumn user = new TableColumn<>("User");
@@ -161,13 +162,25 @@ public class AdminDashboard extends Application {
                 };
                 return cell;
             }
-        };*/
+        };
        // buttonColumn.setCellFactory(regUserTableCellFactory);
 
         regUsersTables.setItems(data);
 
+        */
+        centerBottomLeft.getChildren().addAll(centerBottomLeftHeader);
 
-        centerBottomLeft.getChildren().addAll(centerBottomLeftHeader, regUsersTables);
+
+        for(HashMap<String,Object> map:registeredUsers){
+            HBox userBox = new HBox();
+            userBox.setPadding(new Insets(10 ,0 ,0 ,0));
+            userBox.setSpacing(10);
+            Text userName = new Text((String) map.get("name"));
+            Button btn = new Button("Remove User");
+            userBox.getChildren().addAll(userName, btn);
+            centerBottomLeft.getChildren().addAll(userBox);
+        }
+
 
 
 
@@ -178,9 +191,9 @@ public class AdminDashboard extends Application {
         Text apiCallNumber = new Text(String.format("API Calls: %s", statistics.get("apiCalls")));
         Text apiCallsRemaining = new Text(String.format("API Calls Remaining: %s", (String.valueOf(1000 - Integer.valueOf((String) statistics.get("apiCalls"))))));
         Text totalSearches = new Text(String.format("Total Searches: %s", statistics.get("totalSearches")));
-        Set<String> keys = globalMostSearchedLocations.keySet();
+        Set<String> keys = sortedGlobalMostSearchedLocations.keySet();
         String mostSearchedLocation = keys.toArray(new String[keys.size()])[0];
-        System.out.println(mostSearchedLocation);
+       // System.out.println(mostSearchedLocation);
         Text mostSearched = new Text(String.format("Most Searched Location: %s",mostSearchedLocation));
         Text usersCount = new Text(String.format("Number of Active Users: %s", statistics.get("userCount")));
 
@@ -209,19 +222,18 @@ public class AdminDashboard extends Application {
         rightCenterHeader.setFont(Font.font("Tahoma", FontWeight.BOLD, 16));
         rightCenter.getChildren().add(rightCenterHeader);
 
-        Helper helper = new Helper();
-        HashMap<String, Integer> msl = helper.sortByValue(globalMostSearchedLocations);
-        for(Map.Entry<String,Integer> value: msl.entrySet()){
+
+        for(Map.Entry<String,Integer> value: sortedGlobalMostSearchedLocations.entrySet()){
             rightCenter.getChildren().add(new Text(value.getKey() +": " + value.getValue()));
         }
 
 
         VBox rightBottom = new VBox();
-        VBox.setMargin(rightBottom, new Insets(300,0,0,0));
+        VBox.setMargin(rightBottom, new Insets(100,0,0,0));
         Text rightBottomHeader = new Text("Free Trials");
         rightBottomHeader.setFont(Font.font("Tahoma", FontWeight.BOLD, 16));
 
-
+/*
         TableView trialsUsersTable = new TableView<>();
         trialsUsersTable.setEditable(true);
         TableColumn userCol = new TableColumn<>("User");
@@ -272,9 +284,25 @@ public class AdminDashboard extends Application {
             }
         };
         btnCol.setCellFactory(cellFactory);
-        trialsUsersTable.setItems(data2);
+        trialsUsersTable.setItems(data2); */
 
-        rightBottom.getChildren().addAll(rightBottomHeader,trialsUsersTable);
+        //rightBottom.getChildren().addAll(rightBottomHeader,trialsUsersTable);
+        rightBottom.getChildren().addAll(rightBottomHeader);
+        for(HashMap<String,Object> map:unregisteredUsers){
+            //int isAdmin = Integer.valueOf((String) map.get("isAdmin"));
+            if(map.get("isAdmin").equals("0")){
+                HBox userBox = new HBox();
+                userBox.setPadding(new Insets(10 ,0 ,0 ,0));
+                userBox.setSpacing(10);
+                Text userName = new Text((String) map.get("name"));
+                //Text joinDate = new Text((String) map.get("signUpDate"));
+                Button btn = new Button("Renew Trial");
+                userBox.getChildren().addAll(userName, btn);
+                rightBottom.getChildren().addAll(userBox);
+            }
+
+        }
+
 
         right.getChildren().addAll(rightTop,rightCenter,rightBottom);
         borderPane.setLeft(left);

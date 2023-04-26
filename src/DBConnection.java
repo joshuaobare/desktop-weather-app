@@ -104,6 +104,14 @@ public class DBConnection {
 
     }
 
+    public void renewTrial(String userId){
+
+    }
+
+    public void deleteUser(String userId){
+
+    }
+
     private void globalMostSearched() throws SQLException {
         prstatement = conn.prepareStatement(
                 "SELECT LOCATION, COUNT(*) FROM WEATHER_SEARCHES GROUP BY LOCATION_ID");
