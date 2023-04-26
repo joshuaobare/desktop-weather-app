@@ -14,7 +14,7 @@ public class DBConnection {
     private ArrayList<HashMap<String,Object>> registeredUsers = new ArrayList<>();
     private ArrayList<HashMap<String,Object>> unregisteredUsers = new ArrayList<>();
     private HashMap<String,Object> statistics = new HashMap<>();
-    private HashMap<String,Object> globalMostSearchedLocations = new HashMap<>();
+    private HashMap<String,Integer> globalMostSearchedLocations = new HashMap<>();
     private HashMap<String,Object> userMostSearchedLocations = new HashMap<>();
     private TreeMap<Date, Integer> apiCallCount;
 
@@ -110,7 +110,7 @@ public class DBConnection {
         rs = prstatement.executeQuery();
 
         while(rs.next()){
-            globalMostSearchedLocations.put(rs.getString(1),rs.getString(2));
+            globalMostSearchedLocations.put(rs.getString(1),Integer.valueOf(rs.getString(2)));
         }
     }
     public void retrieveRegisteredUsers() throws SQLException {
@@ -348,7 +348,7 @@ public class DBConnection {
         return unregisteredUsers;
     }
 
-    public HashMap<String, Object> getGlobalMostSearchedLocations() throws SQLException {
+    public HashMap<String, Integer> getGlobalMostSearchedLocations() throws SQLException {
         globalMostSearched();
         return globalMostSearchedLocations;
     }

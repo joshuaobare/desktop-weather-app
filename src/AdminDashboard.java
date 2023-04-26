@@ -56,7 +56,7 @@ public class AdminDashboard extends Application {
         HashMap<String, Object>  statistics = model.getStatistics();
         ArrayList<HashMap<String, Object>> registeredUsers = model.getRegisteredUsers();
         ArrayList<HashMap<String, Object>> unregisteredUsers = model.getUnregisteredUsers();
-        HashMap<String,Object> globalMostSearchedLocations = model.getGlobalMostSearchedLocations();
+        HashMap<String,Integer> globalMostSearchedLocations = model.getGlobalMostSearchedLocations();
         TreeMap<Date, Integer> apiCallCount = model.getApiCallCount();
 
         primaryStage.setTitle("Weather App");
@@ -169,6 +169,8 @@ public class AdminDashboard extends Application {
 
         centerBottomLeft.getChildren().addAll(centerBottomLeftHeader, regUsersTables);
 
+
+
         VBox centerBottomRight = new VBox();
         centerBottomRight.setPadding(new Insets(0,0,0,100));
         Text centerBottomRightHeader = new Text("Statistics");
@@ -207,7 +209,9 @@ public class AdminDashboard extends Application {
         rightCenterHeader.setFont(Font.font("Tahoma", FontWeight.BOLD, 16));
         rightCenter.getChildren().add(rightCenterHeader);
 
-        for(Map.Entry<String,Object> value: globalMostSearchedLocations.entrySet()){
+        Helper helper = new Helper();
+        HashMap<String, Integer> msl = helper.sortByValue(globalMostSearchedLocations);
+        for(Map.Entry<String,Integer> value: msl.entrySet()){
             rightCenter.getChildren().add(new Text(value.getKey() +": " + value.getValue()));
         }
 

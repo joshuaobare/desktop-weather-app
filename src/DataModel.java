@@ -15,7 +15,7 @@ public class DataModel {
 
     private ArrayList<HashMap<String, Object>> registeredUsers = new ArrayList<>();
     private ArrayList<HashMap<String, Object>> unregisteredUsers = new ArrayList<>();
-    private HashMap<String,Object> globalMostSearchedLocations = new HashMap<>();
+    private HashMap<String,Integer> globalMostSearchedLocations = new HashMap<>();
     private HashMap<String,Object> userMostSearchedLocations = new HashMap<>();
     private TreeMap<Date, Integer> apiCallCount;
 
@@ -92,11 +92,11 @@ public class DataModel {
         return unregisteredUsers;
     }
 
-    public HashMap<String, Object> getGlobalMostSearchedLocations() {
+    public HashMap<String, Integer> getGlobalMostSearchedLocations() {
         return globalMostSearchedLocations;
     }
 
-    public void setGlobalMostSearchedLocations(HashMap<String, Object> globalMostSearchedLocations) {
+    public void setGlobalMostSearchedLocations(HashMap<String, Integer> globalMostSearchedLocations) {
         this.globalMostSearchedLocations = globalMostSearchedLocations;
     }
 
