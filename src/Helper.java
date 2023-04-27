@@ -52,7 +52,6 @@ public class Helper {
     public void dateConverter(String timezone){
         dateConverter(timezone,null);
     }
-
     public String capitalizeDescription(String description) {
         String[] splitDescription = description.split(" ");
         String finalDescription = "";
@@ -95,6 +94,7 @@ public class Helper {
         return finalHashmap;
     }
 
+    // method decided what pictures to display onto the mainUI based on the icon provided by the url
     public String weatherIconFetcher(String icon){
         String iconPath = "";
 

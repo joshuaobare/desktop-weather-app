@@ -124,7 +124,7 @@ public class ApiCall {
                 // Using the JSON simple library parse the string into a JSON object
                 JSONParser parse = new JSONParser();
                 JSONObject data_obj = (JSONObject) parse.parse(new InputStreamReader(conn.getInputStream()));
-
+                System.out.println(data_obj);
                 // the JSONObject is converted to a Hashmap object by the Gson object
                 unparsedWeatherForecastData = gson.fromJson(data_obj.toString(), type);
 
