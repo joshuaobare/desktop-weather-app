@@ -1,17 +1,9 @@
 import javafx.application.Application;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.MapValueFactory;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -20,9 +12,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Callback;
-
-import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
@@ -33,6 +22,7 @@ public class AdminDashboard extends Application {
     DBConnection db = new DBConnection();
     Helper helper = new Helper();
 
+    // the AdminDashboard is overloaded depending on whether a mainUI object is provided
     public AdminDashboard(MainUI mainUI) {
         this.mainUI = mainUI;
         model = mainUI.getModel();
@@ -43,8 +33,6 @@ public class AdminDashboard extends Application {
         model.setGlobalMostSearchedLocations(db.getGlobalMostSearchedLocations());
         Stage stage = new Stage();
         mainUI = new MainUI(model);
-
-
     }
 
     public static void main(String[] args) {
@@ -53,17 +41,22 @@ public class AdminDashboard extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        // variables are initialized from the model Class
         HashMap<String, Object>  statistics = model.getStatistics();
         ArrayList<HashMap<String, Object>> registeredUsers = model.getRegisteredUsers();
         ArrayList<HashMap<String, Object>> unregisteredUsers = model.getUnregisteredUsers();
         HashMap<String,Integer> globalMostSearchedLocations = model.getGlobalMostSearchedLocations();
         TreeMap<Date, Integer> apiCallCount = model.getApiCallCount();
-        HashMap<String, Integer> sortedGlobalMostSearchedLocations = helper.sortByValue(globalMostSearchedLocations);
         HashMap<String, Object> userData = model.getUserData();
+
+        // this helper method sorts the most searched locations by search count
+        HashMap<String, Integer> sortedGlobalMostSearchedLocations = helper.sortByValue(globalMostSearchedLocations);
+
 
         primaryStage.setTitle("Weather App");
         BorderPane borderPane = new BorderPane();
 
+    // LEFT SECTION
         VBox left = new VBox();
         left.setPadding(new Insets(100,0,0,10));
 
@@ -76,11 +69,11 @@ public class AdminDashboard extends Application {
         left.prefWidthProperty().bind(primaryStage.widthProperty().multiply(0.20));
         left.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY,  new CornerRadii(0), new Insets(0))));
 
+    // CENTER SECTION
         VBox center = new VBox();
         center.setPadding(new Insets(25, 25, 25, 25));
         center.setAlignment(Pos.TOP_CENTER);
         center.setStyle("-fx-border-width: 0 4 0 4;-fx-border-color: black");
-        //center.setBackground(new Background(new BackgroundFill(Color.DARKGRAY,  new CornerRadii(0), new Insets(0))));
         VBox centerTop = new VBox();
 
         Text centerHeading = new Text("Dashboard");
@@ -88,7 +81,7 @@ public class AdminDashboard extends Application {
         Text apiCallsHeader = new Text("API Calls This Week");
         apiCallsHeader.setFont(Font.font("Tahoma", FontWeight.BOLD, 16));
 
-
+        // the API call chart is created, and the axis labels are set
         final CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Day");
         final NumberAxis yAxis = new NumberAxis();
@@ -99,10 +92,8 @@ public class AdminDashboard extends Application {
         XYChart.Series series = new XYChart.Series();
         series.setName("Calls");
 
-
+        // the apiCallCount data is looped through, and data added to the chart
         for(Map.Entry<Date,Integer> day: apiCallCount.entrySet()){
-           // System.out.println(day.getKey());
-           // System.out.println(day.getValue());
             String dayString = day.getKey().toString().substring(0,10);
             series.getData().add(new XYChart.Data(dayString,day.getValue()));
         }
@@ -110,7 +101,7 @@ public class AdminDashboard extends Application {
         lineChart.prefHeightProperty().bind(primaryStage.heightProperty().multiply(0.5));
         centerTop.getChildren().addAll(centerHeading,apiCallsHeader,lineChart);
 
-
+        // CENTER BOTTOM LEFT
         HBox centerBottom = new HBox();
         centerBottom.setPadding(new Insets(10,0,0,0));
         VBox centerBottomLeft = new VBox();
@@ -119,15 +110,15 @@ public class AdminDashboard extends Application {
 
         centerBottomLeft.getChildren().addAll(centerBottomLeftHeader);
 
-
+        // loops through the registeredUsers arrayList
         for(HashMap<String,Object> map:registeredUsers){
-            System.out.println(map);
             HBox userBox = new HBox();
             userBox.setPadding(new Insets(10 ,0 ,0 ,0));
             userBox.setSpacing(10);
             Text userName = new Text((String) map.get("name"));
             Button btn = new Button("Remove User");
 
+            //
             btn.setOnAction((event) -> {
                 try {
                     db.deleteUser((String) map.get("userID"));
@@ -141,7 +132,7 @@ public class AdminDashboard extends Application {
         }
 
 
-
+        // CENTER BOTTOM RIGHT
 
         VBox centerBottomRight = new VBox();
         centerBottomRight.setPadding(new Insets(0,0,0,100));
@@ -152,7 +143,6 @@ public class AdminDashboard extends Application {
         Text totalSearches = new Text(String.format("Total Searches: %s", statistics.get("totalSearches")));
         Set<String> keys = sortedGlobalMostSearchedLocations.keySet();
         String mostSearchedLocation = keys.toArray(new String[keys.size()])[0];
-       // System.out.println(mostSearchedLocation);
         Text mostSearched = new Text(String.format("Most Searched Location: %s",mostSearchedLocation));
         Text usersCount = new Text(String.format("Number of Active Users: %s", statistics.get("userCount")));
 
@@ -162,6 +152,7 @@ public class AdminDashboard extends Application {
         centerBottom.getChildren().addAll(centerBottomLeft,centerBottomRight);
         center.getChildren().addAll(centerTop,centerBottom);
 
+    // RIGHT SECTION
         VBox right = new VBox();
         right.prefWidthProperty().bind(primaryStage.widthProperty().multiply(0.20));
         right.setPadding(new Insets(0, 25, 25, 25));
@@ -173,9 +164,6 @@ public class AdminDashboard extends Application {
         adminName.setStyle("-fx-font-weight: bold;");
         Label adminLabel = new Label("ADMIN");
         adminLabel.setStyle("-fx-font-size: 10;");
-
-
-
         rightTop.getChildren().addAll(adminName,adminLabel);
 
         VBox rightCenter = new VBox();
@@ -195,70 +183,15 @@ public class AdminDashboard extends Application {
         VBox.setMargin(rightBottom, new Insets(100,0,0,0));
         Text rightBottomHeader = new Text("Free Trials");
         rightBottomHeader.setFont(Font.font("Tahoma", FontWeight.BOLD, 16));
-
-/*
-        TableView trialsUsersTable = new TableView<>();
-        trialsUsersTable.setEditable(true);
-        TableColumn userCol = new TableColumn<>("User");
-        TableColumn accessCol = new TableColumn<>("Date Added");
-        TableColumn btnCol = new TableColumn<>("");
-        trialsUsersTable.getColumns().addAll(userCol,accessCol,btnCol);
-
-        ArrayList<User> users2 = new ArrayList<>();
-        System.out.println(unregisteredUsers);
-
-        for(HashMap<String,Object> map :unregisteredUsers){
-            if((map.get("isAdmin")).equals("0")){
-                SimpleStringProperty userName = new SimpleStringProperty((String) map.get("name"));
-                SimpleStringProperty userDateAdded = new SimpleStringProperty((String) map.get("signUpDate"));
-                users2.add(new User(userName,userDateAdded));
-            }
-        }
-
-        final ObservableList<User> data2 = FXCollections.observableArrayList(users2);
-
-        userCol.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
-        accessCol.setCellValueFactory(new PropertyValueFactory<User,String>("dateAdded"));
-
-        Callback<TableColumn<User, Void>, TableCell<User, Void>> cellFactory = new Callback<TableColumn<User, Void>, TableCell<User, Void>>() {
-            @Override
-            public TableCell<User, Void> call(final TableColumn<User, Void> param) {
-                final TableCell<User, Void> cell = new TableCell<User, Void>() {
-
-                    private final Button btn = new Button("Extend Period");
-
-                    {
-                        btn.setOnAction((ActionEvent event) -> {
-                            //
-                        });
-                    }
-
-                    @Override
-                    public void updateItem(Void item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                        } else {
-                            setGraphic(btn);
-                        }
-                    }
-                };
-                return cell;
-            }
-        };
-        btnCol.setCellFactory(cellFactory);
-        trialsUsersTable.setItems(data2); */
-
-        //rightBottom.getChildren().addAll(rightBottomHeader,trialsUsersTable);
         rightBottom.getChildren().addAll(rightBottomHeader);
+
+        // unregisteredUsers are looped through, any admins are removed
         for(HashMap<String,Object> map:unregisteredUsers){
-            //int isAdmin = Integer.valueOf((String) map.get("isAdmin"));
             if(map.get("isAdmin").equals("0")){
                 HBox userBox = new HBox();
                 userBox.setPadding(new Insets(10 ,0 ,0 ,0));
                 userBox.setSpacing(10);
                 Text userName = new Text((String) map.get("name"));
-                //Text joinDate = new Text((String) map.get("signUpDate"));
                 Button btn = new Button("Renew Trial");
 
                 btn.setOnAction((event) -> {
@@ -272,9 +205,7 @@ public class AdminDashboard extends Application {
                 userBox.getChildren().addAll(userName, btn);
                 rightBottom.getChildren().addAll(userBox);
             }
-
         }
-
 
         right.getChildren().addAll(rightTop,rightCenter,rightBottom);
         borderPane.setLeft(left);

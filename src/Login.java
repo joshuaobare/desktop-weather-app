@@ -37,6 +37,8 @@ public class Login extends Application {
     @Override
     public void start(Stage primaryStage) {
         DBConnection db = new DBConnection();
+
+        // the window title and grid dimensions are set initially
         primaryStage.setTitle("Weather App");
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.TOP_CENTER);
@@ -44,6 +46,7 @@ public class Login extends Application {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
+        // the nodes are then created
         Image weatherIcon = new Image("assets/snowy.png");
         ImageView imageView = new ImageView(weatherIcon);
         Text loginTitle = new Text(" WEATHER APP");
@@ -58,6 +61,8 @@ public class Login extends Application {
         welcometitle.setTextAlignment(TextAlignment.CENTER);
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         welcometitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
+
+        // the created nodes are positioned on the gridpane
         grid.add(loginHeader, 0, 0, 2, 1);
         grid.add(scenetitle, 0, 1, 2, 1);
         grid.add(welcometitle, 0, 2, 2, 1);
@@ -92,10 +97,13 @@ public class Login extends Application {
         primaryStage.setMaximized(true);
         primaryStage.show();
 
-        // An EventListener is attached to the Login button, if the user's credentials are accurate
-        // the user is logged in and the view switches to the MainUI
+        /* An EventListener is attached to the Login button, if the user's credentials are accurate
+           the user is logged in and the view switches to the MainUI */
         signInBtn.setOnAction((event) -> {
+
+            // the DataModel is initialized in the Login class
             DataModel model = new DataModel();
+            // the user's email and password are collected from the textboxes
             String userEmail = userTextField.getText();
             String userPass = pwBox.getText();
             ArrayList<HashMap<String, Object>> unregisteredUsers = new ArrayList<>();
@@ -105,9 +113,13 @@ public class Login extends Application {
 
             // the user's input is compared to what's in the DB
             try {
+
+                // the userAuthentication method compares the password input to what is in the DB
                 isAuthenticated = db.userAuthentication(userEmail,userPass);
                 userData = db.getUserData();
                 db.userMostSearched((String) userData.get("id"));
+
+                // the model is populated from DB content
                 model.setUserData(userData);
                 model.setUserMostSearchedLocations(db.getUserMostSearchedLocations());
                 model.setGlobalMostSearchedLocations(db.getGlobalMostSearchedLocations());
@@ -116,7 +128,7 @@ public class Login extends Application {
                 throw new RuntimeException(e);
             }
 
-
+            // the unregisteredUsers hashmap is looped through to check whether the current user is unregistered
             for(HashMap<String, Object> user : unregisteredUsers){
                 String currentUser = (String) userData.get("name");
                 LocalDate today = LocalDate.now();
@@ -128,6 +140,8 @@ public class Login extends Application {
                 signUpDate = LocalDate.parse(date);
                 daysBetween = ChronoUnit.DAYS.between( signUpDate, today);
 
+                // if the current user is unregistered, and it's been 7 days since their signup date,
+                // an invalid registration flag is set
                 if(currentUser.equals(user.get("name"))){
                     if(daysBetween >= 7){
                         registrationValid = false;
@@ -136,37 +150,43 @@ public class Login extends Application {
 
             }
 
+            // a new MainUI object is initialized with the populated model as a parameter
             MainUI mainUI = new MainUI(model);
 
-            // if authentication is successful, the view is switched to MainUI
+            // if authentication is successful, the appropriate view is displayed
             if(isAuthenticated){
                 Stage stage = new Stage();
+
+                // if the user is an admin they will be redirected to the AdminDashboard
                 if((userData.get("isAdmin").equals(true))){
                     AdminDashboard adminDashboard = new AdminDashboard(mainUI);
                     adminDashboard.start(stage);
                     primaryStage.close();
                 } else {
+                    // if not an admin and their registration has expired, they'll be redirected to an error message
                     if(!registrationValid){
-                        GridPane grid2 = new GridPane();
-                        grid2.setAlignment(Pos.CENTER);
-                        Text textMessage = new Text("Your trial period has expired\n Contact your administrator");
-                        textMessage.setStyle("-fx-color:red");
+                        GridPane invalidRegGrid = new GridPane();
+                        invalidRegGrid.setAlignment(Pos.CENTER);
+                        Text invalidRegMessage = new Text("Your trial period has expired\n Contact your administrator");
+                        invalidRegMessage.setStyle("-fx-color:red");
                         Button redirectBtn = new Button("Back to Login");
                         HBox btnBox = new HBox(redirectBtn);
                         btnBox.setPadding(new Insets(10,0,0,0));
 
+                        // the button has an event listener to redirect back to the login page
                         redirectBtn.setOnAction((event2) -> {
                             start(primaryStage);
                         });
 
-                        grid2.add(textMessage,0,0);
-                        grid2.add(btnBox,0,1);
-                        Scene scene2 = new Scene(grid2,300, 275);
+                        invalidRegGrid.add(invalidRegMessage,0,0);
+                        invalidRegGrid.add(btnBox,0,1);
+                        Scene scene2 = new Scene(invalidRegGrid,300, 275);
                         primaryStage.setScene(scene2);
                         primaryStage.setMaximized(true);
                         primaryStage.hide();
                         primaryStage.show();
                     } else {
+                        // if the user isn't an admin, they are redirected to the mainUI
                         try {
                             mainUI.start(stage);
                             primaryStage.close();
@@ -176,13 +196,14 @@ public class Login extends Application {
                     }
                 }
 
-
+                // if tha authentication is unsuccessful an invalid registration error message is displayed
             } else {
                 actiontarget.setFill(Color.FIREBRICK);
                 actiontarget.setText("Incorrect details, try again");
             }
         });
 
+        // the signUP button redirects to the SignUP page
         signUpBtn.setOnAction((event) -> {
             SignUp signUp = new SignUp();
             Stage stage = new Stage();

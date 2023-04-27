@@ -15,8 +15,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,14 +28,12 @@ public class MainUI extends Application {
     // The model object is initalized globally to handle data changes when the user searches
     private DataModel model;
 
-
     public static void main(String[] args) {
         launch(args);
     }
 
     public MainUI(DataModel model) {
         this.model = model;
-
     }
 
     public DataModel getModel() {
@@ -48,6 +44,8 @@ public class MainUI extends Application {
     public void start(Stage primaryStage) throws IOException {
         // the Helper object is initialized as well as currentWeather and weatherForecastData
         Helper helper = new Helper();
+
+        // variables from the datamodel are initialized
         HashMap<String, Object> currentWeather = model.getCurrentWeather();
         ArrayList<HashMap<String, Object>> weatherForecastData = model.getWeatherForecastData();
         HashMap<String, Object> userData = model.getUserData();
@@ -57,20 +55,22 @@ public class MainUI extends Application {
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        // TOP SECTION - This section displays the currentWeather data and is divided into the right and left sections
-        // LEFT SECTION
+    // TOP SECTION - This section displays the currentWeather data and is divided into the right and left sections
+    // LEFT SECTION
 
         // different Text nodes are created and populated with data from the currentWeather HashMap
         Text weatherTitle = new Text(helper.capitalizeDescription((String) currentWeather.get("description")));
         weatherTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
         weatherTitle.setFill(Color.WHITE);
-        Text location = new Text((String) currentWeather.get("name") + " " + (String) currentWeather.get("country") );
+        Text location = new Text((String) currentWeather.get("name") + " " + (String) currentWeather.get("country"));
         location.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
         location.setFill(Color.WHITE);
 
-        /* this helper method is run to retrieve the location's local time, which is retrieved and then added
-           to some Text nodes */
+        /* this helper method is run to retrieve the location's local time based on the timezone, which is retrieved
+        and then added to some Text nodes */
         helper.dateConverter((String) currentWeather.get("timezone"));
+
+        // the date and time can then be fetched via getters
         Text date = new Text(helper.getDate());
         date.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
         date.setFill(Color.WHITE);
@@ -98,6 +98,7 @@ public class MainUI extends Application {
                 getClass()
                 .getResourceAsStream(helper.weatherIconFetcher((String) currentWeather.get("icon")));
 
+        // svgLoader loads the svg file which is then added to the gridpane
         SvgLoader svgLoader = new SvgLoader();
         Group svgImage = svgLoader.loadSvg(svgFile);
         svgImage.setScaleX(4);
@@ -117,7 +118,7 @@ public class MainUI extends Application {
         search.getChildren().add(searchErrorMessage);
         grid.add(search, 0,7);
 
-        // RIGHT SECTION
+    // RIGHT SECTION
 
         // a GridPane object for the right section is created and populated
         GridPane rightPane = new GridPane();
@@ -125,6 +126,7 @@ public class MainUI extends Application {
         feelsLike.setFont(Font.font("Tahoma", FontWeight.NORMAL, 10));
         feelsLike.setFill(Color.WHITE);
 
+        // values are fetched from the currentWeather hashmap initialized at the top
         Text feelsLikeValue = new Text(helper.tempConverter((String) currentWeather.get("feels_like")) + "\u00B0C");
         feelsLikeValue.setFont(Font.font("Tahoma", FontWeight.NORMAL, 32));
         feelsLikeValue.setFill(Color.WHITE);
@@ -160,7 +162,7 @@ public class MainUI extends Application {
         grid.add(rightPane , 7 ,0,1 ,7);
 
 
-        // BOTTOM SECTION - Displays the weather forecast data
+    // BOTTOM SECTION - Displays the weather forecast data
 
         // a counter variable is used to keep track of the current iteration in the upcoming loop
         int counter = 0;
@@ -189,17 +191,12 @@ public class MainUI extends Application {
 
         // the bottomPane is added to the main GridPane object
         grid.add(bottomPane, 1,9);
-        //grid.setBackground(new Background(new BackgroundFill(Color.DARKGRAY,  new CornerRadii(0), new Insets(0))));
 
-
-
-
-
+    // The top level menubar is created
         BorderPane logoutBar = new BorderPane();
         logoutBar.setPadding(new Insets(5,5,5,5));
         BorderPane.setAlignment(logoutBar,Pos.CENTER);
         GridPane fullApp = new GridPane();
-       // fullApp.setAlignment(Pos.TOP);
         fullApp.add(logoutBar,0,0,10,1);
         Text userName = new Text((String) userData.get("name"));
         userName.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
@@ -207,6 +204,8 @@ public class MainUI extends Application {
         Button logout = new Button("Logout");
         logout.setStyle("-fx-background-color: transparent;-fx-text-fill: #ffffff;-fx-border-color: white;-fx-cursor: hand;");
 
+        // an event listener is added to the logout button.
+        // it redirects to the Login page onclick
         logout.setOnAction((event) -> {
             Login login = new Login();
             Stage stage = new Stage();
@@ -218,7 +217,7 @@ public class MainUI extends Application {
         menu.setAlignment(Pos.CENTER);
         logoutBar.setRight(menu);
 
-
+        // the back button is created with an svg file graphic
         InputStream backBtnSvgFile =
                 getClass()
                         .getResourceAsStream("assets/backbtn.svg");
@@ -231,6 +230,7 @@ public class MainUI extends Application {
         Button backBtn = new Button("",backBtnGraphic);
         backBtn.setStyle("-fx-background-color: transparent;-fx-text-fill: #ffffff;-fx-border-color: white;-fx-cursor: hand;");
 
+        // the backbtn has an event listener that redirects back to the admindashboard
         backBtn.setOnAction((event) -> {
             MainUI mainUI = new MainUI(model);
             AdminDashboard adminDashboard = new AdminDashboard(mainUI);
@@ -239,6 +239,7 @@ public class MainUI extends Application {
             primaryStage.close();
         });
 
+        // the back button is conditionally rendered for the admin
         if(userData.get("isAdmin").equals(true)){
             HBox backBtnCont = new HBox(backBtn);
             logoutBar.setLeft(backBtnCont);
@@ -246,10 +247,13 @@ public class MainUI extends Application {
 
         fullApp.add(grid,0,1);
 
+        // based on the currentWeather icon, an appropriate background image is selected via the
+        // helper object
         String backgroundUrl = helper.getBackgroundUrl((String) currentWeather.get("icon"));
         File file = new File(backgroundUrl);
         URL url = file.toURI().toURL();
-        System.out.println(url);
+
+
         Image backgroundImage = new Image(backgroundUrl);
         ImageView backgroundImageView = new ImageView(backgroundImage);
         backgroundImageView.setFitWidth(Screen.getPrimary().getVisualBounds().getWidth());
@@ -269,16 +273,14 @@ public class MainUI extends Application {
         submitButton.setOnAction((event) -> {
             try {
                 String searchedLocation = locationSearchField.getText();
+                // an error message is displayed in the location is not found
                 try{
                     model.setData(searchedLocation);
                     start(primaryStage);
                 } catch(Exception e){
                     searchErrorMessage.setFill(Color.FIREBRICK);
                     searchErrorMessage.setText("Error, try again");
-
                 }
-
-
 
             } catch (Exception e) {
                 e.printStackTrace();

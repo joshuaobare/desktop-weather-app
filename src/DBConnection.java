@@ -9,7 +9,6 @@ public class DBConnection {
     private Statement statement = null;
     private ResultSet rs = null;
     private PreparedStatement prstatement = null;
-
     private HashMap<String, Object> userData = new HashMap<>();
     private ArrayList<HashMap<String,Object>> registeredUsers = new ArrayList<>();
     private ArrayList<HashMap<String,Object>> unregisteredUsers = new ArrayList<>();
