@@ -26,13 +26,16 @@ public class DBConnection {
         // the connection to the database is made. an exception is thrown is the connection fails
         try {
             conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/desktopweatherapp?user=root");
-            System.out.println(conn);
+
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
         }
     }
+
+
+    // this method counts apiCalls per day and appends it to a HashMap and sorts it per day
     public void apiCallData() throws SQLException, ParseException {
         prstatement = conn.prepareStatement("SELECT DATE(time) AS date,\n" +
                                                 " COUNT(*) AS calls\n" +
@@ -51,7 +54,6 @@ public class DBConnection {
         }
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-
         Date firstDay = formatter.parse(days.get(0));
         Date today = new Date();
 
@@ -110,6 +112,17 @@ public class DBConnection {
     }
 
     public void deleteUser(String userId) throws SQLException {
+        prstatement = conn.prepareStatement("SELECT * FROM LICENSE_ALLOCATION WHERE USERID = ?");
+        prstatement.setString(1, userId);
+        rs = prstatement.executeQuery();
+        String licenseID = "";
+
+        while(rs.next()){
+            licenseID = rs.getString(3);
+        }
+
+        licenseDeallocation(userId, licenseID);
+
         prstatement = conn.prepareStatement("DELETE FROM USERS WHERE USERID = ?");
         prstatement.setString(1, userId);
         prstatement.execute();
@@ -224,6 +237,16 @@ public class DBConnection {
         }
     }
 
+    private void licenseDeallocation(String userID, String licenseID) throws SQLException {
+        prstatement = conn.prepareStatement("DELETE FROM LICENSE_ALLOCATION WHERE USERID = ?");
+        prstatement.setObject(1, userID);
+        prstatement.execute();
+
+        prstatement = conn.prepareStatement("UPDATE LICENSES SET ISALLOCATED = 0 WHERE LICENSEID = ?");
+        prstatement.setObject(1, licenseID);
+        prstatement.execute();
+    }
+
     private void licenseAllocation(String userID,String licenseID) throws SQLException{
         prstatement = conn.prepareStatement("INSERT INTO LICENSE_ALLOCATION (userID , licenseID) VALUES (?,?)");
         prstatement.setObject(1, userID);
@@ -235,6 +258,7 @@ public class DBConnection {
         prstatement.execute();
     }
 
+    // this method populates the Statistics hashmap by fetching data from the DB
     private void fetchStatistics() throws SQLException {
         prstatement = conn.prepareStatement("SELECT COUNT(*) FROM WEATHER_SEARCHES");
         rs = prstatement.executeQuery();
@@ -248,7 +272,6 @@ public class DBConnection {
 
         while(rs.next()){
             statistics.put("userCount", rs.getString(1));
-
         }
 
         prstatement = conn.prepareStatement("SELECT COUNT(*) FROM API_CALLS");
@@ -256,17 +279,17 @@ public class DBConnection {
 
         while(rs.next()){
             statistics.put("apiCalls", rs.getString(1));
-
         }
-
     }
 
+    // when the api is called, this method increments the api call table
     public void apiCallIncrement() throws SQLException {
         prstatement = conn.prepareStatement("INSERT INTO API_CALLS (time) VALUES (CURRENT_TIMESTAMP())");
         prstatement.execute();
     }
 
 
+    // this method checks whether the license submitted is valid
     private boolean licenseValidation(String licenseID) throws SQLException {
         statement = conn.createStatement();
         rs = statement.executeQuery("SELECT * FROM LICENSES");
@@ -281,6 +304,7 @@ public class DBConnection {
 
     }
 
+    // signUp creates a user and validates the user's license if provided
     public void signUp(String name, String email, String password , String licenseID) {
         try {
             prstatement = conn.prepareStatement("INSERT INTO USERS(name , email,isAdmin,signUpDate,password) values ( ? ,? ,0 ,CURRENT_TIMESTAMP() ,?)",

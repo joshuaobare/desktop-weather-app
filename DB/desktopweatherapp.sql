@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 26, 2023 at 11:08 PM
+-- Generation Time: Apr 27, 2023 at 12:06 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -700,7 +700,27 @@ INSERT INTO `api_calls` (`callID`, `time`) VALUES
 (661, '2023-04-27 00:02:19'),
 (662, '2023-04-27 00:02:21'),
 (663, '2023-04-27 00:07:45'),
-(664, '2023-04-27 00:07:46');
+(664, '2023-04-27 00:07:46'),
+(665, '2023-04-27 11:59:26'),
+(666, '2023-04-27 11:59:27'),
+(667, '2023-04-27 12:31:48'),
+(668, '2023-04-27 12:31:50'),
+(669, '2023-04-27 12:33:16'),
+(670, '2023-04-27 12:33:18'),
+(671, '2023-04-27 12:55:18'),
+(672, '2023-04-27 12:55:20'),
+(673, '2023-04-27 12:57:48'),
+(674, '2023-04-27 12:57:49'),
+(675, '2023-04-27 12:58:22'),
+(676, '2023-04-27 12:58:24'),
+(677, '2023-04-27 12:59:08'),
+(678, '2023-04-27 12:59:09'),
+(679, '2023-04-27 13:01:10'),
+(680, '2023-04-27 13:01:11'),
+(681, '2023-04-27 13:01:27'),
+(682, '2023-04-27 13:01:28'),
+(683, '2023-04-27 13:03:59'),
+(684, '2023-04-27 13:04:01');
 
 -- --------------------------------------------------------
 
@@ -725,7 +745,7 @@ INSERT INTO `licenses` (`licenseID`, `isAllocated`) VALUES
 ('L005', 0),
 ('L006', 0),
 ('L007', 0),
-('L008', 0);
+('L008', 1);
 
 -- --------------------------------------------------------
 
@@ -745,7 +765,8 @@ CREATE TABLE `license_allocation` (
 
 INSERT INTO `license_allocation` (`allocationID`, `userID`, `licenseID`) VALUES
 (1, 2, 'L002'),
-(2, 4, 'L001');
+(2, 4, 'L001'),
+(6, 9, 'L008');
 
 -- --------------------------------------------------------
 
@@ -771,7 +792,8 @@ INSERT INTO `users` (`userID`, `name`, `email`, `isAdmin`, `signUpDate`, `passwo
 (2, 'Jack Jackson', 'jack@gmail.com', 0, '2023-03-09 17:48:41', 'test'),
 (3, 'Jill Kemunto', 'jill@gmail.com', 0, '2023-03-23 21:25:08', 'test'),
 (4, 'Barbara Muema', 'bmuema@gmail.com', 0, '2023-03-30 19:50:40', 'test'),
-(5, 'Peter Abdul', 'pabdul@gmail.com', 0, '2023-04-26 23:54:40', 'test');
+(5, 'Peter Abdul', 'pabdul@gmail.com', 0, '2023-04-26 23:54:40', 'test'),
+(9, 'Angel Williams', 'awill@gmail.com', 0, '2023-04-27 13:05:46', 'test');
 
 -- --------------------------------------------------------
 
@@ -889,19 +911,19 @@ ALTER TABLE `weather_searches`
 -- AUTO_INCREMENT for table `api_calls`
 --
 ALTER TABLE `api_calls`
-  MODIFY `callID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=665;
+  MODIFY `callID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=685;
 
 --
 -- AUTO_INCREMENT for table `license_allocation`
 --
 ALTER TABLE `license_allocation`
-  MODIFY `allocationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `allocationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `weather_searches`

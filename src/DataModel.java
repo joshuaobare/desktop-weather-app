@@ -64,6 +64,24 @@ public class DataModel {
 
     }
 
+    public void deleteUser(String userID) throws SQLException {
+        db.deleteUser(userID);
+
+        int count = 0;
+        int index = Integer.MAX_VALUE;
+
+        for(HashMap<String, Object>map : registeredUsers){
+
+            if((map.get("userID")).equals(userID)){
+                index = count;
+            }
+            count++;
+        }
+
+        registeredUsers.remove(index);
+        //System.out.println(index);
+    }
+
     public HashMap<String, Object> getCurrentWeather() {
         return currentWeather;
     }

@@ -118,13 +118,19 @@ public class AdminDashboard extends Application {
             Text userName = new Text((String) map.get("name"));
             Button btn = new Button("Remove User");
 
-            //
+            // when the remove btn is clicked the user is deleted
             btn.setOnAction((event) -> {
                 try {
-                    db.deleteUser((String) map.get("userID"));
+                    model.deleteUser((String) map.get("userID"));
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
+
+                start(primaryStage);
+                primaryStage.hide();
+                primaryStage.setMaximized(true);
+                primaryStage.show();
+
             });
 
             userBox.getChildren().addAll(userName, btn);
