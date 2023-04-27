@@ -12,7 +12,6 @@ public class DataModel {
     private ArrayList<HashMap<String, Object>> weatherForecastData;
     private HashMap<String, Object> userData;
     private HashMap<String, Object> statistics;
-
     private ArrayList<HashMap<String, Object>> registeredUsers = new ArrayList<>();
     private ArrayList<HashMap<String, Object>> unregisteredUsers = new ArrayList<>();
     private HashMap<String,Integer> globalMostSearchedLocations = new HashMap<>();
@@ -64,6 +63,7 @@ public class DataModel {
 
     }
 
+    // deleteUser deletes the file from the DB and updates the model so it reflects on the Dashboard
     public void deleteUser(String userID) throws SQLException {
         db.deleteUser(userID);
 
@@ -79,7 +79,6 @@ public class DataModel {
         }
 
         registeredUsers.remove(index);
-        //System.out.println(index);
     }
 
     public HashMap<String, Object> getCurrentWeather() {

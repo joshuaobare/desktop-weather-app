@@ -217,10 +217,6 @@ public class ApiCall {
                 } else if (objectType.equals("LinkedTreeMap")) {
                     weatherParser((LinkedTreeMap<String, Object>) entry.getValue(),currentIteration);
                 }
-
-
-
-
             }
             // the hashmap initialized at the beginning of this loop is pushed to the weatherForecastData Hashmap
             weatherForecastData.add(currentIteration);
